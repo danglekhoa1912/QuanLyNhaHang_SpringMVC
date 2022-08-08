@@ -1,0 +1,6 @@
+com.nhom13.configs.HibernateConfig=org.springframework.stereotype.Component
+com.nhom13.configs.TilesConfig=org.springframework.stereotype.Component
+com.nhom13.configs.WebAppContextConfig=org.springframework.stereotype.Component
+com.nhom13.controllers.AdminController=org.springframework.stereotype.Component
+com.nhom13.controllers.ApiProductController=org.springframework.stereotype.Component
+com.nhom13.controllers.IndexController=org.springframework.stereotype.Component
