@@ -15,7 +15,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="QuanLyNhaHang" options="-endorseddirs D:\Code\Java\QuanLyNhaHang\target/endorsed" />
+      <module name="QuanLyNhaHang" options="-endorseddirs D:\Code\Java\SpringMVC_QuanLyNhaHang\QuanLyNhaHang\target/endorsed" />
     </option>
   </component>
 </project>
