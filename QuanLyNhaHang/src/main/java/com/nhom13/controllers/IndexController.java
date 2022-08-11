@@ -4,6 +4,8 @@
  */
 package com.nhom13.controllers;
 
+import com.nhom13.service.DishService;
+import com.nhom13.service.ServiceResService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
@@ -20,9 +22,18 @@ import java.util.Map;
 @ControllerAdvice
 @PropertySource("classpath:messages.properties")
 public class IndexController {
+    @Autowired
+    private DishService dishService;
+    @Autowired
+    private ServiceResService serviceResService;
+    @Autowired
+    private Environment env;
 
     @RequestMapping("/")
-    public String index() {
+    public String index(Model model, @RequestParam Map<String,String> params) {
+        int page = Integer.parseInt(params.getOrDefault("page", "1"));
+        model.addAttribute("dishes",this.dishService.getDishes(params,page));
+        model.addAttribute("services",this.serviceResService.getServicesRes(params,page));
         return "index";
     }
 
