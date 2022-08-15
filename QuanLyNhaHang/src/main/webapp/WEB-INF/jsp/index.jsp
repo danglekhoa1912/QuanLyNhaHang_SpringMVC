@@ -9,4 +9,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <h1>Danh sach mon an</h1>
+<c:forEach items="${services}" var="cate" >
+    <div>${cate.name}</div>
+</c:forEach>
 

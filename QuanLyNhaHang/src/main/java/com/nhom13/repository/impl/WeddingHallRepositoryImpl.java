@@ -1,8 +1,8 @@
 package com.nhom13.repository.impl;
 
-import com.nhom13.Utils;
-import com.nhom13.pojo.Dish;
-import com.nhom13.repository.DishRepository;
+import com.nhom13.pojo.Service;
+import com.nhom13.pojo.WeddingHall;
+import com.nhom13.repository.WeddingHallRepository;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,44 +20,45 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+
 @Repository
 @PropertySource("classpath:messages.properties")
 @Transactional
-public class DishRepositoryImpl implements DishRepository {
+public class WeddingHallRepositoryImpl implements WeddingHallRepository {
 
     @Autowired
     private LocalSessionFactoryBean sessionFactory;
     @Autowired
     private Environment env;
+
     @Override
-    public List<Dish> getDishes(Map<String, String> params, int page) {
-        Session session = this.sessionFactory.getObject().getCurrentSession();
-        CriteriaBuilder b = session.getCriteriaBuilder();
-        CriteriaQuery<Dish> q = b.createQuery(Dish.class);
-        Root root = q.from(Dish.class);
+    public List<WeddingHall> getWeddingHalls(Map<String, String> params, int page) {
+        Session session =this.sessionFactory.getObject().getCurrentSession();
+        CriteriaBuilder b=session.getCriteriaBuilder();
+        CriteriaQuery<WeddingHall> q=b.createQuery(WeddingHall.class);
+        Root root = q.from(WeddingHall.class);
         q.select(root);
 
         if(params!=null){
             List<Predicate> predicates = new ArrayList<>();
-
-            //getByCategory
-            String cateId = params.get("cateDishId");
-            if (cateId != null) {
-                Predicate p = b.equal(root.get("categoryId"), Integer.parseInt(cateId));
+            String capacity=params.get("capacity");
+            if(capacity!=null){
+                Predicate p=b.equal(root.get("capacity"),Integer.parseInt(capacity));
                 predicates.add(p);
             }
-
-            //getByName
-            String nameDish=params.get("nameDish");
-            System.out.println(nameDish);
-            if(nameDish!=null){
-                Predicate p=b.equal(root.get("name"),nameDish.replaceAll("%20"," "));
+            String fromPrice=params.get("fromPrice");
+            if(fromPrice!=null){
+                Predicate p=b.greaterThanOrEqualTo(root.get("price"),Integer.parseInt(fromPrice));
+                predicates.add(p);
+            }
+            String toPrice=params.get("toPrice");
+            if(toPrice!=null){
+                Predicate p=b.lessThanOrEqualTo(root.get("price"),Integer.parseInt(toPrice));
                 predicates.add(p);
             }
 
             q.where(predicates.toArray(new Predicate[]{}));
         }
-
         Query query = session.createQuery(q);
 
         if (page > 0) {
@@ -68,18 +69,5 @@ public class DishRepositoryImpl implements DishRepository {
         }
 
         return query.getResultList();
-    }
-
-    @Override
-    public boolean addDish(Dish dish) {
-        Session session=this.sessionFactory.getObject().getCurrentSession();
-        try{
-            session.save(dish);
-            return true;
-        }
-        catch (Exception ex){
-            ex.printStackTrace();
-            return false;
-        }
     }
 }
