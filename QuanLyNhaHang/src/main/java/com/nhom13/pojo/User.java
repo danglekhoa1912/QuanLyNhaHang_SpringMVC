@@ -44,6 +44,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "User.findByMobile", query = "SELECT u FROM User u WHERE u.mobile = :mobile")})
 public class User implements Serializable {
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
+    private Set<Feedback> feedbackSet;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -199,6 +202,15 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "com.nhom13.pojo.User[ id=" + id + " ]";
+    }
+
+    @XmlTransient
+    public Set<Feedback> getFeedbackSet() {
+        return feedbackSet;
+    }
+
+    public void setFeedbackSet(Set<Feedback> feedbackSet) {
+        this.feedbackSet = feedbackSet;
     }
     
 }

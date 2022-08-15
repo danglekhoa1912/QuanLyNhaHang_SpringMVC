@@ -38,6 +38,11 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Dish.findByImgae", query = "SELECT d FROM Dish d WHERE d.imgae = :imgae")})
 public class Dish implements Serializable {
 
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "price")
+    private int price;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -137,6 +142,14 @@ public class Dish implements Serializable {
     @Override
     public String toString() {
         return "com.nhom13.pojo.Dish[ id=" + id + " ]";
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 
 
