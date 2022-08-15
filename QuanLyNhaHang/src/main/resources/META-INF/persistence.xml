@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence version="2.2" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
-  <persistence-unit name="default">
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="default" transaction-type="RESOURCE_LOCAL">
     <class>com.nhom13.pojo.User</class>
     <class>com.nhom13.pojo.WeddingPartyOrders</class>
     <class>com.nhom13.pojo.WeddingHall</class>
@@ -11,5 +11,6 @@
     <class>com.nhom13.pojo.PriceWeddingTime</class>
     <class>com.nhom13.pojo.Dish</class>
     <class>com.nhom13.pojo.Menu</class>
+    <class>com.nhom13.pojo.Feedback</class>
   </persistence-unit>
 </persistence>
