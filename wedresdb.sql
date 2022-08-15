@@ -255,7 +255,7 @@ CREATE TABLE `wedding_hall` (
 
 LOCK TABLES `wedding_hall` WRITE;
 /*!40000 ALTER TABLE `wedding_hall` DISABLE KEYS */;
-INSERT INTO `wedding_hall` VALUES (1,'Rose',300,NULL,NULL,5000,'https://melisacenter.vn/uploads/CN5A8538.jpg'),(2,'SunFlower',300,NULL,NULL,4800,'https://melisacenter.vn/uploads/CN5A8538.jpg'),(3,'Camellia',300,NULL,NULL,4700,'https://melisacenter.vn/uploads/CN5A8538.jpg'),(4,'Daisy',200,NULL,NULL,4000,'https://melisacenter.vn/uploads/CN5A8538.jpg'),(5,'Tulip',200,NULL,NULL,3800,'https://melisacenter.vn/uploads/CN5A8538.jpg'),(6,'Lotus',200,NULL,NULL,3700,'https://melisacenter.vn/uploads/CN5A8538.jpg'),(7,'Pense',100,NULL,NULL,3000,'https://melisacenter.vn/uploads/CN5A8538.jpg'),(8,'Violet',100,NULL,NULL,2800,'https://melisacenter.vn/uploads/CN5A8538.jpg');
+INSERT INTO `wedding_hall` VALUES (1,'Rose',30,NULL,NULL,5000,'https://melisacenter.vn/uploads/CN5A8538.jpg'),(2,'SunFlower',30,NULL,NULL,4800,'https://melisacenter.vn/uploads/CN5A8538.jpg'),(3,'Camellia',30,NULL,NULL,4700,'https://melisacenter.vn/uploads/CN5A8538.jpg'),(4,'Daisy',20,NULL,NULL,4000,'https://melisacenter.vn/uploads/CN5A8538.jpg'),(5,'Tulip',20,NULL,NULL,3800,'https://melisacenter.vn/uploads/CN5A8538.jpg'),(6,'Lotus',20,NULL,NULL,3700,'https://melisacenter.vn/uploads/CN5A8538.jpg'),(7,'Pense',10,NULL,NULL,3000,'https://melisacenter.vn/uploads/CN5A8538.jpg'),(8,'Violet',10,NULL,NULL,2800,'https://melisacenter.vn/uploads/CN5A8538.jpg');
 /*!40000 ALTER TABLE `wedding_hall` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -307,4 +307,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-08-09 20:24:14
+-- Dump completed on 2022-08-13 21:12:57

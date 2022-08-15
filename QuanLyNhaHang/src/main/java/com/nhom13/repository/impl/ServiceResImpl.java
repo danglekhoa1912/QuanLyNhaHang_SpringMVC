@@ -14,7 +14,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -35,6 +37,20 @@ public class ServiceResImpl implements ServiceResRepository {
         CriteriaQuery<Service> q = b.createQuery(Service.class);
         Root root = q.from(Service.class);
         q.select(root);
+
+        if(params!=null){
+            List<Predicate> predicates=new ArrayList<>();
+
+            //get by mame
+            String nameService=params.get("name");
+            if(nameService!=null){
+                Predicate p=b.or(b.like(root.get("name"),"% "+nameService),b.like(root.get("name"),nameService+"%"),b.like(root.get("name"),"% "+nameService+" %"));
+                predicates.add(p);
+            }
+
+            q.where(predicates.toArray(new Predicate[]{}));
+        }
+
         Query query = session.createQuery(q);
 
         if (page > 0) {
