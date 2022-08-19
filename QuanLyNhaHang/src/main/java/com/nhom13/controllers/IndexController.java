@@ -21,6 +21,7 @@ import java.util.Map;
 @Controller
 @ControllerAdvice
 @PropertySource("classpath:messages.properties")
+@PropertySource("classpath:launguage-vi.properties")
 public class IndexController {
     @Autowired
     private DishService dishService;
@@ -34,8 +35,7 @@ public class IndexController {
         int page = Integer.parseInt(params.getOrDefault("page", "1"));
         model.addAttribute("dishes",this.dishService.getDishes(params,page));
         model.addAttribute("services",this.serviceResService.getServicesRes(params,page));
+        model.addAttribute("name","hello");
         return "index";
     }
-
-
 }
