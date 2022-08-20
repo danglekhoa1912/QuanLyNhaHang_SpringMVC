@@ -52,10 +52,11 @@ CREATE TABLE `dish` (
   `name` varchar(45) NOT NULL,
   `category_id` int NOT NULL,
   `imgae` varchar(150) NOT NULL,
+  `price` int NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name_UNIQUE` (`name`),
   KEY `fk_category_dish_id_idx` (`category_id`),
-  CONSTRAINT `fk_category_dish_id` FOREIGN KEY (`category_id`) REFERENCES `category_dish` (`id`)
+  CONSTRAINT `fk_category_dish_id` FOREIGN KEY (`category_id`) REFERENCES `category_dish` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -65,8 +66,35 @@ CREATE TABLE `dish` (
 
 LOCK TABLES `dish` WRITE;
 /*!40000 ALTER TABLE `dish` DISABLE KEYS */;
-INSERT INTO `dish` VALUES (1,'Súp hải sản',1,'https://naifood.com/wp-content/uploads/2022/02/cha-gio-re-dat-tiec-buffet9.jpg'),(2,'Gỏi ngó sen tôm thịt',1,'https://cdn.tgdd.vn/Files/2022/04/04/1423782/goi-y-8-mon-nguoi-khai-vi-cho-nhung-buoi-tiec-hoi-hop-voi-gia-dinh-202204040914134517.jpg'),(3,'Tôm chiên xù',1,'https://naifood.com/wp-content/uploads/2022/03/tom-chien-xu.jpg'),(4,'Chả giò hải sản',1,'https://naifood.com/wp-content/uploads/2022/02/cha-gio-re-dat-tiec-buffet9.jpg'),(5,'Bò kho bánh mì',2,'https://naifood.com/wp-content/uploads/2022/02/cha-gio-re-dat-tiec-buffet9.jpg'),(6,'Gà bó xôi',2,'https://naifood.com/wp-content/uploads/2022/02/cha-gio-re-dat-tiec-buffet9.jpg'),(7,'Cơm chiên',2,'https://naifood.com/wp-content/uploads/2022/02/cha-gio-re-dat-tiec-buffet9.jpg'),(8,'Tôm hấp bia',2,'https://naifood.com/wp-content/uploads/2022/02/cha-gio-re-dat-tiec-buffet9.jpg'),(9,'Dê hấp sả',2,'https://naifood.com/wp-content/uploads/2022/02/cha-gio-re-dat-tiec-buffet9.jpg'),(10,'Lẩu cá lăng',2,'https://naifood.com/wp-content/uploads/2022/02/cha-gio-re-dat-tiec-buffet9.jpg'),(11,'Lẩu thái',2,'https://naifood.com/wp-content/uploads/2022/02/cha-gio-re-dat-tiec-buffet9.jpg'),(12,'Lẩu rêu cua đồng',2,'https://naifood.com/wp-content/uploads/2022/02/cha-gio-re-dat-tiec-buffet9.jpg'),(13,'Chè bưởi',3,'https://naifood.com/wp-content/uploads/2022/02/cha-gio-re-dat-tiec-buffet9.jpg'),(14,'Bánh tiramisu',3,'https://naifood.com/wp-content/uploads/2022/02/cha-gio-re-dat-tiec-buffet9.jpg'),(15,'Trái cây',3,'https://naifood.com/wp-content/uploads/2022/02/cha-gio-re-dat-tiec-buffet9.jpg'),(16,'Rau câu',3,'https://naifood.com/wp-content/uploads/2022/02/cha-gio-re-dat-tiec-buffet9.jpg'),(17,'Chè đậu xanh',3,'https://naifood.com/wp-content/uploads/2022/02/cha-gio-re-dat-tiec-buffet9.jpg'),(18,'Sữa chưa',3,'https://naifood.com/wp-content/uploads/2022/02/cha-gio-re-dat-tiec-buffet9.jpg'),(19,'Gỏi thái',1,'https://naifood.com/wp-content/uploads/2022/02/cha-gio-re-dat-tiec-buffet9.jpg'),(20,'Salad cá ngừ',1,'https://naifood.com/wp-content/uploads/2022/02/cha-gio-re-dat-tiec-buffet9.jpg'),(21,'Salad trái cây',1,'https://naifood.com/wp-content/uploads/2022/02/cha-gio-re-dat-tiec-buffet9.jpg'),(22,'Bò sốt vang',2,'https://naifood.com/wp-content/uploads/2022/02/cha-gio-re-dat-tiec-buffet9.jpg'),(23,'Bia',4,'https://naifood.com/wp-content/uploads/2022/02/cha-gio-re-dat-tiec-buffet9.jpg'),(24,'Nước ngọt',4,'https://naifood.com/wp-content/uploads/2022/02/cha-gio-re-dat-tiec-buffet9.jpg'),(25,'Nước suối',4,'https://naifood.com/wp-content/uploads/2022/02/cha-gio-re-dat-tiec-buffet9.jpg');
+INSERT INTO `dish` VALUES (1,'Súp hải sản',1,'https://naifood.com/wp-content/uploads/2022/02/cha-gio-re-dat-tiec-buffet9.jpg',100),(2,'Gỏi ngó sen tôm thịt',1,'https://cdn.tgdd.vn/Files/2022/04/04/1423782/goi-y-8-mon-nguoi-khai-vi-cho-nhung-buoi-tiec-hoi-hop-voi-gia-dinh-202204040914134517.jpg',150),(3,'Tôm chiên xù',1,'https://naifood.com/wp-content/uploads/2022/03/tom-chien-xu.jpg',200),(4,'Chả giò hải sản',1,'https://naifood.com/wp-content/uploads/2022/02/cha-gio-re-dat-tiec-buffet9.jpg',150),(5,'Bò kho bánh mì',2,'https://naifood.com/wp-content/uploads/2022/02/cha-gio-re-dat-tiec-buffet9.jpg',350),(6,'Gà bó xôi',2,'https://naifood.com/wp-content/uploads/2022/02/cha-gio-re-dat-tiec-buffet9.jpg',300),(7,'Cơm chiên',2,'https://naifood.com/wp-content/uploads/2022/02/cha-gio-re-dat-tiec-buffet9.jpg',200),(8,'Tôm hấp bia',2,'https://naifood.com/wp-content/uploads/2022/02/cha-gio-re-dat-tiec-buffet9.jpg',250),(9,'Dê hấp sả',2,'https://naifood.com/wp-content/uploads/2022/02/cha-gio-re-dat-tiec-buffet9.jpg',350),(10,'Lẩu cá lăng',2,'https://naifood.com/wp-content/uploads/2022/02/cha-gio-re-dat-tiec-buffet9.jpg',350),(11,'Lẩu thái',2,'https://naifood.com/wp-content/uploads/2022/02/cha-gio-re-dat-tiec-buffet9.jpg',350),(12,'Lẩu rêu cua đồng',2,'https://naifood.com/wp-content/uploads/2022/02/cha-gio-re-dat-tiec-buffet9.jpg',350),(13,'Chè bưởi',3,'https://naifood.com/wp-content/uploads/2022/02/cha-gio-re-dat-tiec-buffet9.jpg',100),(14,'Bánh tiramisu',3,'https://naifood.com/wp-content/uploads/2022/02/cha-gio-re-dat-tiec-buffet9.jpg',120),(15,'Trái cây',3,'https://naifood.com/wp-content/uploads/2022/02/cha-gio-re-dat-tiec-buffet9.jpg',80),(16,'Rau câu',3,'https://naifood.com/wp-content/uploads/2022/02/cha-gio-re-dat-tiec-buffet9.jpg',80),(17,'Chè đậu xanh',3,'https://naifood.com/wp-content/uploads/2022/02/cha-gio-re-dat-tiec-buffet9.jpg',100),(18,'Sữa chua',3,'https://naifood.com/wp-content/uploads/2022/02/cha-gio-re-dat-tiec-buffet9.jpg',50),(19,'Gỏi thái',1,'https://naifood.com/wp-content/uploads/2022/02/cha-gio-re-dat-tiec-buffet9.jpg',150),(20,'Salad cá ngừ',1,'https://naifood.com/wp-content/uploads/2022/02/cha-gio-re-dat-tiec-buffet9.jpg',200),(21,'Salad trái cây',1,'https://naifood.com/wp-content/uploads/2022/02/cha-gio-re-dat-tiec-buffet9.jpg',150),(22,'Bò sốt vang',2,'https://naifood.com/wp-content/uploads/2022/02/cha-gio-re-dat-tiec-buffet9.jpg',350),(23,'Bia',4,'https://naifood.com/wp-content/uploads/2022/02/cha-gio-re-dat-tiec-buffet9.jpg',20),(24,'Nước ngọt',4,'https://naifood.com/wp-content/uploads/2022/02/cha-gio-re-dat-tiec-buffet9.jpg',15),(25,'Nước suối',4,'https://naifood.com/wp-content/uploads/2022/02/cha-gio-re-dat-tiec-buffet9.jpg',10);
 /*!40000 ALTER TABLE `dish` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `feedback`
+--
+
+DROP TABLE IF EXISTS `feedback`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `feedback` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL,
+  `content` varchar(250) NOT NULL,
+  `create_date` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_user_idx` (`user_id`),
+  CONSTRAINT `fk_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `feedback`
+--
+
+LOCK TABLES `feedback` WRITE;
+/*!40000 ALTER TABLE `feedback` DISABLE KEYS */;
+/*!40000 ALTER TABLE `feedback` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -79,6 +107,7 @@ DROP TABLE IF EXISTS `menu`;
 CREATE TABLE `menu` (
   `id` int NOT NULL AUTO_INCREMENT,
   `describe` varchar(45) DEFAULT NULL,
+  `price` int NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -102,12 +131,12 @@ DROP TABLE IF EXISTS `menu_dish`;
 CREATE TABLE `menu_dish` (
   `id` int NOT NULL AUTO_INCREMENT,
   `menu_id` int NOT NULL,
-  `dish_id` int NOT NULL,
+  `dish_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_menu_id_idx` (`menu_id`),
   KEY `fk_dish_id_idx` (`dish_id`),
-  CONSTRAINT `fk_dish_id` FOREIGN KEY (`dish_id`) REFERENCES `dish` (`id`),
-  CONSTRAINT `fk_menu_dish_id` FOREIGN KEY (`menu_id`) REFERENCES `menu` (`id`)
+  CONSTRAINT `fk_dish_id` FOREIGN KEY (`dish_id`) REFERENCES `dish` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  CONSTRAINT `fk_menu` FOREIGN KEY (`menu_id`) REFERENCES `menu` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -182,13 +211,13 @@ DROP TABLE IF EXISTS `services_detail`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `services_detail` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `service_id` int NOT NULL,
+  `service_id` int DEFAULT NULL,
   `wpo_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_service_id_idx` (`service_id`),
   KEY `fk_wpo_id_idx` (`wpo_id`),
-  CONSTRAINT `fk_service_id` FOREIGN KEY (`service_id`) REFERENCES `service` (`id`),
-  CONSTRAINT `fk_wpo_id` FOREIGN KEY (`wpo_id`) REFERENCES `wedding_party_orders` (`id`)
+  CONSTRAINT `fk_service_id` FOREIGN KEY (`service_id`) REFERENCES `service` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  CONSTRAINT `fk_wpo_id` FOREIGN KEY (`wpo_id`) REFERENCES `wedding_party_orders` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -255,7 +284,7 @@ CREATE TABLE `wedding_hall` (
 
 LOCK TABLES `wedding_hall` WRITE;
 /*!40000 ALTER TABLE `wedding_hall` DISABLE KEYS */;
-INSERT INTO `wedding_hall` VALUES (1,'Rose',300,NULL,NULL,5000,'https://melisacenter.vn/uploads/CN5A8538.jpg'),(2,'SunFlower',300,NULL,NULL,4800,'https://melisacenter.vn/uploads/CN5A8538.jpg'),(3,'Camellia',300,NULL,NULL,4700,'https://melisacenter.vn/uploads/CN5A8538.jpg'),(4,'Daisy',200,NULL,NULL,4000,'https://melisacenter.vn/uploads/CN5A8538.jpg'),(5,'Tulip',200,NULL,NULL,3800,'https://melisacenter.vn/uploads/CN5A8538.jpg'),(6,'Lotus',200,NULL,NULL,3700,'https://melisacenter.vn/uploads/CN5A8538.jpg'),(7,'Pense',100,NULL,NULL,3000,'https://melisacenter.vn/uploads/CN5A8538.jpg'),(8,'Violet',100,NULL,NULL,2800,'https://melisacenter.vn/uploads/CN5A8538.jpg');
+INSERT INTO `wedding_hall` VALUES (1,'Rose',30,NULL,NULL,3000,'https://melisacenter.vn/uploads/CN5A8538.jpg'),(2,'SunFlower',30,NULL,NULL,2800,'https://melisacenter.vn/uploads/CN5A8538.jpg'),(3,'Camellia',30,NULL,NULL,2700,'https://melisacenter.vn/uploads/CN5A8538.jpg'),(4,'Daisy',20,NULL,NULL,2000,'https://melisacenter.vn/uploads/CN5A8538.jpg'),(5,'Tulip',20,NULL,NULL,2800,'https://melisacenter.vn/uploads/CN5A8538.jpg'),(6,'Lotus',20,NULL,NULL,2700,'https://melisacenter.vn/uploads/CN5A8538.jpg'),(7,'Pense',10,NULL,NULL,1000,'https://melisacenter.vn/uploads/CN5A8538.jpg'),(8,'Violet',10,NULL,NULL,1200,'https://melisacenter.vn/uploads/CN5A8538.jpg');
 /*!40000 ALTER TABLE `wedding_hall` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -269,23 +298,23 @@ DROP TABLE IF EXISTS `wedding_party_orders`;
 CREATE TABLE `wedding_party_orders` (
   `id` int NOT NULL AUTO_INCREMENT,
   `user_id` int NOT NULL,
-  `wh_id` int NOT NULL,
+  `wh_id` int DEFAULT NULL,
   `order_date` date NOT NULL,
   `menu_id` int NOT NULL,
   `amount` int NOT NULL,
   `note` varchar(45) DEFAULT NULL,
   `payment_status` varchar(45) NOT NULL,
-  `pwt_id` int NOT NULL,
+  `pwt_id` int DEFAULT NULL,
   `quantity_table` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_user_id_idx` (`user_id`),
   KEY `fk_menu_id_idx` (`menu_id`),
   KEY `fk_pwt_id_idx` (`pwt_id`),
   KEY `fk_wh_id_idx` (`wh_id`),
-  CONSTRAINT `fk_menu_id` FOREIGN KEY (`menu_id`) REFERENCES `menu` (`id`),
-  CONSTRAINT `fk_pwt_id` FOREIGN KEY (`pwt_id`) REFERENCES `price_wedding_time` (`id`),
-  CONSTRAINT `fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
-  CONSTRAINT `fk_wh_id` FOREIGN KEY (`wh_id`) REFERENCES `wedding_hall` (`id`)
+  CONSTRAINT `fk_menu_id` FOREIGN KEY (`menu_id`) REFERENCES `menu` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `fk_pwt_id` FOREIGN KEY (`pwt_id`) REFERENCES `price_wedding_time` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_wh_id` FOREIGN KEY (`wh_id`) REFERENCES `wedding_hall` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -307,4 +336,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-08-09 20:24:14
+-- Dump completed on 2022-08-16  2:14:43

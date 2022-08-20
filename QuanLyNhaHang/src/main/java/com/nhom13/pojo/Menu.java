@@ -17,6 +17,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -33,6 +34,11 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Menu.findById", query = "SELECT m FROM Menu m WHERE m.id = :id"),
     @NamedQuery(name = "Menu.findByDescribe", query = "SELECT m FROM Menu m WHERE m.describe = :describe")})
 public class Menu implements Serializable {
+
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "price")
+    private int price;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -112,6 +118,14 @@ public class Menu implements Serializable {
     @Override
     public String toString() {
         return "com.nhom13.pojo.Menu[ id=" + id + " ]";
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
     
 }

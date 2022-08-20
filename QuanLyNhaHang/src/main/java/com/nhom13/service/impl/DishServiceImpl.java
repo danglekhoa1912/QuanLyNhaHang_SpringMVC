@@ -18,4 +18,9 @@ public class DishServiceImpl implements DishService {
     public List<Dish> getDishes(Map<String, String> params, int page) {
         return this.dishRepository.getDishes(params,page);
     }
+
+    @Override
+    public boolean addDish(Dish dish) {
+        return this.dishRepository.addDish(dish);
+    }
 }

@@ -7,4 +7,5 @@ import java.util.Map;
 
 public interface DishRepository {
     List<Dish> getDishes(Map<String, String> params, int page);
+    boolean addDish(Dish dish);
 }
