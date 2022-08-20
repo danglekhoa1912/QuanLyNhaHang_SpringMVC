@@ -20,6 +20,11 @@ public class DishServiceImpl implements DishService {
     }
 
     @Override
+    public Dish getDishById(int id) {
+        return this.dishRepository.getDishById(id);
+    }
+
+    @Override
     public boolean addDish(Dish dish) {
         return this.dishRepository.addDish(dish);
     }

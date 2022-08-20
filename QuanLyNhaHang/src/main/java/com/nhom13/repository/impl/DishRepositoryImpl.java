@@ -71,6 +71,14 @@ public class DishRepositoryImpl implements DishRepository {
     }
 
     @Override
+    public Dish getDishById(int id) {
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        Dish dish;
+        dish=session.get(Dish.class,id);
+        return dish;
+    }
+
+    @Override
     public boolean addDish(Dish dish) {
         Session session=this.sessionFactory.getObject().getCurrentSession();
         try{

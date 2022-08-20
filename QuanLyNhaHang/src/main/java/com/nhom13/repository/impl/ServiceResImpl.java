@@ -44,7 +44,7 @@ public class ServiceResImpl implements ServiceResRepository {
             //get by mame
             String nameService=params.get("name");
             if(nameService!=null){
-                Predicate p=b.or(b.like(root.get("name"),"% "+nameService),b.like(root.get("name"),nameService+"%"),b.like(root.get("name"),"% "+nameService+" %"));
+                Predicate p=b.or(b.like(root.get("name").as(String.class), "%" + nameService.trim() + "%"));
                 predicates.add(p);
             }
 

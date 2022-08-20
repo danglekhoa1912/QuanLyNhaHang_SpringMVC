@@ -31,6 +31,10 @@ public class IndexController {
     @Autowired
     private CategoryDishService categoryDishService;
     @Autowired
+    private DishService dishService;
+    @Autowired
+    private ServiceResService serviceResService;
+    @Autowired
     private Environment env;
 
     @RequestMapping("/")

@@ -7,5 +7,6 @@ import java.util.Map;
 
 public interface DishService {
     List<Dish> getDishes(Map<String,String> params, int page);
+    Dish getDishById(int id);
     boolean addDish(Dish dish);
 }
