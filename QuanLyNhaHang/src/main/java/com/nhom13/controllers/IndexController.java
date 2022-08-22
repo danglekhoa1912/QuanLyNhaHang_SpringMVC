@@ -4,6 +4,8 @@
  */
 package com.nhom13.controllers;
 
+import com.nhom13.repository.DishRepository;
+import com.nhom13.repository.ServiceResRepository;
 import com.nhom13.service.CategoryDishService;
 import com.nhom13.service.DishService;
 import com.nhom13.service.ServiceResService;
@@ -32,13 +34,16 @@ public class IndexController {
     private CategoryDishService categoryDishService;
     @Autowired
     private Environment env;
+    @Autowired
+    private DishRepository dishService;
+    @Autowired
+    private ServiceResRepository serviceResService;
 
     @RequestMapping("/")
     public String index(Model model, @RequestParam Map<String,String> params) {
         int page = Integer.parseInt(params.getOrDefault("page", "1"));
         model.addAttribute("dishes",this.dishService.getDishes(params,page));
         model.addAttribute("services",this.serviceResService.getServicesRes(params,page));
-        model.addAttribute("name","hello");
         model.addAttribute("weddingHall",this.weddingHallService.getWeddingHalls(params,page));
         model.addAttribute("categoryDish",this.categoryDishService.getCategoryDish());
         return "index";
