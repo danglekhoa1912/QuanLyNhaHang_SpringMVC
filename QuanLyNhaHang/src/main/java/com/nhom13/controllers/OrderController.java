@@ -1,6 +1,10 @@
 package com.nhom13.controllers;
+import com.nhom13.repository.DishRepository;
+import com.nhom13.repository.ServiceResRepository;
+import com.nhom13.service.CategoryDishService;
 import com.nhom13.service.DishService;
 import com.nhom13.service.ServiceResService;
+import com.nhom13.service.WeddingHallService;
 import org.eclipse.persistence.sessions.Login;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
@@ -14,8 +18,24 @@ import java.util.Map;
 @PropertySource("classpath:messages.properties")
 @PropertySource("classpath:launguage-vi.properties")
 public class OrderController {
+    @Autowired
+    private WeddingHallService weddingHallService;
+    @Autowired
+    private CategoryDishService categoryDishService;
+    @Autowired
+    private Environment env;
+    @Autowired
+    private DishRepository dishService;
+    @Autowired
+    private ServiceResRepository serviceResService;
+
     @RequestMapping("/order")
-    public String login() {
+    public String login(Model model, @RequestParam Map<String,String> params) {
+        int page = Integer.parseInt(params.getOrDefault("page", "1"));
+        model.addAttribute("dishes",this.dishService.getDishes(params,page));
+        model.addAttribute("services",this.serviceResService.getServicesRes(params,page));
+        model.addAttribute("weddingHall",this.weddingHallService.getWeddingHalls(params,page));
+        model.addAttribute("categoryDish",this.categoryDishService.getCategoryDish());
         return "order";
     }
 }
