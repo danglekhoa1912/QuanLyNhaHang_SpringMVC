@@ -24,7 +24,7 @@
                     <a class="nav-link text-light" href="#"><b>The ADORA</b></a>
                 </li>
                 <li class="nav-item mx-2">
-                    <a class="nav-link" href="#menu"><b>Dịch vụ</b></a>
+                    <a class="nav-link" href="<c:url value="/order"/>"><b>Đặt tiệc ngay</b></a>
                 </li>
                 <li class="nav-item mx-2">
                     <a class="nav-link" href="#venue"><b>Giới thiệu</b></a>
