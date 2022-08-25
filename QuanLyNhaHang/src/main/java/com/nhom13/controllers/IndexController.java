@@ -40,10 +40,6 @@ public class IndexController {
     private ServiceResService serviceResService;
     @Autowired
     private Environment env;
-    @Autowired
-    private DishRepository dishService;
-    @Autowired
-    private ServiceResRepository serviceResService;
 
     @RequestMapping("/")
     public String index(Model model, @RequestParam Map<String,String> params) {
