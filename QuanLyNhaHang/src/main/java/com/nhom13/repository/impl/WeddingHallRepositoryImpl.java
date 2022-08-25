@@ -1,6 +1,5 @@
 package com.nhom13.repository.impl;
 
-import com.nhom13.pojo.Service;
 import com.nhom13.pojo.WeddingHall;
 import com.nhom13.repository.WeddingHallRepository;
 import org.hibernate.Session;

@@ -1,6 +1,5 @@
 package com.nhom13.repository.impl;
 
-import com.nhom13.pojo.Dish;
 import com.nhom13.pojo.Service;
 import com.nhom13.repository.ServiceResRepository;
 import org.hibernate.Session;

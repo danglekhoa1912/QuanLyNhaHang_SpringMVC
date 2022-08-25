@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="u" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: giahu
@@ -7,11 +8,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!-- CSS dependencies -->
-<%--
-<script src="<c:url value="/js/navbar-ontop.js"/>"></script>
---%>
 <script src="<c:url value="/js/animate-in.js"/>"></script>
+<link rel="stylesheet" href="<c:url value="/css/index.css"/>" type="text/css">
 
 <div class="align-items-center d-flex photo-overlay py-5 cover"
      style="background-image: url(<c:url value="/assets/restaurant/cover_dark.jpg"/>);">
@@ -22,16 +20,22 @@
                 <p class="mb-5 lead">Đẳng cấp cho những điều quan trọng nhất</p>
             </div>
             <div class="col-lg-5 p-3">
-                <form class="p-4 bg-dark-opaque" method="post" action="https://formspree.io/">
+                <u:url value="/login" var="action" />
+                <form class="p-4 bg-dark-opaque" method="post" action="${action}">
                     <h4 class="mb-4 text-center">Đăng nhập</h4>
-                    <div class="form-group"><label>Tên đăng nhập</label>
-                        <input class="form-control" placeholder="Type here"></div>
-                    <div class="form-group"><label>Mật khẩu</label>
-                        <input type="password" class="form-control"></div>
+                    <c:if test="${param.error!=null}">
+                        <div class="alert-danger alert" >
+                            Da co loi xay ra ! vui long thu lai sau
+                        </div>
+                    </c:if>
+                    <div class="form-group"><label for="email">Email</label>
+                        <input id="email" name="email" class="form-control"></div>
+                    <div class="form-group"><label for="password">Mật khẩu</label>
+                        <input id="password" name="password" type="password" class="form-control"></div>
                     <div class="form-group"><a href="#" style="" class="text-warning">Chưa có tài khoản? Đăng ký tại
                         đây</a>
                     </div>
-                    <button type="submit" class="btn mt-4 btn-block btn-outline-primary p-2">Đăng nhập</button>
+                    <input type="submit" value="Đăng nhập" class="btn mt-4 btn-block btn-outline-primary p-2">
                 </form>
             </div>
         </div>

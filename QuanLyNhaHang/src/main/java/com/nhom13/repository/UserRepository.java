@@ -1,4 +1,10 @@
 package com.nhom13.repository;
 
+import com.nhom13.pojo.User;
+
 public interface UserRepository {
+     boolean addUser(User user);
+     User getUserByEmail(String email);
+     boolean checkEmail(String email);
+     boolean checkNumberPhone(String phone);
 }

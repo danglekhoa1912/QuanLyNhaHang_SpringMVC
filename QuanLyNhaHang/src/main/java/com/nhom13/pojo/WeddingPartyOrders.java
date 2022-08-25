@@ -4,28 +4,12 @@
  */
 package com.nhom13.pojo;
 
-import java.io.Serializable;
-import java.util.Date;
-import java.util.Set;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  *
@@ -39,9 +23,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "WeddingPartyOrders.findById", query = "SELECT w FROM WeddingPartyOrders w WHERE w.id = :id"),
     @NamedQuery(name = "WeddingPartyOrders.findByOrderDate", query = "SELECT w FROM WeddingPartyOrders w WHERE w.orderDate = :orderDate"),
     @NamedQuery(name = "WeddingPartyOrders.findByAmount", query = "SELECT w FROM WeddingPartyOrders w WHERE w.amount = :amount"),
-    @NamedQuery(name = "WeddingPartyOrders.findByNote", query = "SELECT w FROM WeddingPartyOrders w WHERE w.note = :note"),
     @NamedQuery(name = "WeddingPartyOrders.findByPaymentStatus", query = "SELECT w FROM WeddingPartyOrders w WHERE w.paymentStatus = :paymentStatus"),
-    @NamedQuery(name = "WeddingPartyOrders.findByQuantityTable", query = "SELECT w FROM WeddingPartyOrders w WHERE w.quantityTable = :quantityTable")})
+    @NamedQuery(name = "WeddingPartyOrders.findByTypePay", query = "SELECT w FROM WeddingPartyOrders w WHERE w.typePay = :typePay"),
+    @NamedQuery(name = "WeddingPartyOrders.findByQuantityTable", query = "SELECT w FROM WeddingPartyOrders w WHERE w.quantityTable = :quantityTable"),
+    @NamedQuery(name = "WeddingPartyOrders.findByNote", query = "SELECT w FROM WeddingPartyOrders w WHERE w.note = :note")})
 public class WeddingPartyOrders implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -59,31 +44,33 @@ public class WeddingPartyOrders implements Serializable {
     @NotNull
     @Column(name = "amount")
     private int amount;
-    @Size(max = 45)
-    @Column(name = "note")
-    private String note;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "payment_status")
+    private boolean paymentStatus;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
-    @Column(name = "payment_status")
-    private String paymentStatus;
+    @Column(name = "type_pay")
+    private String typePay;
     @Basic(optional = false)
     @NotNull
     @Column(name = "quantity_table")
     private int quantityTable;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "wpoId")
-    private Set<ServicesDetail> servicesDetailSet;
+    @Size(max = 45)
+    @Column(name = "note")
+    private String note;
     @JoinColumn(name = "menu_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Menu menuId;
     @JoinColumn(name = "pwt_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private PriceWeddingTime pwtId;
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private User userId;
     @JoinColumn(name = "wh_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private WeddingHall whId;
 
     public WeddingPartyOrders() {
@@ -93,11 +80,12 @@ public class WeddingPartyOrders implements Serializable {
         this.id = id;
     }
 
-    public WeddingPartyOrders(Integer id, Date orderDate, int amount, String paymentStatus, int quantityTable) {
+    public WeddingPartyOrders(Integer id, Date orderDate, int amount, boolean paymentStatus, String typePay, int quantityTable) {
         this.id = id;
         this.orderDate = orderDate;
         this.amount = amount;
         this.paymentStatus = paymentStatus;
+        this.typePay = typePay;
         this.quantityTable = quantityTable;
     }
 
@@ -125,20 +113,20 @@ public class WeddingPartyOrders implements Serializable {
         this.amount = amount;
     }
 
-    public String getNote() {
-        return note;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
-    }
-
-    public String getPaymentStatus() {
+    public boolean getPaymentStatus() {
         return paymentStatus;
     }
 
-    public void setPaymentStatus(String paymentStatus) {
+    public void setPaymentStatus(boolean paymentStatus) {
         this.paymentStatus = paymentStatus;
+    }
+
+    public String getTypePay() {
+        return typePay;
+    }
+
+    public void setTypePay(String typePay) {
+        this.typePay = typePay;
     }
 
     public int getQuantityTable() {
@@ -149,13 +137,12 @@ public class WeddingPartyOrders implements Serializable {
         this.quantityTable = quantityTable;
     }
 
-    @XmlTransient
-    public Set<ServicesDetail> getServicesDetailSet() {
-        return servicesDetailSet;
+    public String getNote() {
+        return note;
     }
 
-    public void setServicesDetailSet(Set<ServicesDetail> servicesDetailSet) {
-        this.servicesDetailSet = servicesDetailSet;
+    public void setNote(String note) {
+        this.note = note;
     }
 
     public Menu getMenuId() {

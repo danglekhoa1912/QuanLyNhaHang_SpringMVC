@@ -239,15 +239,15 @@ DROP TABLE IF EXISTS `user`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `username` varchar(45) NOT NULL,
-  `password` varchar(45) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `password` varchar(100) NOT NULL,
   `name` varchar(45) NOT NULL,
-  `birthday` datetime NOT NULL,
+  `birthday` date NOT NULL,
   `role` varchar(45) NOT NULL,
   `avatar` varchar(150) DEFAULT NULL,
   `mobile` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -256,6 +256,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES (2,'dangkhoa123bn@gmail.com','$2a$10$gnpQh3uP25DhFyAG/BIPB.N5uhD0SKE3hK7kuAOZ2AqSsyqGUjUFm','Khoa','2022-08-10','ROLE_USER',NULL,'0972257687'),(3,'dangkhoa1234bn@gmail.com','$2a$10$YbNwmkfLeCdYLvENfC48qum7quN5IOGsHlki6Qi8Zi8uH34YmqiwK','Hoa','2022-08-15','ROLE_USER',NULL,'0972257688');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -299,13 +300,14 @@ CREATE TABLE `wedding_party_orders` (
   `id` int NOT NULL AUTO_INCREMENT,
   `user_id` int NOT NULL,
   `wh_id` int DEFAULT NULL,
+  `pwt_id` int DEFAULT NULL,
   `order_date` date NOT NULL,
   `menu_id` int NOT NULL,
   `amount` int NOT NULL,
-  `note` varchar(45) DEFAULT NULL,
-  `payment_status` varchar(45) NOT NULL,
-  `pwt_id` int DEFAULT NULL,
+  `payment_status` tinyint(1) NOT NULL,
+  `type_pay` varchar(45) NOT NULL,
   `quantity_table` int NOT NULL,
+  `note` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_user_id_idx` (`user_id`),
   KEY `fk_menu_id_idx` (`menu_id`),
@@ -336,4 +338,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-08-16  2:14:43
+-- Dump completed on 2022-08-24 20:17:52
