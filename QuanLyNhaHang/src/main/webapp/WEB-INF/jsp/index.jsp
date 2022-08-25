@@ -1,25 +1,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html>
-<html>
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <!-- PAGE settings -->
     <title>The Adora</title>
     <!-- CSS dependencies -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
           type="text/css">
     <link rel="stylesheet" href="<c:url value="/css/index.css"/>" type="text/css">
-    <!-- Script: Make my navbar transparent when the document is scrolled to top -->
-    <script src="<c:url value="/js/navbar-ontop.js"/>"></script>
-    <!-- Script: Animated entrance -->
-    <script src="<c:url value="/js/animate-in.js"/>"></script>
-</head>
-
-<body>
 
 <!-- Cover -->
 <div class="align-items-center d-flex photo-overlay py-5 cover"
@@ -256,5 +245,6 @@
 </body>
 
 </html>
+
 
 

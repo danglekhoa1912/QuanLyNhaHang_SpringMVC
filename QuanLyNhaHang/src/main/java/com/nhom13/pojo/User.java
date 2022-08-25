@@ -4,26 +4,20 @@
  */
 package com.nhom13.pojo;
 
-import java.io.Serializable;
-import java.util.Date;
-import java.util.Set;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.lang.Nullable;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import java.io.Serializable;
+import java.util.Date;
+import java.util.Set;
 
 /**
  *
@@ -35,7 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
     @NamedQuery(name = "User.findById", query = "SELECT u FROM User u WHERE u.id = :id"),
-    @NamedQuery(name = "User.findByUsername", query = "SELECT u FROM User u WHERE u.username = :username"),
+    @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email"),
     @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password"),
     @NamedQuery(name = "User.findByName", query = "SELECT u FROM User u WHERE u.name = :name"),
     @NamedQuery(name = "User.findByBirthday", query = "SELECT u FROM User u WHERE u.birthday = :birthday"),
@@ -44,35 +38,11 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "User.findByMobile", query = "SELECT u FROM User u WHERE u.mobile = :mobile")})
 public class User implements Serializable {
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
-    private Set<Feedback> feedbackSet;
-
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
-    private Integer id;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "username")
-    private String username;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
+    @Size(min = 1, max = 100)
     @Column(name = "password")
     private String password;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "name")
-    private String name;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "birthday")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date birthday;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
@@ -84,10 +54,54 @@ public class User implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
+//    @UserPhone(message = "{user.email.error.alreadyExists}")
     @Column(name = "mobile")
     private String mobile;
+
+    public static final String USER="ROLE_USER";
+    public static final String ADMIN="ROLE_ADMIN";
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
+    private Set<Feedback> feedbackSet;
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id")
+    private Integer id;
+    @Basic(optional = false)
+    @Column(name = "email")
+    private String email;
+    @Basic(optional = false)
+    @NotEmpty(message = "{user.name.error.empty}")
+    @Column(name = "name")
+    private String name;
+    @Basic(optional = false)
+    @NotNull(message = "{user.birthday.error.empty}")
+    @Column(name = "birthday")
+    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date birthday;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
     private Set<WeddingPartyOrders> weddingPartyOrdersSet;
+
+    @Transient
+    private String confirmPassword;
+
+    @Transient
+    @Nullable
+    @JsonIgnore
+    private MultipartFile img;
+
+    @Nullable
+    public MultipartFile getImg() {
+        return img;
+    }
+
+    public void setImg(@Nullable MultipartFile img) {
+        this.img = img;
+    }
 
     public User() {
     }
@@ -96,9 +110,9 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public User(Integer id, String username, String password, String name, Date birthday, String role, String mobile) {
+    public User(Integer id, String email, String password, String name, Date birthday, String role, String mobile) {
         this.id = id;
-        this.username = username;
+        this.email = email;
         this.password = password;
         this.name = name;
         this.birthday = birthday;
@@ -114,21 +128,14 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public String getName() {
         return name;
@@ -146,29 +153,6 @@ public class User implements Serializable {
         this.birthday = birthday;
     }
 
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public String getAvatar() {
-        return avatar;
-    }
-
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
-    }
-
-    public String getMobile() {
-        return mobile;
-    }
-
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
-    }
 
     @XmlTransient
     public Set<WeddingPartyOrders> getWeddingPartyOrdersSet() {
@@ -211,6 +195,46 @@ public class User implements Serializable {
 
     public void setFeedbackSet(Set<Feedback> feedbackSet) {
         this.feedbackSet = feedbackSet;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
     
 }

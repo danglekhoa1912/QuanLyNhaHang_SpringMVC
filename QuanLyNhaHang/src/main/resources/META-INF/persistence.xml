@@ -12,5 +12,7 @@
     <class>com.nhom13.pojo.Dish</class>
     <class>com.nhom13.pojo.Menu</class>
     <class>com.nhom13.pojo.Feedback</class>
+    <class>com.nhom13.pojo.User_1</class>
+    <class>com.nhom13.pojo.Menu_1</class>
   </persistence-unit>
 </persistence>

@@ -1,7 +1,6 @@
 package com.nhom13.service.impl;
 
 import com.nhom13.pojo.Service;
-import com.nhom13.repository.DishRepository;
 import com.nhom13.repository.ServiceResRepository;
 import com.nhom13.service.ServiceResService;
 import org.springframework.beans.factory.annotation.Autowired;
