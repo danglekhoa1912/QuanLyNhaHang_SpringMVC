@@ -26,6 +26,10 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
         <put-attribute name="title" value="Đăng kí" />
         <put-attribute name="content"
                        value="/WEB-INF/jsp/register.jsp" />
+</definition>
+    <definition name="order" extends="baseLayout">
+        <put-attribute name="title" value="Đặt tiệc"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/order.jsp"/>
     </definition>
 
 </tiles-definitions>
