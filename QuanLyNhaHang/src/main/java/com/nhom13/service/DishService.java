@@ -6,7 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 public interface DishService {
-    List<Dish> getDishes(Map<String,String> params, int page);
+    List<Dish> getDishes(Map<String,String> params,String categoryId, int page);
     Dish getDishById(int id);
     boolean addDish(Dish dish);
+    int countDish();
 }
