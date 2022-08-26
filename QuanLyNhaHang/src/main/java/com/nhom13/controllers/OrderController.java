@@ -30,9 +30,10 @@ public class OrderController {
     private ServiceResRepository serviceResService;
 
     @RequestMapping("/order")
-    public String login(Model model, @RequestParam Map<String,String> params) {
+    public String order(Model model, @RequestParam Map<String,String> params) {
         int page = Integer.parseInt(params.getOrDefault("page", "1"));
-        model.addAttribute("dishes",this.dishService.getDishes(params,page));
+        String categoryId=params.getOrDefault("categoryId","1");
+        model.addAttribute("dishes",this.dishService.getDishes(params,categoryId,page));
         model.addAttribute("services",this.serviceResService.getServicesRes(params,page));
         model.addAttribute("weddingHall",this.weddingHallService.getWeddingHalls(params,page));
         model.addAttribute("categoryDish",this.categoryDishService.getCategoryDish());

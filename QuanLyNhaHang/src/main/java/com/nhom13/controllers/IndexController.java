@@ -43,11 +43,19 @@ public class IndexController {
 
     @RequestMapping("/")
     public String index(Model model, @RequestParam Map<String,String> params) {
-        int page = Integer.parseInt(params.getOrDefault("page", "1"));
-        model.addAttribute("dishes",this.dishService.getDishes(params,page));
-        model.addAttribute("services",this.serviceResService.getServicesRes(params,page));
-        model.addAttribute("weddingHall",this.weddingHallService.getWeddingHalls(params,page));
-        model.addAttribute("categoryDish",this.categoryDishService.getCategoryDish());
+
         return "index";
     }
+
+//    @RequestMapping("/order")
+//    public String login(Model model, @RequestParam Map<String,String> params) {
+//        int page = Integer.parseInt(params.getOrDefault("page", "1"));
+//        String categoryId=params.getOrDefault("categoryId","1");
+//        model.addAttribute("dishes",this.dishService.getDishes(params,page));
+//        model.addAttribute("services",this.serviceResService.getServicesRes(params,page));
+//        model.addAttribute("weddingHall",this.weddingHallService.getWeddingHalls(params,page));
+//        model.addAttribute("categoryDish",this.categoryDishService.getCategoryDish());
+//        model.addAttribute("dishCount",this.dishService.countDish());
+//        return "order";
+//    }
 }

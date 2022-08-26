@@ -15,8 +15,8 @@ public class DishServiceImpl implements DishService {
     private DishRepository dishRepository;
 
     @Override
-    public List<Dish> getDishes(Map<String, String> params, int page) {
-        return this.dishRepository.getDishes(params,page);
+    public List<Dish> getDishes(Map<String, String> params,String categoryId, int page) {
+        return this.dishRepository.getDishes(params,categoryId,page);
     }
 
     @Override
@@ -27,5 +27,10 @@ public class DishServiceImpl implements DishService {
     @Override
     public boolean addDish(Dish dish) {
         return this.dishRepository.addDish(dish);
+    }
+
+    @Override
+    public int countDish() {
+        return this.dishRepository.countDish();
     }
 }
