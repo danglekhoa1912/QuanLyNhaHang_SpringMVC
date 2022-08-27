@@ -11,42 +11,54 @@
     </div>
 </div>
 <div class="">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
-            <div class="col-md-4 col-md-push-3">
-                <h4 class="d-flex justify-content-between mb-3"> <span class="text-muted"><b>Thực đơn</b></span> <span class="badge badge-secondary badge-pill">3</span> </h4>
+            <div class="col-md-4">
+                <h4 class="d-flex justify-content-between mb-3"><span class="text-muted"><b>Thực đơn</b></span> <span
+                        class="badge badge-secondary badge-pill">3</span></h4>
                 <ul class="list-group">
-                    <li class="list-group-item d-flex justify-content-between" >
+                    <li class="list-group-item d-flex justify-content-between">
                         <div>
-                            <h6 class="my-0"><b>Product name</b></h6> <small class="text-muted">Brief description</small>
-                        </div> <span class="text-muted">$12</span>
+                            <h6 class="my-0"><b>Product name</b></h6> <small class="text-muted">Brief
+                            description</small>
+                        </div>
+                        <span class="text-muted">$12</span>
                     </li>
-                    <li class="list-group-item d-flex justify-content-between"> <span>Total (USD)</span> <b>$20</b> </li>
+                    <li class="list-group-item d-flex justify-content-between"><span>Total (USD)</span> <b>$20</b></li>
                 </ul>
             </div>
-            <div class="col-md-8 col-md-push-6">
-                <div class="">
-                    <c:forEach begin="1" end="4" var="i">
-                        <div class="row">
-                            <c:forEach items="${allDishes}" var="d">
-                                <c:if test="${d.categoryId.id==i}">
-                                    <div class="col-lg-4 col-xs-12" style="padding: 5px">
-                                        <figure class="snip0019">
-                                            <img src="${d.imgae}" alt="dish"/>
-                                            <figcaption>
-                                                <div><h2>${d.name}</h2></div>
-                                                <div><p>${d.price},000 VNĐ</p></div>
-                                                <a class="choseDish" href="#"></a>
-                                            </figcaption>
-                                        </figure>
-                                    </div>
-                                </c:if>
-                            </c:forEach>
-                        </div>
-                        <hr class="mb-4" >
-                    </c:forEach>
+            <div class="col-md-8">
+                <div class="col-md-auto-3 d-flex justify-content-center">
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                        <label class="btn btn-secondary active">
+                            <input type="radio" name="options" id="option1"  onchange="loadPage('/QuanLyNhaHang/api/dishes?categoryId=1&page=1',${pageSize},35,1);" checked> Món khai
+                            vị
+                        </label>
+                        <label class="btn btn-secondary">
+                            <input type="radio" name="options" id="option2" onchange="loadPage('/QuanLyNhaHang/api/dishes?categoryId=2&page=1',${pageSize},35,2);"> Món chính
+                        </label>
+                        <label class="btn btn-secondary">
+                            <input type="radio" name="options" id="option3" onchange="loadPage('/QuanLyNhaHang/api/dishes?categoryId=3&page=1',${pageSize},35,3);"> Món tráng miệng
+                        </label>
+                        <label class="btn btn-secondary">
+                            <input type="radio" name="options" id="option4" onchange="loadPage('/QuanLyNhaHang/api/dishes?categoryId=4&page=1',${pageSize},35,4);"> Đồ uống
+                        </label>
+                    </div>
+                </div>
+                <div class="row" id="dish-total">
+                </div>
+                <div class="d-flex justify-content-center"  style="padding: 10px;">
+                    <ul class="pagination" id="pagination">
+                        <%--<c:forEach begin="1" end="${Math.ceil(dishCount / pageSize)}" var="i">
+                            <li class="page-item"><a class="page-link" href="${u}">${i}</a></li>
+                        </c:forEach>--%>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script src="<c:url value="/js/orderdish.js"/>"></script>
+<script>
+    window.onload(loadPage('/QuanLyNhaHang/api/dishes?categoryId=1&page=1',${pageSize},35,1))
+</script>

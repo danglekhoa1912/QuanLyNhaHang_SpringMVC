@@ -64,7 +64,11 @@ public class IndexController {
     public String services(Model model, @RequestParam Map<String, String> params) {
         int page = Integer.parseInt(params.getOrDefault("page", "1"));
         String categoryId = params.getOrDefault("categoryId", "1");
-        model.addAttribute("dishes", this.dishService.getDishes(params, categoryId, page));
+        model.addAttribute("dishes_1", this.dishService.getDishes(params, "1", page));
+        model.addAttribute("dishes_2", this.dishService.getDishes(params, "2", page));
+        model.addAttribute("dishes_3", this.dishService.getDishes(params, "3", page));
+        model.addAttribute("dishes_4", this.dishService.getDishes(params, "4", page));
+
         //model.addAttribute("allDishes",this.dishService.getAllDishes(params,page));
         model.addAttribute("services", this.serviceResService.getServicesRes(params, page));
         model.addAttribute("weddingHall", this.weddingHallService.getWeddingHalls(params, page));
