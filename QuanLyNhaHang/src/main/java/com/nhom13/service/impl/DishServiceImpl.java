@@ -33,4 +33,9 @@ public class DishServiceImpl implements DishService {
     public int countDish() {
         return this.dishRepository.countDish();
     }
+
+    @Override
+    public int countDishByCate(int categoryId) {
+        return this.dishRepository.countDishByCate(categoryId);
+    }
 }

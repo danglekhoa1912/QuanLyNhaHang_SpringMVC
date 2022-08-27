@@ -9,5 +9,6 @@ public interface DishRepository {
     List<Dish> getDishes(Map<String, String> params,String categoryId, int page);
     Dish getDishById(int id);
     boolean addDish(Dish dish);
-    int countDish();
+    public int countDish();
+    int countDishByCate(int categoryId);
 }
