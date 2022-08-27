@@ -1,0 +1,8 @@
+function loadPage(link){
+    fetch(link).then(function (response){
+        console.log(response);
+        return response.json();
+    }).then(function (data){
+        console.log(data)
+    })
+}

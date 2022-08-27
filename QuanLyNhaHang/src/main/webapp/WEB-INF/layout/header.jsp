@@ -12,40 +12,25 @@
 <link rel="stylesheet" href="<c:url value="/css/index.css"/>" type="text/css">
 <div class="container">
     <nav class="navbar-expand-md navbar-dark bg-dark navbar fixed-top">
-
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
                 data-target="#navbar3SupportedContent" aria-controls="navbar3SupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse text-center d-flex justify-content-between" id="navbar3SupportedContent">
             <ul class="navbar-nav">
                 <li class="nav-item mx-3">
-                    <a class="nav-link text-light" href="#"><b>The ADORA</b></a>
+                    <a class="nav-link text-light" href="<c:url value="/"/>"><b>The ADORA</b></a>
                 </li>
                 <li class="nav-item mx-2">
-                    <a class="nav-link" href="<c:url value="/order"/>"><b><spring:message key="title.booking"/></b></a>
+                    <c:if test="${pageContext.request.userPrincipal.name == null}">
+                        <a class="nav-link" href="<c:url value="/login"/>"><b><spring:message key="title.booking"/></b></a>
+                    </c:if>
+                    <c:if test="${pageContext.request.userPrincipal.name != null}">
+                        <a class="nav-link" href="<c:url value="/order"/>"><b><spring:message key="title.booking"/></b></a>
+                    </c:if>
                 </li>
                 <li class="nav-item mx-2">
                     <a class="nav-link" href="#venue"><b><spring:message key="title.introduce"/></b></a>
                 </li>
-                <%--                <sec:authorize access="!isAuthenticated()">--%>
-                <%--                    <li class="nav-item">--%>
-                <%--                        <a class="btn navbar-btn btn-secondary mx-2" href="<c:url value="/login" />"><spring:message key="title.login" /></a>--%>
-                <%--                    </li>--%>
-                <%--                    <li class="nav-item">--%>
-                <%--                        <a class="btn navbar-btn btn-secondary mx-2" href="<c:url value="/register" />"><spring:message key="title.register" /></a>--%>
-                <%--                    </li>--%>
-                <%--                </sec:authorize>--%>
-                <%--                <sec:authorize access="isAuthenticated()">--%>
-                <%--                    <li class="nav-item">--%>
-                <%--                        <div class="nav-link text-danger" >--%>
-                <%--                                ${pageContext.session.getAttribute("currentUser").name}--%>
-                <%--&lt;%&ndash;                            <sec:authentication property="principal.email" />&ndash;%&gt;--%>
-                <%--                        </div>--%>
-                <%--                    </li>--%>
-                <%--                    <li class="nav-item">--%>
-                <%--                        <a class="nav-link text-danger" href="<c:url value="/logout" />">Dang xuat</a>--%>
-                <%--                    </li>--%>
-                <%--                </sec:authorize>--%>
                 <c:if test="${pageContext.request.userPrincipal.name == null}">
                     <li class="nav-item">
                         <a href="<c:url value="/login" />" class="nav-link">
