@@ -1,5 +1,6 @@
 package com.nhom13.repository.impl;
 
+import com.nhom13.pojo.CategoryDish;
 import com.nhom13.pojo.Dish;
 import com.nhom13.repository.DishRepository;
 import org.hibernate.Session;
@@ -92,8 +93,24 @@ public class DishRepositoryImpl implements DishRepository {
     @Override
     public int countDish() {
         Session session = this.sessionFactory.getObject().getCurrentSession();
-        Query q = session.createQuery("SELECT Count(*) FROM Dish ");
+        Query q = session.createQuery("SELECT COUNT(*) FROM Dish ");
 
         return Integer.parseInt(q.getSingleResult().toString());
+    }
+
+    @Override
+    public int countDishByCate(int categoryId) {
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        CriteriaBuilder b = session.getCriteriaBuilder();
+        CriteriaQuery<Long> q = b.createQuery(Long.class);
+
+        Root rD = q.from(Dish.class);
+        Root rC = q.from(CategoryDish.class);
+
+        q.where(b.and(b.equal(rD.get("categoryId"), rC.get("id")),b.equal(rC.get("id"),categoryId)));
+        q.select( b.count(rD.get("id")));
+
+        Query query = session.createQuery(q);
+        return Integer.parseInt(query.getSingleResult().toString());
     }
 }
