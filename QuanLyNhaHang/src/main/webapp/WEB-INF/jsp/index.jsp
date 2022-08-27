@@ -19,19 +19,6 @@
                 <h1 class="mb-0 mt-4 display-3">THE ADORA</h1>
                 <p class="mb-5 lead">Đẳng cấp cho những điều quan trọng nhất</p>
             </div>
-<%--            <div class="col-lg-5 p-3">--%>
-<%--                <form class="p-4 bg-dark-opaque" method="post" action="https://formspree.io/">--%>
-<%--                    <h4 class="mb-4 text-center">Đặt tiệc ngay</h4>--%>
-<%--                    <div class="form-group"><label>Tên người đặt</label>--%>
-<%--                        <input class="form-control" placeholder="Type here"></div>--%>
-<%--                    <div class="form-group"><label>Thời gian</label>--%>
-<%--                        <input type="time" class="form-control" placeholder="13"></div>--%>
-<%--                    <div class="form-group"><label>Cout of peoples</label>--%>
-<%--                        <input type="number" class="form-control" placeholder="2"></div>--%>
-<%--                    <button type="submit" class="btn mt-4 btn-block btn-outline-primary p-2"><b>Tiến hành đặt</b>--%>
-<%--                    </button>--%>
-<%--                </form>--%>
-<%--            </div>--%>
         </div>
     </div>
 </div>
