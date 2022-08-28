@@ -2,7 +2,6 @@ function loadPage(endpoint,categoryId,page,pagesize,count) {
     fetch(endpoint+`?categoryId=${categoryId}&page=${page}`).then(function (response) {
         return response.json();
     }).then(function (data) {
-        console.log(data)
                 let d = document.getElementById("dish-total");
                 d.innerHTML=``;
                 data.forEach(dish=>{
@@ -24,7 +23,7 @@ function loadPage(endpoint,categoryId,page,pagesize,count) {
     let p=document.getElementById("pagination");
     p.innerHTML=``;
     for (let i = 1; i <= Math.ceil(count/pagesize); i++) {
-        p.innerHTML+=`<li class="page-item"><button type="button" class="page-link" onclick="loadPage(${endpoint},${categoryId},${i},${pagesize},${count}">${i}</button></li>`
+        let newEnpoint=`${endpoint}`
+        p.innerHTML+=`<li class="page-item"><button type="button" class="page-link" onclick="loadPage(\`${newEnpoint}\`,${categoryId},${i},${pagesize},${count})">${i}</button></li>`
     }
 }
-

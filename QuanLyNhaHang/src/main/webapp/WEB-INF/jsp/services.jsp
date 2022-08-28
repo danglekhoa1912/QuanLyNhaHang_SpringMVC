@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <link rel="stylesheet" href="<c:url value="/css/order.css"/>" type="text/css"/>
+<c:url var="enpoint" value="/api/dishes" />
 <div class="py-5">
     <div class="container">
         <div class="row">
@@ -31,17 +32,17 @@
                 <div class="col-md-auto-3 d-flex justify-content-center">
                     <div class="btn-group btn-group-toggle" data-toggle="buttons">
                         <label class="btn btn-secondary active">
-                            <input type="radio" name="options" id="option1"  onchange="loadPage('/QuanLyNhaHang/api/dishes',1,1,${pageSize},35);" checked> Món khai
+                            <input type="radio" name="options" id="option1"  onchange="loadPage(`${enpoint}`,1,1,${pageSize},35);" checked> Món khai
                             vị
                         </label>
                         <label class="btn btn-secondary">
-                            <input type="radio" name="options" id="option2" onchange="loadPage('/QuanLyNhaHang/api/dishes',2,1,${pageSize},35);"> Món chính
+                            <input type="radio" name="options" id="option2" onchange="loadPage(`${enpoint}`,2,1,${pageSize},35);"> Món chính
                         </label>
                         <label class="btn btn-secondary">
-                            <input type="radio" name="options" id="option3" onchange="loadPage('/QuanLyNhaHang/api/dishes',3,1,${pageSize},35);"> Món tráng miệng
+                            <input type="radio" name="options" id="option3" onchange="loadPage(`${enpoint}`,3,1,${pageSize},35);"> Món tráng miệng
                         </label>
                         <label class="btn btn-secondary">
-                            <input type="radio" name="options" id="option4" onchange="loadPage('/QuanLyNhaHang/api/dishes',4,1,${pageSize},35);"> Đồ uống
+                            <input type="radio" name="options" id="option4" onchange="loadPage(`${enpoint}`,4,1,${pageSize},35);"> Đồ uống
                         </label>
                     </div>
                 </div>
@@ -59,6 +60,9 @@
     </div>
 </div>
 <script src="<c:url value="/js/orderdish.js"/>"></script>
+
 <script>
-    window.onload(loadPage('/QuanLyNhaHang/api/dishes',1,1,${pageSize},35))
+    window.onload=function (){
+        loadPage(`${enpoint}`,1,1,${pageSize},35)
+    }
 </script>

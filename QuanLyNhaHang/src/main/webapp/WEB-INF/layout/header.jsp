@@ -10,16 +10,18 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <link rel="stylesheet" href="<c:url value="/css/index.css"/>" type="text/css">
-<div class="container">
-    <nav class="navbar-expand-md navbar-dark bg-dark navbar fixed-top">
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-                data-target="#navbar3SupportedContent" aria-controls="navbar3SupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-        <div class="collapse navbar-collapse text-center d-flex justify-content-between" id="navbar3SupportedContent">
-            <ul class="navbar-nav">
-                <li class="nav-item mx-3">
-                    <a class="nav-link text-light" href="<c:url value="/"/>"><b>The ADORA</b></a>
-                </li>
+<nav class="navbar-expand-md navbar-dark bg-dark navbar fixed-top">
+    <div class="container-fluid">
+        <a class="nav-link text-light" href="<c:url value="/"/>"><b>The ADORA</b></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <%--            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"--%>
+        <%--                    data-target="#navbar3SupportedContent" aria-controls="navbar3SupportedContent" aria-expanded="false"--%>
+        <%--                    aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>--%>
+        <div class="collapse navbar-collapse " id="mynavbar">
+            <ul class="navbar-nav me-auto">
                 <li class="nav-item mx-2">
                     <c:if test="${pageContext.request.userPrincipal.name == null}">
                         <a class="nav-link" href="<c:url value="/login"/>"><b><spring:message key="title.booking"/></b></a>
@@ -32,53 +34,55 @@
                     <a class="nav-link" href="#venue"><b><spring:message key="title.introduce"/></b></a>
                 </li>
                 <c:if test="${pageContext.request.userPrincipal.name == null}">
-                    <li class="nav-item">
+                    <li class="nav-item mx-2">
                         <a href="<c:url value="/login" />" class="nav-link">
                             <i class="fa fa-user" aria-hidden="true"></i> <spring:message key="title.login"/>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item mx-2">
                         <a href="<c:url value="/register" />" class="nav-link">
                             <i class="fa fa-check" aria-hidden="true"></i> <spring:message key="title.register"/>
                         </a>
                     </li>
-
                 </c:if>
-            </ul>
-        </div>
-        <div class="collapse navbar-collapse">
-            <c:if test="${pageContext.request.userPrincipal.name != null}">
-                    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
-                        <c:if test="${currentUser.avatar != null}">
-                            <img style="width:30px;" src="${currentUser.avatar}" class="rounded-circle"/>
-                        </c:if>
-                        <c:if test="${currentUser.avatar == null}">
-                            <i class="fa fa-user" aria-hidden="true"></i>
-                        </c:if>
-                            ${pageContext.session.getAttribute("currentUser").name}
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a href="<c:url value="/logout" />" class="dropdown-item">
-                                Đăng xuất
-                            </a>
-                        </li>
-                        <li>
-                            <a href="${pageContext.request.contextPath}/?lang=vi" class="dropdown-item">
-                                Vietnamese
-                            </a>
-                        </li>
-                    </ul>
-            </c:if>
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-right pull-sm-right align-content-end dropdown ">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"><spring:message key="title.select.lang" /></a>
-                    <ul class="dropdown-menu-end dropdown-menu">
-                        <li><a class="dropdown-item" href="?lang=en"><spring:message key="title.lang.en" /></a></li>
-                        <li><a class="dropdown-item" href="?lang=vi"><spring:message key="title.lang.vi" /></a></li>
-                    </ul>
+                <li class="nav-item mx-2">
+                    <c:set var = "lang" scope = "session"><spring:message key="title.select.lang" /></c:set>
+                    <c:choose>
+                        <c:when test="${lang=='vi'}">
+                            <a class="nav-link" href="?lang=en" ><spring:message key="title.lang.en"/></a>
+                        </c:when>
+                        <c:when test="${lang=='en'}">
+                            <a class="nav-link" href="?lang=vi" ><spring:message key="title.lang.vi"/></a>
+                        </c:when>
+                    </c:choose>
                 </li>
             </ul>
+            <c:if test="${pageContext.request.userPrincipal.name != null}">
+                <ul class="navbar-nav">
+                    <li>
+                        <a class="nav-link" href="#">
+                            <img src="${currentUser.avatar}" alt="Avatar Logo" style="width:30px;" class="rounded-pill">
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown nav-link ">
+                        <a class="nav-link dropdown-toggle" href="#" role="button"
+                           data-bs-toggle="dropdown">${pageContext.session.getAttribute("currentUser").name}</a>
+                        <ul class="dropdown-menu-end dropdown-menu ">
+                            <li>
+                                <a class="dropdown-item" href="<c:url value="#" />">
+                                    <spring:message key="title.infor" />
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="<c:url value="/logout" />">
+                                    <spring:message key="title.logout" />
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </c:if>
         </div>
-    </nav>
-</div>
+    </div>
+</nav>
+
