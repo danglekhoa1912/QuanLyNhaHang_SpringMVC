@@ -42,7 +42,6 @@ public class UserRepositoryImpl implements UserRepository {
         CriteriaQuery<User> q = b.createQuery(User.class);
         Root root = q.from(User.class);
         q.select(root);
-
         q.where(b.equal(root.get("email"), email));
 
         Query query = session.createQuery(q);

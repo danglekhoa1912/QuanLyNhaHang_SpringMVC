@@ -1,6 +1,5 @@
 package com.nhom13.repository.impl;
 
-import com.nhom13.pojo.CategoryDish;
 import com.nhom13.pojo.Dish;
 import com.nhom13.repository.DishRepository;
 import org.hibernate.Session;
@@ -21,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-@PropertySource("classpath:messages.properties")
+@PropertySource("classpath:messages_en.properties")
 @Transactional
 public class DishRepositoryImpl implements DishRepository {
 
@@ -105,9 +104,9 @@ public class DishRepositoryImpl implements DishRepository {
         CriteriaQuery<Long> q = b.createQuery(Long.class);
 
         Root rD = q.from(Dish.class);
-        Root rC = q.from(CategoryDish.class);
-
-        q.where(b.and(b.equal(rD.get("categoryId"), rC.get("id")),b.equal(rC.get("id"),categoryId)));
+//        Root rC = q.from(CategoryDish.class);
+        q.where(b.equal(rD.get("categoryId"),categoryId));
+//        q.where(b.and(b.equal(rD.get("categoryId"), rC.get("id")),b.equal(rC.get("id"),categoryId)));
         q.select( b.count(rD.get("id")));
 
         Query query = session.createQuery(q);

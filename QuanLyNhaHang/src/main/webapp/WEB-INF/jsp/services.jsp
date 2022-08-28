@@ -31,17 +31,17 @@
                 <div class="col-md-auto-3 d-flex justify-content-center">
                     <div class="btn-group btn-group-toggle" data-toggle="buttons">
                         <label class="btn btn-secondary active">
-                            <input type="radio" name="options" id="option1"  onchange="loadPage('/QuanLyNhaHang/api/dishes?categoryId=1&page=1',${pageSize},35,1);" checked> Món khai
+                            <input type="radio" name="options" id="option1"  onchange="loadPage('/QuanLyNhaHang/api/dishes',1,1,${pageSize},35);" checked> Món khai
                             vị
                         </label>
                         <label class="btn btn-secondary">
-                            <input type="radio" name="options" id="option2" onchange="loadPage('/QuanLyNhaHang/api/dishes?categoryId=2&page=1',${pageSize},35,2);"> Món chính
+                            <input type="radio" name="options" id="option2" onchange="loadPage('/QuanLyNhaHang/api/dishes',2,1,${pageSize},35);"> Món chính
                         </label>
                         <label class="btn btn-secondary">
-                            <input type="radio" name="options" id="option3" onchange="loadPage('/QuanLyNhaHang/api/dishes?categoryId=3&page=1',${pageSize},35,3);"> Món tráng miệng
+                            <input type="radio" name="options" id="option3" onchange="loadPage('/QuanLyNhaHang/api/dishes',3,1,${pageSize},35);"> Món tráng miệng
                         </label>
                         <label class="btn btn-secondary">
-                            <input type="radio" name="options" id="option4" onchange="loadPage('/QuanLyNhaHang/api/dishes?categoryId=4&page=1',${pageSize},35,4);"> Đồ uống
+                            <input type="radio" name="options" id="option4" onchange="loadPage('/QuanLyNhaHang/api/dishes',4,1,${pageSize},35);"> Đồ uống
                         </label>
                     </div>
                 </div>
@@ -60,5 +60,5 @@
 </div>
 <script src="<c:url value="/js/orderdish.js"/>"></script>
 <script>
-    window.onload(loadPage('/QuanLyNhaHang/api/dishes?categoryId=1&page=1',${pageSize},35,1))
+    window.onload(loadPage('/QuanLyNhaHang/api/dishes',1,1,${pageSize},35))
 </script>

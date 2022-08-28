@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-@PropertySource("classpath:messages.properties")
+@PropertySource("classpath:messages_en.properties")
 @Transactional
 public class ServiceResImpl implements ServiceResRepository {
 

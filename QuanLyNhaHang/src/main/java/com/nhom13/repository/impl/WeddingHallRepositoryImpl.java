@@ -21,7 +21,7 @@ import java.util.Map;
 
 
 @Repository
-@PropertySource("classpath:messages.properties")
+@PropertySource("classpath:messages_en.properties")
 @Transactional
 public class WeddingHallRepositoryImpl implements WeddingHallRepository {
 

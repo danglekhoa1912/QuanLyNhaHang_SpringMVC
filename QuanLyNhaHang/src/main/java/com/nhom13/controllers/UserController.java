@@ -18,7 +18,7 @@ import java.time.format.DateTimeFormatter;
 
 @Controller
 @ControllerAdvice
-@PropertySource("classpath:messages.properties")
+@PropertySource("classpath:messages_en.properties")
 public class UserController {
 
     @Autowired

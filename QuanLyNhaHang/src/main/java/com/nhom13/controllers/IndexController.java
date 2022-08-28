@@ -26,8 +26,8 @@ import java.util.Map;
  */
 @Controller
 @ControllerAdvice
-@PropertySource("classpath:messages.properties")
-@PropertySource("classpath:launguage-vi.properties")
+@PropertySource("classpath:messages_en.properties")
+@PropertySource("classpath:messages_vi.properties")
 public class IndexController {
 
     @Autowired

@@ -1,6 +1,5 @@
-function loadPage(endpoint,pagesize,count,id) {
-    fetch(endpoint).then(function (response) {
-        console.log(response);
+function loadPage(endpoint,categoryId,page,pagesize,count) {
+    fetch(endpoint+`?categoryId=${categoryId}&page=${page}`).then(function (response) {
         return response.json();
     }).then(function (data) {
         console.log(data)
@@ -25,6 +24,7 @@ function loadPage(endpoint,pagesize,count,id) {
     let p=document.getElementById("pagination");
     p.innerHTML=``;
     for (let i = 1; i <= Math.ceil(count/pagesize); i++) {
-        p.innerHTML+=`<li class="page-item"><button type="button" class="page-link" onclick="loadPage('/QuanLyNhaHang/api/dishes?categoryId=${id}&page=${i}',${pagesize},${count},${id})">${i}</button></li>`
+        p.innerHTML+=`<li class="page-item"><button type="button" class="page-link" onclick="loadPage(${endpoint},${categoryId},${i},${pagesize},${count}">${i}</button></li>`
     }
 }
+

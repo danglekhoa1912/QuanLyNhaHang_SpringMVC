@@ -42,10 +42,12 @@
                             <i class="fa fa-check" aria-hidden="true"></i> <spring:message key="title.register"/>
                         </a>
                     </li>
+
                 </c:if>
             </ul>
+        </div>
+        <div class="collapse navbar-collapse">
             <c:if test="${pageContext.request.userPrincipal.name != null}">
-                <div class="dropdown float-right ">
                     <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
                         <c:if test="${currentUser.avatar != null}">
                             <img style="width:30px;" src="${currentUser.avatar}" class="rounded-circle"/>
@@ -61,10 +63,22 @@
                                 Đăng xuất
                             </a>
                         </li>
+                        <li>
+                            <a href="${pageContext.request.contextPath}/?lang=vi" class="dropdown-item">
+                                Vietnamese
+                            </a>
+                        </li>
                     </ul>
-
-                </div>
             </c:if>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-right pull-sm-right align-content-end dropdown ">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"><spring:message key="title.select.lang" /></a>
+                    <ul class="dropdown-menu-end dropdown-menu">
+                        <li><a class="dropdown-item" href="?lang=en"><spring:message key="title.lang.en" /></a></li>
+                        <li><a class="dropdown-item" href="?lang=vi"><spring:message key="title.lang.vi" /></a></li>
+                    </ul>
+                </li>
+            </ul>
         </div>
     </nav>
 </div>
