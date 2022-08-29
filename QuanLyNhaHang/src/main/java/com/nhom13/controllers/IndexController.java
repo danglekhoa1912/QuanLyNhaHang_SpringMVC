@@ -68,6 +68,10 @@ public class IndexController {
         model.addAttribute("dishes_2", this.dishService.getDishes(params, "2", page));
         model.addAttribute("dishes_3", this.dishService.getDishes(params, "3", page));
         model.addAttribute("dishes_4", this.dishService.getDishes(params, "4", page));
+        model.addAttribute("count_dish_1",this.dishService.countDishByCate(1));
+        model.addAttribute("count_dish_2",this.dishService.countDishByCate(2));
+        model.addAttribute("count_dish_3",this.dishService.countDishByCate(3));
+        model.addAttribute("count_dish_4",this.dishService.countDishByCate(4));
 
         //model.addAttribute("allDishes",this.dishService.getAllDishes(params,page));
         model.addAttribute("services", this.serviceResService.getServicesRes(params, page));
