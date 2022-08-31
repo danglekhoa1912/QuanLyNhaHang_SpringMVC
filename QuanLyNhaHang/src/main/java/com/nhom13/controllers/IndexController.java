@@ -24,6 +24,9 @@ import javax.persistence.criteria.Order;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.servlet.http.HttpSession;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Map;
 
@@ -73,7 +76,11 @@ public class IndexController {
     }
 
     @RequestMapping("/order")
-    public String login(Model model, @RequestParam Map<String, String> params, HttpSession session) {
+    public String order(Model model, @RequestParam Map<String, String> params, HttpSession session) {
+//
+//        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+//        LocalDateTime now = LocalDateTime.now();
+        model.addAttribute("now",LocalDate.now());
 
         int page = Integer.parseInt(params.getOrDefault("page", "1"));
         String categoryId = params.getOrDefault("categoryId", "1");

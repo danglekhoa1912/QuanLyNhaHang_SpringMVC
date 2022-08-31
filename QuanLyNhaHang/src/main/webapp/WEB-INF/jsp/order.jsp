@@ -26,14 +26,8 @@
         <h4 class="mb-3"><b><spring:message key="order.book.info"/></b></h4>
         <form class="needs-validation" novalidate="" style="">
             <div class="row d-flex">
-                <div class="col-md-3 mb-3"><label for="type_event"><spring:message key="order.book.type"/></label> <select
-                        style="font-weight: bold"
-                        class="custom-select d-block w-100" id="type_event" required="">
-                    <option value=""><spring:message key="order.book.choose"/></option>
-                    <option value="wedding"><spring:message key="order.book.wedding"/></option>
-                    <option value="conference"><spring:message key="order.book.conference"/></option>
-                    <option value="event"><spring:message key="order.book.event"/></option>
-                </select>
+                <div class="col-md-3 mb-3"><label for="date"><spring:message key="order.book.date"/></label>
+                    <input min="${now}" class="form-control" id="date" type="date">
                     <div class="invalid-feedback"><spring:message key="order.valid.choose"/></div>
                 </div>
                 <div class="col-md-3 mb-3"><label for="type_day"><spring:message key="order.book.time"/></label> <select
@@ -45,13 +39,8 @@
                     <option value="event"><spring:message key="order.type.day.3"/></option>
                 </select>
                 </div>
-                <div class="col-md-3 mb-3"><label for="timeOrder"><spring:message key="order.book.time"/></label>
-                    <input type="time" class="form-control" style="font-weight: bold" id="timeOrder"
-                           placeholder="" required="">
-                    <div class="invalid-feedback"><spring:message key="order.valid.time"/></div>
-                </div>
                 <div class="col-md-3 mb-3"><label for="countTable"><spring:message key="order.book.count"/></label>
-                    <input type="number" class="form-control" style="font-weight: bold" id="countTable"
+                    <input min="0" type="number" class="form-control" style="font-weight: bold" id="countTable"
                            placeholder="" required="">
                     <div class="invalid-feedback"><spring:message key="oder.valid.count"/></div>
                 </div>
@@ -194,6 +183,16 @@
 
     option {
         font-weight: bold;
+    }
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    /* Firefox */
+    input[type=number] {
+        -moz-appearance: textfield;
     }
 </style>
 <script src="<c:url value="/js/orderdish.js"/>"></script>
