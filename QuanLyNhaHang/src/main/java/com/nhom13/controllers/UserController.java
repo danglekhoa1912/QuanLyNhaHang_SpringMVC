@@ -34,11 +34,11 @@ public class UserController {
         binder.setValidator(this.userValidator);
     }
 
-    @RequestMapping("/")
-    public String index(Model model, @RequestParam Map<String, String> params) {
-//        model.addAttribute("listDish",menuService.getListDish(1));
-        return "index";
-    }
+//    @RequestMapping("/")
+//    public String index(Model model, @RequestParam Map<String, String> params) {
+////        model.addAttribute("listDish",menuService.getListDish(1));
+//        return "index";
+//    }
 
     @RequestMapping("/login")
     public String login() {
