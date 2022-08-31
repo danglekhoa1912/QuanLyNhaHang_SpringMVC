@@ -35,5 +35,8 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
         <put-attribute name="title" value="Chọn dịch vụ"/>
         <put-attribute name="content" value="/WEB-INF/jsp/services.jsp"/>
     </definition>
-
+    <definition name="profile" extends="baseLayout">
+        <put-attribute name="title" value="Thông tin cá nhân"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/profile.jsp"/>
+    </definition>
 </tiles-definitions>
