@@ -9,13 +9,17 @@ import com.nhom13.pojo.WeddingPartyOrders;
 import com.nhom13.repository.DishRepository;
 import com.nhom13.repository.ServiceResRepository;
 import com.nhom13.service.*;
+import com.nhom13.validator.UpdateUserValidation;
+import com.nhom13.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+
 import javax.persistence.criteria.Order;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -45,6 +49,18 @@ public class IndexController {
     @Autowired
     private OrderService orderService;
     @Autowired
+    private UserService userService;
+
+    @Autowired
+    private UpdateUserValidation updateUserValidation;
+
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        binder.setValidator(this.updateUserValidation);
+    }
+
+    @Autowired
     private Environment env;
 
     @RequestMapping("/")
@@ -55,6 +71,7 @@ public class IndexController {
         model.addAttribute("dishes_3", this.dishService.getDishes(params, "3", page));
         return "index";
     }
+
     @RequestMapping("/order")
     public String login(Model model, @RequestParam Map<String, String> params, HttpSession session) {
 
@@ -66,10 +83,10 @@ public class IndexController {
         model.addAttribute("categoryDish", this.categoryDishService.getCategoryDish());
         model.addAttribute("dishCount", this.dishService.countDish());
         model.addAttribute("pageSize", env.getProperty("page.size"));
-        model.addAttribute("count_dish_1",this.dishService.countDishByCate(1));
-        model.addAttribute("count_dish_2",this.dishService.countDishByCate(2));
-        model.addAttribute("count_dish_3",this.dishService.countDishByCate(3));
-        model.addAttribute("count_dish_4",this.dishService.countDishByCate(4));
+        model.addAttribute("count_dish_1", this.dishService.countDishByCate(1));
+        model.addAttribute("count_dish_2", this.dishService.countDishByCate(2));
+        model.addAttribute("count_dish_3", this.dishService.countDishByCate(3));
+        model.addAttribute("count_dish_4", this.dishService.countDishByCate(4));
         return "order";
     }
 
@@ -88,5 +105,52 @@ public class IndexController {
 //        int quantityTable=300;
 //        WeddingPartyOrders order= orderService.addOrder(userId,menuId,listServiceId,weddinghallId,priceWeddingId,orderDate,amount,typePay,quantityTable);
         return "order";
+    }
+
+    @GetMapping("/profile")
+    public String profile(Model model, HttpSession session) {
+
+        model.addAttribute("user", (User) session.getAttribute("currentUser"));
+        return "profile";
+    }
+
+    @PostMapping("/profile")
+    public String updateProfile(Model model, @ModelAttribute(value = "user")  User user, BindingResult result,HttpSession session) {
+        String errorMes = null;
+        if (!result.hasErrors()) {
+            User u=(User) session.getAttribute("currentUser");
+            u.setName(user.getName());
+            u.setEmail(user.getEmail());
+            u.setBirthday(user.getBirthday());
+            u.setMobile(user.getMobile());
+            if (this.userService.updateUser(u)) {
+                model.addAttribute("resultUpdate",true);
+                return "profile";
+            }
+            model.addAttribute("resultUpdate",false);
+            model.addAttribute("errorMes", errorMes);
+            return "profile";
+        }
+        return "profile";
+    }
+
+    @PostMapping("/updatePass")
+    public String updatePass(Model model, @RequestParam Map<String, String> params, BindingResult result,HttpSession session) {
+//        String errorMes = null;
+//        if (!result.hasErrors()) {
+//            User u=(User) session.getAttribute("currentUser");
+//            u.setName(user.getName());
+//            u.setEmail(user.getEmail());
+//            u.setBirthday(user.getBirthday());
+//            u.setMobile(user.getMobile());
+//            if (this.userService.updateUser(u)) {
+//                model.addAttribute("resultUpdate",true);
+//                return "profile";
+//            }
+//            model.addAttribute("resultUpdate",false);
+//            model.addAttribute("errorMes", errorMes);
+//            return "profile";
+//        }
+        return "profile";
     }
 }

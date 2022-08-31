@@ -61,7 +61,7 @@ public class UserController {
         String errorMes=null;
         if(!result.hasErrors()){
             if(user.getPassword().equals(user.getConfirmPassword())){
-                if (this.userService.addUser(user) == true) {
+                if (this.userService.addUser(user) ) {
                     return "redirect:/login";
                 }
             }

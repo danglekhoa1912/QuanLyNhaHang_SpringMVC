@@ -14,7 +14,6 @@
         </c:if>
         <c:url value="/register" var="action" />
         <form:form enctype="multipart/form-data"  modelAttribute="user" class="p-4 form" action="${action}" method="post" >
-<%--            <form:errors path="*" cssClass="alert alert-danger" element="div"/>--%>
             <div class="form-group">
                 <label for="email"><b>Email</b></label>
                 <form:input path="email" type="text"  name="email" id="email"  />

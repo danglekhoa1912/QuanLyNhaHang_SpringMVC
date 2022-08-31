@@ -65,8 +65,13 @@
                            data-bs-toggle="dropdown">${pageContext.session.getAttribute("currentUser").name}</a>
                         <ul class="dropdown-menu-end dropdown-menu ">
                             <li>
-                                <a class="dropdown-item" href="<c:url value="#" />">
+                                <a class="dropdown-item" href="<c:url value="/profile" />">
                                     <spring:message key="title.infor" />
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="<c:url value="/profile" />">
+                                    <spring:message key="title.changePass" />
                                 </a>
                             </li>
                             <li>
