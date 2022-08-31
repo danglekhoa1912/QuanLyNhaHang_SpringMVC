@@ -42,10 +42,23 @@ public class User implements Serializable {
     @NotNull
     @Size(min = 1, max = 100)
     @Column(name = "password")
+    @JsonIgnore
     private String password;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
+    @Column(name = "name")
+    private String name;
+    @Basic(optional = false)
+    @NotNull()
+    @Column(name = "birthday")
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date birthday;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
+//    @UserPhone(message = "{user.email.error.alreadyExists}")
     @Column(name = "role")
     private String role;
     @Size(max = 150)
@@ -54,12 +67,11 @@ public class User implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
-//    @UserPhone(message = "{user.email.error.alreadyExists}")
     @Column(name = "mobile")
     private String mobile;
 
     public static final String USER="ROLE_USER";
-    public static final String ADMIN="ROLE_ADMIN";
+    public static final String STAFF="ROLE_STAFF";
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
     private Set<Feedback> feedbackSet;
@@ -73,16 +85,6 @@ public class User implements Serializable {
     @Basic(optional = false)
     @Column(name = "email")
     private String email;
-    @Basic(optional = false)
-    @NotEmpty(message = "{user.name.error.empty}")
-    @Column(name = "name")
-    private String name;
-    @Basic(optional = false)
-    @NotNull(message = "{user.birthday.error.empty}")
-    @Column(name = "birthday")
-    @Temporal(TemporalType.TIMESTAMP)
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date birthday;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
     private Set<WeddingPartyOrders> weddingPartyOrdersSet;
 
@@ -137,21 +139,6 @@ public class User implements Serializable {
     }
 
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Date getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
-    }
 
 
     @XmlTransient
@@ -211,6 +198,22 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
     }
 
     public String getRole() {

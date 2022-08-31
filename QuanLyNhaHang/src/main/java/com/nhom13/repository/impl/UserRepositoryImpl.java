@@ -64,6 +64,10 @@ public class UserRepositoryImpl implements UserRepository {
             System.out.println(e.getMessage());
             return true;
         }
+        catch (HibernateException ex){
+            System.out.println(ex.getMessage());
+            return false;
+        }
     }
 
     @Override
@@ -83,6 +87,35 @@ public class UserRepositoryImpl implements UserRepository {
             System.out.println(e.getMessage());
             return true;
         }
+        catch (HibernateException ex){
+            System.out.println(ex.getMessage());
+            return false;
+        }
+    }
+
+    @Override
+    public User getUserById(int id) {
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        CriteriaBuilder b = session.getCriteriaBuilder();
+        CriteriaQuery<User> q = b.createQuery(User.class);
+        Root root = q.from(User.class);
+        q.select(root);
+        q.where(b.equal(root.get("id"), id));
+
+        Query query = session.createQuery(q);
+        return (User) query.getSingleResult();
+    }
+
+    @Override
+    public boolean updateUser(User user) {
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        try{
+            session.update(user);
+            return true;
+        }catch (HibernateException ex){
+            System.out.println(ex.getMessage());
+        }
+        return false;
     }
 
 }

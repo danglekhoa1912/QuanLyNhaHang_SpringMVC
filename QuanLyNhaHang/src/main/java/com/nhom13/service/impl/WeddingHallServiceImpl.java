@@ -17,4 +17,24 @@ public class WeddingHallServiceImpl implements WeddingHallService {
     public List<WeddingHall> getWeddingHalls(Map<String, String> params, int page) {
         return this.weddingHallRepository.getWeddingHalls(params,page);
     }
+
+    @Override
+    public WeddingHall getWeddingHallById(int id) {
+        return this.weddingHallRepository.getWeddingHallById(id);
+    }
+
+    @Override
+    public boolean addWeddingHall(WeddingHall weddingHall) {
+        return this.weddingHallRepository.addWeddingHall(weddingHall);
+    }
+
+    @Override
+    public boolean deleteWeddingHall(int id) {
+        return this.weddingHallRepository.deleteWeddingHall(id);
+    }
+
+    @Override
+    public boolean updateWeddingHall(WeddingHall weddingHall) {
+        return this.weddingHallRepository.updateWeddingHall(weddingHall);
+    }
 }

@@ -1,5 +1,6 @@
 package com.nhom13.repository.impl;
 
+import com.nhom13.pojo.Menu;
 import com.nhom13.pojo.Service;
 import com.nhom13.repository.ServiceResRepository;
 import org.hibernate.Session;
@@ -60,5 +61,43 @@ public class ServiceResImpl implements ServiceResRepository {
         }
 
         return query.getResultList();
+    }
+
+    @Override
+    public boolean addService(Service service) {
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        try {
+            session.save(service);
+            return true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean deleteService(int id) {
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+
+        try {
+            Service s = session.get(Service.class, id);
+            session.delete(s);
+            return true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean updateService(Service service) {
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        try {
+            session.update(service);
+            return true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return false;
+        }
     }
 }

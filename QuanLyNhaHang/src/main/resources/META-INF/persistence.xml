@@ -14,5 +14,6 @@
     <class>com.nhom13.pojo.Feedback</class>
     <class>com.nhom13.pojo.User_1</class>
     <class>com.nhom13.pojo.Menu_1</class>
+    <class>com.nhom13.pojo.ListService</class>
   </persistence-unit>
 </persistence>

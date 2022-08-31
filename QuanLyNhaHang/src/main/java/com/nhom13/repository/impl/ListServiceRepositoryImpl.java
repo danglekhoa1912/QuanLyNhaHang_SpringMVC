@@ -1,7 +1,7 @@
 package com.nhom13.repository.impl;
 
 import com.nhom13.pojo.*;
-import com.nhom13.repository.MenuRepository;
+import com.nhom13.repository.ListServiceRepository;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,33 +17,32 @@ import java.util.List;
 
 @Repository
 @Transactional
-public class MenuRepositoryImpl implements MenuRepository {
+public class ListServiceRepositoryImpl implements ListServiceRepository {
 
     @Autowired
     private LocalSessionFactoryBean sessionFactory;
 
     @Override
-    public int addMenu() {
+    public int addListService() {
         Session session = this.sessionFactory.getObject().getCurrentSession();
         try {
-            Menu menu=new Menu();
-            menu.setPrice(0);
-            int id= (int) session.save(menu);
+            ListService listService=new ListService();
+            listService.setPrice(0);
+            int id= (int) session.save(listService);
             return id;
         } catch (HibernateException ex) {
             System.out.println(ex.getMessage());
         }
-
         return -1;
     }
 
     @Override
-    public boolean deleteMenu(int id) {
+    public boolean deleteListService(int id) {
         Session session = this.sessionFactory.getObject().getCurrentSession();
 
         try {
-            Menu m = session.get(Menu.class, id);
-            session.delete(m);
+            ListService ls = session.get(ListService.class, id);
+            session.delete(ls);
             return true;
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -52,38 +51,37 @@ public class MenuRepositoryImpl implements MenuRepository {
     }
 
     @Override
-    public List<Dish> getListDish(int menuId) {
+    public List<Service> getListService(int id) {
         Session session = this.sessionFactory.getObject().getCurrentSession();
         CriteriaBuilder b = session.getCriteriaBuilder();
         CriteriaQuery<Object[]> q = b.createQuery(Object[].class);
 
-        Root rM = q.from(Menu.class);
-        Root rMD = q.from(MenuDish.class);
-        Root rD = q.from(Dish.class);
+        Root rLS = q.from(ListService.class);
+        Root rSD = q.from(ServicesDetail.class);
+        Root rS = q.from(Service.class);
 
         q.where(b.and(
                 b.and(
-                        b.equal(rM.get("id"),rMD.get("menuId")),
-                        b.equal(rD.get("id"),rMD.get("dishId"))
+                        b.equal(rLS.get("id"),rSD.get("listServiceId")),
+                        b.equal(rS.get("id"),rSD.get("serviceId"))
                 ),
-                b.equal(rM.get("id"),menuId)
+                b.equal(rLS.get("id"),id)
         ));
-        q.multiselect(rD);
+        q.multiselect(rS);
         Query query = session.createQuery(q);
         return query.getResultList();
     }
 
     @Override
-    public Menu getMenuById(int id) {
+    public ListService getById(int id) {
         Session session = this.sessionFactory.getObject().getCurrentSession();
         CriteriaBuilder b = session.getCriteriaBuilder();
-        CriteriaQuery<Menu> q = b.createQuery(Menu.class);
-        Root root = q.from(Menu.class);
+        CriteriaQuery<ListService> q = b.createQuery(ListService.class);
+        Root root = q.from(ListService.class);
         q.select(root);
         q.where(b.equal(root.get("id"), id));
 
         javax.persistence.Query query = session.createQuery(q);
-        return (Menu) query.getSingleResult();
+        return (ListService) query.getSingleResult();
     }
-
 }

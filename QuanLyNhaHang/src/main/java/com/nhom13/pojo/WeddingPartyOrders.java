@@ -4,6 +4,8 @@
  */
 package com.nhom13.pojo;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -29,19 +31,14 @@ import java.util.Date;
     @NamedQuery(name = "WeddingPartyOrders.findByNote", query = "SELECT w FROM WeddingPartyOrders w WHERE w.note = :note")})
 public class WeddingPartyOrders implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
-    private Integer id;
     @Basic(optional = false)
     @NotNull
     @Column(name = "order_date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
     private Date orderDate;
     @Basic(optional = false)
-    @NotNull
+    @NotNull()
     @Column(name = "amount")
     private int amount;
     @Basic(optional = false)
@@ -60,6 +57,15 @@ public class WeddingPartyOrders implements Serializable {
     @Size(max = 45)
     @Column(name = "note")
     private String note;
+    @JoinColumn(name = "list_service_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private ListService listServiceId;
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id")
+    private Integer id;
     @JoinColumn(name = "menu_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Menu menuId;
@@ -105,13 +111,6 @@ public class WeddingPartyOrders implements Serializable {
         this.orderDate = orderDate;
     }
 
-    public int getAmount() {
-        return amount;
-    }
-
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
 
     public boolean getPaymentStatus() {
         return paymentStatus;
@@ -137,13 +136,6 @@ public class WeddingPartyOrders implements Serializable {
         this.quantityTable = quantityTable;
     }
 
-    public String getNote() {
-        return note;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
-    }
 
     public Menu getMenuId() {
         return menuId;
@@ -200,6 +192,30 @@ public class WeddingPartyOrders implements Serializable {
     @Override
     public String toString() {
         return "com.nhom13.pojo.WeddingPartyOrders[ id=" + id + " ]";
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public ListService getListServiceId() {
+        return listServiceId;
+    }
+
+    public void setListServiceId(ListService listServiceId) {
+        this.listServiceId = listServiceId;
     }
     
 }
