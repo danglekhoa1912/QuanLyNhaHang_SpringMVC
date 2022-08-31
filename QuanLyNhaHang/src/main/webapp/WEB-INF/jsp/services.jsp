@@ -52,10 +52,3 @@
     </div>
 </div>
 
-<script src="<c:url value="/js/orderdish.js"/>"></script>
-
-<script>
-    window.onload=function (){
-        loadPage(`${enpoint}`,1,1,${pageSize},${count_dish_1})
-    }
-</script>

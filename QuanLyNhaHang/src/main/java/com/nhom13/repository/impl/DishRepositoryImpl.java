@@ -44,8 +44,6 @@ public class DishRepositoryImpl implements DishRepository {
         predicates.add(p);
 
         if (params != null) {
-
-
             //getByName
             String nameDish = params.get("nameDish");
             System.out.println(nameDish);
@@ -131,9 +129,9 @@ public class DishRepositoryImpl implements DishRepository {
 
         Root rD = q.from(Dish.class);
 //        Root rC = q.from(CategoryDish.class);
-        q.where(b.equal(rD.get("categoryId"),categoryId));
+        q.where(b.equal(rD.get("categoryId"), categoryId));
 //        q.where(b.and(b.equal(rD.get("categoryId"), rC.get("id")),b.equal(rC.get("id"),categoryId)));
-        q.select( b.count(rD.get("id")));
+        q.select(b.count(rD.get("id")));
 
         Query query = session.createQuery(q);
         return Integer.parseInt(query.getSingleResult().toString());

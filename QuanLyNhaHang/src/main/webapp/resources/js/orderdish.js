@@ -17,16 +17,16 @@ function loadPage(endpoint, categoryId, page, pagesize, count) {
                                         <p class="card-text">
                                                 ${dish.price},000 [VND]
                                         </p>
-                                        <div class="btn btn-block btn-secondary" id="btn${dish.id}"></div>                                        
                                     </div>
+                                    <div class="card-footer d-flex justify-content-center align-items-center" id="btn${dish.id}"></div>                                        
+
                                 </div>
                             </div>`
-            let btn=document.getElementById(`btn${dish.id}`);
-            if (t!==-1){
-                btn.innerHTML=`<button type="button" class="btn btn-block btn-secondary"  onclick="removeDish(\`${dish.id}\`,\`${dish.name}\`,\`${dish.price}\`)">Xóa</button>`
-            }
-            else {
-                btn.innerHTML=`<button type="button" class="btn btn-block btn-secondary" onClick="addDish(\`${dish.id}\`,\`${dish.name}\`,\`${dish.price}\`)">Thêm</button>`
+            let btn = document.getElementById(`btn${dish.id}`);
+            if (t !== -1) {
+                btn.innerHTML = `<button type="button" class="btn btn-primary"  onclick="removeDish(\`${dish.id}\`,\`${dish.name}\`,\`${dish.price}\`)">Xóa</button>`
+            } else {
+                btn.innerHTML = `<button type="button" class="btn btn-primary" onClick="addDish(\`${dish.id}\`,\`${dish.name}\`,\`${dish.price}\`)">Thêm</button>`
             }
         })
     })
@@ -39,19 +39,20 @@ function loadPage(endpoint, categoryId, page, pagesize, count) {
 }
 
 let listDish = [];
-let price_tol=0;
-let dish_tol=0;
+let price_tol = 0;
+let dish_tol = 0;
+
 function addDish(id, name, price) {
     let l = document.getElementById("listDish");
-    let btn=document.getElementById(`btn${id}`);
-    let total_price=document.getElementById("total_price");
-    let total_dish=document.getElementById("total_dish");
+    let btn = document.getElementById(`btn${id}`);
+    let total_price = document.getElementById("total_price");
+    let total_dish = document.getElementById("total_dish");
     dish_tol++;
-    price_tol+=parseInt(price);
-    total_price.innerHTML=price_tol.toString()+',000';
-    total_dish.innerHTML=dish_tol.toString();
-    if (btn!==null){
-        btn.innerHTML=`<button type="button" class="btn btn-block btn-secondary"  onclick="removeDish(\`${id}\`,\`${name}\`,\`${price}\`)">Xóa</button>`
+    price_tol += parseInt(price);
+    total_price.innerHTML = price_tol.toString() + ',000';
+    total_dish.innerHTML = dish_tol.toString();
+    if (btn !== null) {
+        btn.innerHTML = `<button type="button" class="btn btn-primary"  onclick="removeDish(\`${id}\`,\`${name}\`,\`${price}\`)">Xóa</button>`
     }
     let dish = {id, name, price};
     listDish.push(id);
@@ -70,16 +71,16 @@ function scrollToTop() {
     document.documentElement.scrollTop = 0;
 }
 
-function removeDish(index,name,price) {
-    let total_price=document.getElementById("total_price");
-    let total_dish=document.getElementById("total_dish");
+function removeDish(index, name, price) {
+    let total_price = document.getElementById("total_price");
+    let total_dish = document.getElementById("total_dish");
     dish_tol--;
-    price_tol-=parseInt(price);
-    total_price.innerHTML=price_tol.toString()+ ',000';
-    total_dish.innerHTML=dish_tol.toString();
-    listDish.splice(listDish.indexOf(index),1);
-    let child=document.getElementById(`dish_${index}`);
-    let btn=document.getElementById(`btn${index}`);
+    price_tol -= parseInt(price);
+    total_price.innerHTML = price_tol.toString() + ',000';
+    total_dish.innerHTML = dish_tol.toString();
+    listDish.splice(listDish.indexOf(index), 1);
+    let child = document.getElementById(`dish_${index}`);
+    let btn = document.getElementById(`btn${index}`);
     child.parentNode.removeChild(child);
-    btn.innerHTML=`<button type="button" class="btn btn-block btn-secondary" onClick="addDish(\`${index}\`,\`${name}\`,\`${price}\`)">Thêm</button>`
+    btn.innerHTML = `<button type="button" class="btn btn-primary" onClick="addDish(\`${index}\`,\`${name}\`,\`${price}\`)">Thêm</button>`
 }
