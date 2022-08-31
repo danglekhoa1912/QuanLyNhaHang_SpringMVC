@@ -7,6 +7,7 @@
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<script src="https://kit.fontawesome.com/84ef412b99.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="<c:url value="/css/order.css"/>" type="text/css">
 <script src="<c:url value="/js/order.js"/>"></script>
 <div class="py-5">
@@ -24,16 +25,6 @@
             <div class="col-md-12 order-md-1">
                 <h4 class="mb-3"><b>Thông tin đơn đặt</b></h4>
                 <form class="needs-validation" novalidate="" style="">
-                    <div class="row">
-                        <div class="col-md-6 mb-3"><label for="Name">Tên khách hàng</label>
-                            <input type="text" style="font-weight: bold" class="form-control" id="Name" placeholder="" value="" required="">
-                            <div class="invalid-feedback"> Valid first name is required.</div>
-                        </div>
-                        <div class="col-md-6 mb-3"><label for="mobile">Số điện thoại liên hệ</label>
-                            <input type="mobile" style="font-weight: bold" class="form-control" id="mobile" placeholder="" value="" required="">
-                            <div class="invalid-feedback"> Valid last name is required.</div>
-                        </div>
-                    </div>
                     <div class="row">
                         <div class="col-md-3 mb-3"><label for="country">Loại tiệc</label> <select style="font-weight: bold"
                                 class="custom-select d-block w-100" id="country" required="">
@@ -76,21 +67,64 @@
                             </div>
                         </div>
                     </div>
-                    <hr class="mb-4">
-
-                    <a class="btn btn-primary btn-lg btn-block" href="<c:url value="/services"/>">Continue to checkout</a>
                 </form>
             </div>
         </div>
+        <c:url var="enpoint" value="/api/dishes" />
+        <div class="py-5">
+            <div class="container">
+                <div class="row">
+                    <div class="text-center col-md-7 mx-auto">
+                        <h2 style="padding: 20px;">Lên thực đơn</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h3 class="d-flex justify-content-between mb-3"><span class="text-light"><b>Thực đơn</b></span>
+                                <span id="total_dish" class="badge badge-primary badge-pill">0</span></h3>
+                            <ul class="list-group" id="listDish" style="font-size: large;">
+                                <li class="list-group-item d-flex justify-content-between" style="color: white; "><span>Total (VND)</span> <b id="total_price"></b></li>
+                            </ul>
+                            <a class="btn btn-light btn-block btn-lg" href="<c:url value="/services"/>">Continue</a>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="col-md-auto-3 d-flex justify-content-center">
+                                <div class="btn-group btn-group-toggle d-flex" data-toggle="buttons">
+                                    <label class="btn btn-secondary active">
+                                        <input type="radio" name="options" id="option1"  onchange="loadPage(`${enpoint}`,1,1,${pageSize},${count_dish_1});" checked> Món khai
+                                        vị
+                                    </label>
+                                    <label class="btn btn-secondary">
+                                        <input type="radio" name="options" id="option2" onchange="loadPage(`${enpoint}`,2,1,${pageSize},${count_dish_2});"> Món chính
+                                    </label>
+                                    <label class="btn btn-secondary">
+                                        <input type="radio" name="options" id="option3" onchange="loadPage(`${enpoint}`,3,1,${pageSize},${count_dish_3});"> Món tráng miệng
+                                    </label>
+                                    <label class="btn btn-secondary">
+                                        <input type="radio" name="options" id="option4" onchange="loadPage(`${enpoint}`,4,1,${pageSize},${count_dish_4});"> Đồ uống
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="row" id="dish-total">
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <ul class="pagination" id="pagination">
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr class="mb-4">
+
+            <a class="btn btn-primary btn-lg btn-block" href="<c:url value="/services"/>">Continue to checkout</a>
+        </div>
     </div>
 </div>
-<%--<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>--%>
-<%--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"--%>
-<%--        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"--%>
-<%--        crossorigin="anonymous"></script>--%>
-<%--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"--%>
-<%--        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"--%>
-<%--        crossorigin="anonymous"></script>--%>
 <style>
     input, select{
         color: #0d0d0d;
@@ -100,5 +134,12 @@
         font-weight: bold;
     }
 </style>
+<script src="<c:url value="/js/orderdish.js"/>"></script>
+
+<script>
+    window.onload=function (){
+        loadPage(`${enpoint}`,1,1,${pageSize},${count_dish_1})
+    }
+</script>
 
 

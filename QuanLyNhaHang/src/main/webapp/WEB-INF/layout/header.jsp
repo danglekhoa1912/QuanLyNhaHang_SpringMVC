@@ -16,10 +16,6 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
             <span class="navbar-toggler-icon"></span>
         </button>
-
-        <%--            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"--%>
-        <%--                    data-target="#navbar3SupportedContent" aria-controls="navbar3SupportedContent" aria-expanded="false"--%>
-        <%--                    aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>--%>
         <div class="collapse navbar-collapse " id="mynavbar">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item mx-2">
