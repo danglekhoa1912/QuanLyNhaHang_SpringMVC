@@ -78,7 +78,7 @@ public class IndexController {
         int page = Integer.parseInt(params.getOrDefault("page", "1"));
         String categoryId = params.getOrDefault("categoryId", "1");
         model.addAttribute("dishes", this.dishService.getDishes(params, categoryId, page));
-        model.addAttribute("services", this.serviceResService.getServicesRes(params, page));
+        model.addAttribute("service",this.serviceResService.getServicesRes(params,page));
         model.addAttribute("weddingHall", this.weddingHallService.getWeddingHalls(params, page));
         model.addAttribute("categoryDish", this.categoryDishService.getCategoryDish());
         model.addAttribute("dishCount", this.dishService.countDish());
@@ -88,19 +88,6 @@ public class IndexController {
         model.addAttribute("count_dish_3", this.dishService.countDishByCate(3));
         model.addAttribute("count_dish_4", this.dishService.countDishByCate(4));
         return "order";
-    }
-
-    @RequestMapping("/services")
-    public String services(Model model, @RequestParam Map<String, String> params) {
-        int page = Integer.parseInt(params.getOrDefault("page", "1"));
-        String categoryId = params.getOrDefault("categoryId", "1");
-
-        model.addAttribute("services", this.serviceResService.getServicesRes(params, page));
-        model.addAttribute("weddingHall", this.weddingHallService.getWeddingHalls(params, page));
-        model.addAttribute("categoryDish", this.categoryDishService.getCategoryDish());
-        model.addAttribute("dishCount", this.dishService.countDish());
-        model.addAttribute("pageSize", env.getProperty("page.size"));
-        return "services";
     }
 
     @RequestMapping("/receipt")
