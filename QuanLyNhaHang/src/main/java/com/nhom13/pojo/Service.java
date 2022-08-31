@@ -4,6 +4,8 @@
  */
 package com.nhom13.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -27,19 +29,13 @@ import java.util.Set;
     @NamedQuery(name = "Service.findByImage", query = "SELECT s FROM Service s WHERE s.image = :image")})
 public class Service implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
-    private Integer id;
     @Basic(optional = false)
     @NotNull
     @Column(name = "price")
-    private float price;
+    private Integer price;
     @Lob
     @Size(max = 65535)
-    @Column(name = "describe")
+    @Column(name = "service_describe")
     private String describe;
     @Basic(optional = false)
     @NotNull
@@ -51,6 +47,14 @@ public class Service implements Serializable {
     @Size(min = 1, max = 150)
     @Column(name = "image")
     private String image;
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id")
+    private Integer id;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "serviceId")
     private Set<ServicesDetail> servicesDetailSet;
 
@@ -61,7 +65,7 @@ public class Service implements Serializable {
         this.id = id;
     }
 
-    public Service(Integer id, float price, String name, String image) {
+    public Service(Integer id, Integer price, String name, String image) {
         this.id = id;
         this.price = price;
         this.name = name;
@@ -76,37 +80,6 @@ public class Service implements Serializable {
         this.id = id;
     }
 
-    public float getPrice() {
-        return price;
-    }
-
-    public void setPrice(float price) {
-        this.price = price;
-    }
-
-    public String getDescribe() {
-        return describe;
-    }
-
-    public void setDescribe(String describe) {
-        this.describe = describe;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
 
     @XmlTransient
     public Set<ServicesDetail> getServicesDetailSet() {
@@ -140,6 +113,38 @@ public class Service implements Serializable {
     @Override
     public String toString() {
         return "com.nhom13.pojo.Service[ id=" + id + " ]";
+    }
+
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
+
+    public String getDescribe() {
+        return describe;
+    }
+
+    public void setDescribe(String describe) {
+        this.describe = describe;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
     
 }

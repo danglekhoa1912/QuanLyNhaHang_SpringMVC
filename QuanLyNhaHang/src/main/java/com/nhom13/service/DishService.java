@@ -9,6 +9,8 @@ public interface DishService {
     List<Dish> getDishes(Map<String,String> params,String categoryId, int page);
     Dish getDishById(int id);
     boolean addDish(Dish dish);
+    boolean deleteDish(int id);
+    boolean updateDish(Dish dish);
     public int countDish();
     int countDishByCate(int categoryId);
 }

@@ -4,9 +4,19 @@
  */
 package com.nhom13.pojo;
 
-import javax.persistence.*;
-import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -26,12 +36,12 @@ public class ServicesDetail implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    @JoinColumn(name = "list_service_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private ListService listServiceId;
     @JoinColumn(name = "service_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Service serviceId;
-    @JoinColumn(name = "wpo_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private WeddingPartyOrders wpoId;
 
     public ServicesDetail() {
     }
@@ -48,20 +58,20 @@ public class ServicesDetail implements Serializable {
         this.id = id;
     }
 
+    public ListService getListServiceId() {
+        return listServiceId;
+    }
+
+    public void setListServiceId(ListService listServiceId) {
+        this.listServiceId = listServiceId;
+    }
+
     public Service getServiceId() {
         return serviceId;
     }
 
     public void setServiceId(Service serviceId) {
         this.serviceId = serviceId;
-    }
-
-    public WeddingPartyOrders getWpoId() {
-        return wpoId;
-    }
-
-    public void setWpoId(WeddingPartyOrders wpoId) {
-        this.wpoId = wpoId;
     }
 
     @Override

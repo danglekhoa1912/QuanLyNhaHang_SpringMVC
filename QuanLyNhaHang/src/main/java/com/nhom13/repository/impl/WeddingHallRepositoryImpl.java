@@ -1,5 +1,7 @@
 package com.nhom13.repository.impl;
 
+import com.nhom13.pojo.Service;
+import com.nhom13.pojo.User;
 import com.nhom13.pojo.WeddingHall;
 import com.nhom13.repository.WeddingHallRepository;
 import org.hibernate.Session;
@@ -68,5 +70,56 @@ public class WeddingHallRepositoryImpl implements WeddingHallRepository {
         }
 
         return query.getResultList();
+    }
+
+    @Override
+    public WeddingHall getWeddingHallById(int id) {
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        CriteriaBuilder b = session.getCriteriaBuilder();
+        CriteriaQuery<WeddingHall> q = b.createQuery(WeddingHall.class);
+        Root root = q.from(WeddingHall.class);
+        q.select(root);
+        q.where(b.equal(root.get("id"), id));
+
+        javax.persistence.Query query = session.createQuery(q);
+        return (WeddingHall) query.getSingleResult();
+    }
+
+    @Override
+    public boolean addWeddingHall(WeddingHall weddingHall) {
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        try {
+            session.save(weddingHall);
+            return true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean deleteWeddingHall(int id) {
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+
+        try {
+            WeddingHall w = session.get(WeddingHall.class, id);
+            session.delete(w);
+            return true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean updateWeddingHall(WeddingHall weddingHall) {
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        try {
+            session.update(weddingHall);
+            return true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return false;
+        }
     }
 }

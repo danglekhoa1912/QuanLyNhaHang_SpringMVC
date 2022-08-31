@@ -90,6 +90,32 @@ public class DishRepositoryImpl implements DishRepository {
     }
 
     @Override
+    public boolean deleteDish(int id) {
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+
+        try {
+            Dish p = session.get(Dish.class, id);
+            session.delete(p);
+            return true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean updateDish(Dish dish) {
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        try {
+            session.update(dish);
+            return true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
     public int countDish() {
         Session session = this.sessionFactory.getObject().getCurrentSession();
         Query q = session.createQuery("SELECT COUNT(*) FROM Dish ");

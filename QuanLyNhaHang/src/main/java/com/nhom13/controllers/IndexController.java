@@ -4,12 +4,11 @@
  */
 package com.nhom13.controllers;
 
+import com.nhom13.pojo.User;
+import com.nhom13.pojo.WeddingPartyOrders;
 import com.nhom13.repository.DishRepository;
 import com.nhom13.repository.ServiceResRepository;
-import com.nhom13.service.CategoryDishService;
-import com.nhom13.service.DishService;
-import com.nhom13.service.ServiceResService;
-import com.nhom13.service.WeddingHallService;
+import com.nhom13.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
@@ -19,6 +18,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -39,16 +40,15 @@ public class IndexController {
     @Autowired
     private ServiceResService serviceResService;
     @Autowired
+    private MenuService menuService;
+    @Autowired
+    private OrderService orderService;
+    @Autowired
     private Environment env;
 
-    @RequestMapping("/")
-    public String index(Model model, @RequestParam Map<String, String> params) {
-
-        return "index";
-    }
-
     @RequestMapping("/order")
-    public String login(Model model, @RequestParam Map<String, String> params) {
+    public String login(Model model, @RequestParam Map<String, String> params, HttpSession session) {
+
         int page = Integer.parseInt(params.getOrDefault("page", "1"));
         String categoryId = params.getOrDefault("categoryId", "1");
         model.addAttribute("dishes", this.dishService.getDishes(params, categoryId, page));
@@ -76,5 +76,22 @@ public class IndexController {
         model.addAttribute("dishCount", this.dishService.countDish());
         model.addAttribute("pageSize", env.getProperty("page.size"));
         return "services";
+    }
+
+    @RequestMapping("/receipt")
+    public String createOrder(Model model, @RequestParam Map<String, String> params, HttpSession session) {
+
+//        User user = (User) session.getAttribute("currentUser");
+//        int userId=user.getId();
+//        int menuId= 1;
+//        int listServiceId= 1;
+//        int weddinghallId= 1;
+//        int priceWeddingId= 1;
+//        Date orderDate=new Date();
+//        int amount= 50000;
+//        String typePay="Momo";
+//        int quantityTable=300;
+//        WeddingPartyOrders order= orderService.addOrder(userId,menuId,listServiceId,weddinghallId,priceWeddingId,orderDate,amount,typePay,quantityTable);
+        return "order";
     }
 }

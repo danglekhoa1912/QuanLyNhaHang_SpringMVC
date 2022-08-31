@@ -7,4 +7,6 @@ public interface UserRepository {
      User getUserByEmail(String email);
      boolean checkEmail(String email);
      boolean checkNumberPhone(String phone);
+     User getUserById(int id);
+     boolean updateUser(User user);
 }
