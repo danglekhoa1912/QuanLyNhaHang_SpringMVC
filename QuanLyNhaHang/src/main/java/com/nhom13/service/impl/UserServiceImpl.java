@@ -33,12 +33,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean addUser(User user) {
-        String pass= user.getPassword();
+        String pass = user.getPassword();
         user.setPassword(this.passwordEncoder.encode(pass));
         user.setRole(User.USER);
         try {
 
-            Map res=this.cloudinary.uploader().upload(user.getImg().getBytes(),
+            Map res = this.cloudinary.uploader().upload(user.getImg().getBytes(),
                     ObjectUtils.asMap("resource_type", "auto"));
             user.setAvatar(res.get("secure_url").toString());
             return this.userRepository.addUser(user);
@@ -47,6 +47,15 @@ public class UserServiceImpl implements UserService {
             return false;
         }
 //        return this.userRepository.addUser(user);
+    }
+
+    @Override
+    public boolean addStaff(User user) {
+        String pass = user.getPassword();
+        user.setPassword(this.passwordEncoder.encode(pass));
+        user.setRole(User.STAFF);
+        user.setAvatar("https://res.cloudinary.com/dzznkotwg/image/upload/v1661884402/steward_x1cr5h.png");
+        return this.userRepository.addUser(user);
     }
 
     @Override
@@ -62,6 +71,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean checkNumberPhone(String phone) {
         return this.userRepository.checkNumberPhone(phone);
+    }
+
+    @Override
+    public User getUserById(int id) {
+        return this.userRepository.getUserById(id);
+    }
+
+    @Override
+    public boolean updateUser(User user) {
+        return this.userRepository.updateUser(user);
     }
 
 

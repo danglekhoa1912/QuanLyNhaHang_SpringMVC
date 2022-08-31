@@ -6,11 +6,13 @@ package com.nhom13.configs;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import com.nhom13.formatter.*;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
@@ -110,4 +112,15 @@ public class WebAppContextConfig implements WebMvcConfigurer {
         return cloudinary;
     }
 
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        registry.addFormatter(new CategoryDishFormatter());
+        registry.addFormatter(new DishFormatter());
+        registry.addFormatter(new ListServiceFormatter());
+        registry.addFormatter(new MenuFormatter());
+        registry.addFormatter(new PriceWeddingTimeFormatter());
+        registry.addFormatter(new ServiceFormatter());
+        registry.addFormatter(new UserFormatter());
+        registry.addFormatter(new WeddingHallFormatter());
+    }
 }

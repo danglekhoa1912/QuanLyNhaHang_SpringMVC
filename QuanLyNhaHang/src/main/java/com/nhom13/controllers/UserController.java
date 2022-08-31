@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Map;
 
 @Controller
 @ControllerAdvice
@@ -31,6 +32,12 @@ public class UserController {
     @InitBinder
     public void initBinder(WebDataBinder binder){
         binder.setValidator(this.userValidator);
+    }
+
+    @RequestMapping("/")
+    public String index(Model model, @RequestParam Map<String, String> params) {
+//        model.addAttribute("listDish",menuService.getListDish(1));
+        return "index";
     }
 
     @RequestMapping("/login")

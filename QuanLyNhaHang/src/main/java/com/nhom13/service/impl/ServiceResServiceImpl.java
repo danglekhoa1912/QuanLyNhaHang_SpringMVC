@@ -17,4 +17,19 @@ public class ServiceResServiceImpl implements ServiceResService {
     public List<Service> getServicesRes(Map<String, String> params, int page) {
         return this.serviceResRepository.getServicesRes(params,page);
     }
+
+    @Override
+    public boolean addService(Service service) {
+        return this.serviceResRepository.addService(service);
+    }
+
+    @Override
+    public boolean deleteService(int id) {
+        return this.serviceResRepository.deleteService(id);
+    }
+
+    @Override
+    public boolean updateService(Service service) {
+        return this.serviceResRepository.updateService(service);
+    }
 }

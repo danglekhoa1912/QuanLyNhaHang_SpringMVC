@@ -30,6 +30,16 @@ public class DishServiceImpl implements DishService {
     }
 
     @Override
+    public boolean deleteDish(int id) {
+        return this.dishRepository.deleteDish(id);
+    }
+
+    @Override
+    public boolean updateDish(Dish dish) {
+        return this.dishRepository.updateDish(dish);
+    }
+
+    @Override
     public int countDish() {
         return this.dishRepository.countDish();
     }
