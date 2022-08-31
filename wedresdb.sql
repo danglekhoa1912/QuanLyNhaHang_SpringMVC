@@ -109,7 +109,7 @@ CREATE TABLE `list_service` (
   `describe` varchar(45) DEFAULT NULL,
   `price` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -118,6 +118,7 @@ CREATE TABLE `list_service` (
 
 LOCK TABLES `list_service` WRITE;
 /*!40000 ALTER TABLE `list_service` DISABLE KEYS */;
+INSERT INTO `list_service` VALUES (1,NULL,100);
 /*!40000 ALTER TABLE `list_service` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -130,7 +131,7 @@ DROP TABLE IF EXISTS `menu`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `menu` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `describe` varchar(45) DEFAULT NULL,
+  `menu_describe` varchar(45) DEFAULT NULL,
   `price` int NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -142,7 +143,7 @@ CREATE TABLE `menu` (
 
 LOCK TABLES `menu` WRITE;
 /*!40000 ALTER TABLE `menu` DISABLE KEYS */;
-INSERT INTO `menu` VALUES (1,NULL,1000);
+INSERT INTO `menu` VALUES (1,NULL,200);
 /*!40000 ALTER TABLE `menu` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -162,7 +163,7 @@ CREATE TABLE `menu_dish` (
   KEY `fk_dish_id_idx` (`dish_id`),
   CONSTRAINT `fk_dish_id` FOREIGN KEY (`dish_id`) REFERENCES `dish` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `fk_menu` FOREIGN KEY (`menu_id`) REFERENCES `menu` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -171,7 +172,7 @@ CREATE TABLE `menu_dish` (
 
 LOCK TABLES `menu_dish` WRITE;
 /*!40000 ALTER TABLE `menu_dish` DISABLE KEYS */;
-INSERT INTO `menu_dish` VALUES (7,1,2),(8,1,3),(9,1,4),(10,1,1),(11,1,8);
+INSERT INTO `menu_dish` VALUES (26,1,2),(27,1,3);
 /*!40000 ALTER TABLE `menu_dish` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -209,8 +210,8 @@ DROP TABLE IF EXISTS `service`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `service` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `price` float NOT NULL,
-  `describe` text,
+  `price` int NOT NULL,
+  `service_describe` text,
   `name` varchar(45) NOT NULL,
   `image` varchar(150) NOT NULL,
   PRIMARY KEY (`id`),
@@ -244,7 +245,7 @@ CREATE TABLE `services_detail` (
   KEY `fk_list_service_id_idx` (`list_service_id`),
   CONSTRAINT `fk_list_service_id` FOREIGN KEY (`list_service_id`) REFERENCES `list_service` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_service_id` FOREIGN KEY (`service_id`) REFERENCES `service` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -253,6 +254,7 @@ CREATE TABLE `services_detail` (
 
 LOCK TABLES `services_detail` WRITE;
 /*!40000 ALTER TABLE `services_detail` DISABLE KEYS */;
+INSERT INTO `services_detail` VALUES (1,2,1),(2,3,1);
 /*!40000 ALTER TABLE `services_detail` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -336,6 +338,8 @@ CREATE TABLE `wedding_party_orders` (
   `note` varchar(45) DEFAULT NULL,
   `list_service_id` int NOT NULL,
   PRIMARY KEY (`id`),
+  UNIQUE KEY `menu_id_UNIQUE` (`menu_id`),
+  UNIQUE KEY `list_service_id_UNIQUE` (`list_service_id`),
   KEY `fk_user_id_idx` (`user_id`),
   KEY `fk_menu_id_idx` (`menu_id`),
   KEY `fk_pwt_id_idx` (`pwt_id`),
@@ -346,7 +350,7 @@ CREATE TABLE `wedding_party_orders` (
   CONSTRAINT `fk_pwt_id` FOREIGN KEY (`pwt_id`) REFERENCES `price_wedding_time` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_wh_id` FOREIGN KEY (`wh_id`) REFERENCES `wedding_hall` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -367,4 +371,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-08-29 18:49:42
+-- Dump completed on 2022-08-31 15:10:52
