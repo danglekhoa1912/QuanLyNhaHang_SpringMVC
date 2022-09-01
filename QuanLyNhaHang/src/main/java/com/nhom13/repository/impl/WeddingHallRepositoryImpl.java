@@ -47,6 +47,11 @@ public class WeddingHallRepositoryImpl implements WeddingHallRepository {
                 Predicate p=b.equal(root.get("capacity"),Integer.parseInt(capacity));
                 predicates.add(p);
             }
+            String name=params.get("name");
+            if (name!=null){
+                Predicate p=b.or(b.like(root.get("name").as(String.class), "%" + name.trim() + "%"));
+                predicates.add(p);
+            }
             String fromPrice=params.get("fromPrice");
             if(fromPrice!=null){
                 Predicate p=b.greaterThanOrEqualTo(root.get("price"),Integer.parseInt(fromPrice));
