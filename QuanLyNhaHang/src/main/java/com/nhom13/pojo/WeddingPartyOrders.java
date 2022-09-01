@@ -4,6 +4,7 @@
  */
 package com.nhom13.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -72,6 +73,7 @@ public class WeddingPartyOrders implements Serializable {
     @JoinColumn(name = "pwt_id", referencedColumnName = "id")
     @ManyToOne
     private PriceWeddingTime pwtId;
+    @JsonIgnore
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private User userId;

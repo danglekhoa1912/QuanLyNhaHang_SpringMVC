@@ -4,6 +4,8 @@
  */
 package com.nhom13.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -42,6 +44,7 @@ public class PriceWeddingTime implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "pwtId")
     private Set<WeddingPartyOrders> weddingPartyOrdersSet;
 

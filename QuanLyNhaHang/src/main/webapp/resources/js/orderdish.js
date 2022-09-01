@@ -1,3 +1,9 @@
+let listDish = [];
+let price_tol = 0;
+let dish_tol = 0;
+let listService=[];
+let HallId=0;
+
 function loadPage(endpoint, categoryId, page, pagesize, count) {
     fetch(endpoint + `?categoryId=${categoryId}&page=${page}`).then(function (response) {
         return response.json();
@@ -25,7 +31,7 @@ function loadPage(endpoint, categoryId, page, pagesize, count) {
             if (t !== -1) {
                 btn.innerHTML = `<button type="button" class="btn btn-secondary"  onclick="removeDish(\`${dish.id}\`,\`${dish.name}\`,\`${dish.price}\`)">Xóa</button>`
             } else {
-                btn.innerHTML = `<button type="button" class="btn btn-secondary" onClick="addDish(\`${dish.id}\`,\`${dish.name}\`,\`${dish.price}\`)">Thêm</button>`
+                btn.innerHTML = `<button type="button" class="btn btn-secondary" onClick="addDish(${dish.id},\`${dish.name}\`,\`${dish.price}\`)">Thêm</button>`
             }
         })
     })
@@ -37,10 +43,18 @@ function loadPage(endpoint, categoryId, page, pagesize, count) {
     }
 }
 
-let listDish = [];
-let price_tol = 0;
-let dish_tol = 0;
-let listService=[];
+function weddingHall(id,name, describe, capacity,price,image){
+    HallId=id
+    let w=document.getElementById("wedding-hall");
+    w.innerHTML=`<h3 id="hall-name">${name}</h3>
+                 <p class="hall-describe">${describe}</p>
+                 <p>Sức chứa:${capacity} - Giá: ${price} ,000 [VNĐ] </p>
+                 <button type=button class="btn btn-primary" data-bs-toggle="modal"
+                       data-bs-target="#exampleModal">Chọn sảnh khác
+                 </button>`
+    let img=document.getElementById("image-wd");
+    img.src=image;
+}
 
 function addDish(id, name, price) {
     let l = document.getElementById("listDish");
@@ -122,4 +136,34 @@ function addService(id){
     let msg=document.getElementById(`div-${id}`);
     msg.style.border='3px groove #ee2020';
     d.onclick=function (){removeService(id);}
+}
+
+function createOrder(){
+
+    var date=document.getElementById("date").value;
+    var select=document.getElementById("type_day")
+    var session = select.options[select.selectedIndex].value;
+    var table=document.getElementById("countTable").value;
+
+ fetch("/QuanLyNhaHang/api/receipt",{
+     method:"post",
+     headers: {
+         "Content-Type": "application/json"
+     },
+     body:JSON.stringify({
+        menu : listDish,
+        listService : listService,
+        weddinghallId : HallId,
+        priceWeddingId : session,
+        orderDate : date,
+        amount : 50000,
+        typePay :"Momo",
+        quantityTable: table
+     })
+ }).then(function (res) {
+     console.info(res);
+     return res.json();
+ }).then(function (data) {
+     console.info(data);
+ }).catch(error => (console.log(error)));
 }

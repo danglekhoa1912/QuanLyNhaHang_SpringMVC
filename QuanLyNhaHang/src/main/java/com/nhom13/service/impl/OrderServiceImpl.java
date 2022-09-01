@@ -28,7 +28,7 @@ public class OrderServiceImpl implements OrderService {
     private ListServiceRepository listServiceRepository;
 
     @Override
-    public WeddingPartyOrders addOrder(int userId, int menuId, int listServiceId, int weddinghallId, int priceWeddingId, Date orderDate,int amount,String typePay,int quantityTable) {
+    public WeddingPartyOrders addOrder(int userId, List<Integer> menu,  List<Integer>  listService, int weddinghallId, int priceWeddingId, Date orderDate,int amount,String typePay,int quantityTable) {
 
         WeddingPartyOrders order=new WeddingPartyOrders();
         order.setUserId(this.userRepository.getUserById(userId));
@@ -39,8 +39,8 @@ public class OrderServiceImpl implements OrderService {
         order.setTypePay(typePay);
         order.setQuantityTable(quantityTable);
         order.setPaymentStatus(false);
-        order.setMenuId(menuRepository.getMenuById(menuId));
-        order.setListServiceId(this.listServiceRepository.getById(listServiceId));
+        order.setMenuId(this.menuRepository.addMenu(menu));
+        order.setListServiceId(this.listServiceRepository.addListService(listService));
         return this.orderRepository.addOrder(order);
     }
 
