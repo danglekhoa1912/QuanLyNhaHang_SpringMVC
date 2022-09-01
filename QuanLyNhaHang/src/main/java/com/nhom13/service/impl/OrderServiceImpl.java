@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -41,5 +42,15 @@ public class OrderServiceImpl implements OrderService {
         order.setMenuId(menuRepository.getMenuById(menuId));
         order.setListServiceId(this.listServiceRepository.getById(listServiceId));
         return this.orderRepository.addOrder(order);
+    }
+
+    @Override
+    public List<WeddingPartyOrders> getOrder() {
+        return this.orderRepository.getOrder();
+    }
+
+    @Override
+    public List<WeddingPartyOrders> getOrderByUser(int id) {
+        return this.orderRepository.getOrderByUser(id);
     }
 }
