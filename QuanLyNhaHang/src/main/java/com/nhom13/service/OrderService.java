@@ -4,7 +4,10 @@ import com.nhom13.pojo.User;
 import com.nhom13.pojo.WeddingPartyOrders;
 
 import java.util.Date;
+import java.util.List;
 
 public interface OrderService {
     WeddingPartyOrders addOrder(int userId, int menuId, int listServiceId, int weddinghallId, int priceWeddingId, Date orderDate, int amount, String typePay, int quantityTable);
+    List<WeddingPartyOrders> getOrder();
+    List<WeddingPartyOrders> getOrderByUser(int id);
 }
