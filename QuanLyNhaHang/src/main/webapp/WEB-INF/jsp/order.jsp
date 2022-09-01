@@ -33,10 +33,9 @@
                 <div class="col-md-3 mb-3"><label for="type_day"><spring:message key="order.book.time"/></label> <select
                         style="font-weight: bold"
                         class="custom-select d-block w-100" id="type_day" required="">
-                    <option value=""><spring:message key="order.book.choose"/></option>
-                    <option value="wedding"><spring:message key="order.type.day.1"/></option>
-                    <option value="conference"><spring:message key="order.type.day.2"/></option>
-                    <option value="event"><spring:message key="order.type.day.3"/></option>
+                    <c:forEach items="${session}" var="s" >
+                        <option value="${s.id}">${s.session}</option>
+                    </c:forEach>
                 </select>
                 </div>
                 <div class="col-md-3 mb-3"><label for="countTable"><spring:message key="order.book.count"/></label>
@@ -140,7 +139,7 @@
 
             </div>
             <hr class="mb-4">
-            <a class="btn btn-primary btn-lg btn-block" href="<c:url value="#"/>"><spring:message key="order.continue"/></a>
+            <a  class="btn btn-primary btn-lg btn-block" href="<c:url value="#"/>"><spring:message key="order.continue"/></a>
         </div>
     </div>
 </div>
@@ -161,10 +160,15 @@
                             <h5 class="card-title">${w.name}</h5>
                             <p class="card-text">${w.describe}</p>
                             <p class="card-text">`<spring:message key="order.hall.capacity"/> ${w.capacity} <spring:message key="order.hall.price"/> ${w.price} 000 [VNĐ]`</p>
-                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
-                                    onclick="weddingHall(`${w.name}`,`${w.describe}`,${w.capacity},${w.price},`${w.image}`);">
-                                <spring:message key="order.choose.hall"/>
-                            </button>
+                            <c:if test="${w.status!=null}">
+                                <p class="badge bg-danger"><spring:message key="weddinghall.status" /></p>
+                            </c:if>
+                            <c:if test="${w.status==null}">
+                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                                        onclick="weddingHall(${w.id},`${w.name}`,`${w.describe}`,${w.capacity},${w.price},`${w.image}`);">
+                                    <spring:message key="order.choose.hall"/>
+                                </button>
+                            </c:if>
                         </div>
                     </div>
                 </c:forEach>

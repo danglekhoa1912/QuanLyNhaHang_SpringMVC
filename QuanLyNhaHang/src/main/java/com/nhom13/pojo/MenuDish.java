@@ -4,6 +4,8 @@
  */
 package com.nhom13.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
@@ -26,10 +28,12 @@ public class MenuDish implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    @JsonIgnore
     @JoinColumn(name = "dish_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Dish dishId;
     @JoinColumn(name = "menu_id", referencedColumnName = "id")
+    @JsonIgnore
     @ManyToOne(optional = false)
     private Menu menuId;
 

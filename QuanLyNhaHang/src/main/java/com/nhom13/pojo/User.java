@@ -73,6 +73,7 @@ public class User implements Serializable {
     public static final String USER="ROLE_USER";
     public static final String STAFF="ROLE_STAFF";
 
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
     private Set<Feedback> feedbackSet;
 
@@ -86,6 +87,7 @@ public class User implements Serializable {
     @Column(name = "email")
     private String email;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
+    @JsonIgnore
     private Set<WeddingPartyOrders> weddingPartyOrdersSet;
 
     @Transient
