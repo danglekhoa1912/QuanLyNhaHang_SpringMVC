@@ -16,8 +16,8 @@ public class MenuServiceImpl implements MenuService {
     private MenuRepository menuRepository;
 
     @Override
-    public int addMenu() {
-        return this.menuRepository.addMenu();
+    public Menu addMenu(List<Integer> dish) {
+        return this.menuRepository.addMenu(dish);
     }
 
     @Override

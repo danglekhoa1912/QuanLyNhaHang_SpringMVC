@@ -4,6 +4,8 @@
  */
 package com.nhom13.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Basic;
@@ -32,13 +34,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "ListService.findAll", query = "SELECT l FROM ListService l"),
     @NamedQuery(name = "ListService.findById", query = "SELECT l FROM ListService l WHERE l.id = :id"),
-    @NamedQuery(name = "ListService.findByDescribe", query = "SELECT l FROM ListService l WHERE l.describe = :describe"),
     @NamedQuery(name = "ListService.findByPrice", query = "SELECT l FROM ListService l WHERE l.price = :price")})
 public class ListService implements Serializable {
-
-    @Size(max = 45)
-    @Column(name = "describe")
-    private String describe;
     @Basic(optional = false)
     @NotNull
     @Column(name = "price")
@@ -50,8 +47,10 @@ public class ListService implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "listServiceId")
     private Set<ServicesDetail> servicesDetailSet;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "listServiceId")
     private Set<WeddingPartyOrders> weddingPartyOrdersSet;
 
@@ -117,14 +116,6 @@ public class ListService implements Serializable {
     @Override
     public String toString() {
         return "com.nhom13.pojo.ListService[ id=" + id + " ]";
-    }
-
-    public String getDescribe() {
-        return describe;
-    }
-
-    public void setDescribe(String describe) {
-        this.describe = describe;
     }
 
     public int getPrice() {

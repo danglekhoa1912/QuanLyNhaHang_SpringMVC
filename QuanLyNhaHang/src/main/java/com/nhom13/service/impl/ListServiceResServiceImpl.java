@@ -16,8 +16,8 @@ public class ListServiceResServiceImpl implements ListServiceResService {
     ListServiceRepository listServiceRepository;
 
     @Override
-    public int addListService() {
-        return this.listServiceRepository.addListService();
+    public ListService addListService(List<Integer> services) {
+        return this.listServiceRepository.addListService(services);
     }
 
     @Override

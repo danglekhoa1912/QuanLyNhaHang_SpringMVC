@@ -1,6 +1,7 @@
 package com.nhom13.repository.impl;
 
 import com.nhom13.pojo.*;
+import com.nhom13.repository.MenuDishRepository;
 import com.nhom13.repository.MenuRepository;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -20,21 +21,25 @@ import java.util.List;
 public class MenuRepositoryImpl implements MenuRepository {
 
     @Autowired
+    private MenuDishRepository menuDishRepository;
+
+    @Autowired
     private LocalSessionFactoryBean sessionFactory;
 
     @Override
-    public int addMenu() {
+    public Menu addMenu(List<Integer> dish) {
         Session session = this.sessionFactory.getObject().getCurrentSession();
         try {
             Menu menu=new Menu();
             menu.setPrice(0);
             int id= (int) session.save(menu);
-            return id;
+            menuDishRepository.addDishToMenu(id,dish);
+            return menu;
         } catch (HibernateException ex) {
             System.out.println(ex.getMessage());
         }
 
-        return -1;
+        return null;
     }
 
     @Override

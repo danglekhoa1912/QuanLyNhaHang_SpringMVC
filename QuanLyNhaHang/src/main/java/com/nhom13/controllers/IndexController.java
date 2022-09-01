@@ -10,7 +10,6 @@ import com.nhom13.repository.DishRepository;
 import com.nhom13.repository.ServiceResRepository;
 import com.nhom13.service.*;
 import com.nhom13.validator.UpdateUserValidation;
-import com.nhom13.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
@@ -53,15 +52,9 @@ public class IndexController {
     private OrderService orderService;
     @Autowired
     private UserService userService;
-
     @Autowired
-    private UpdateUserValidation updateUserValidation;
+    private PriceWeddingTimeService priceWeddingTimeService;
 
-
-    @InitBinder
-    public void initBinder(WebDataBinder binder) {
-        binder.setValidator(this.updateUserValidation);
-    }
 
     @Autowired
     private Environment env;
@@ -94,6 +87,7 @@ public class IndexController {
         model.addAttribute("count_dish_2", this.dishService.countDishByCate(2));
         model.addAttribute("count_dish_3", this.dishService.countDishByCate(3));
         model.addAttribute("count_dish_4", this.dishService.countDishByCate(4));
+        model.addAttribute("session",this.priceWeddingTimeService.getAllPriceWedding());
         return "order";
     }
 

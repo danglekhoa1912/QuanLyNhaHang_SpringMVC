@@ -4,6 +4,8 @@
  */
 package com.nhom13.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -62,6 +64,7 @@ public class WeddingHall implements Serializable {
     @Column(name = "id")
     private Integer id;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "whId")
+    @JsonIgnore
     private Set<WeddingPartyOrders> weddingPartyOrdersSet;
 
     public WeddingHall() {

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -27,7 +28,7 @@ public class OrderServiceImpl implements OrderService {
     private ListServiceRepository listServiceRepository;
 
     @Override
-    public WeddingPartyOrders addOrder(int userId, int menuId, int listServiceId, int weddinghallId, int priceWeddingId, Date orderDate,int amount,String typePay,int quantityTable) {
+    public WeddingPartyOrders addOrder(int userId, List<Integer> menu,  List<Integer>  listService, int weddinghallId, int priceWeddingId, Date orderDate,int amount,String typePay,int quantityTable) {
 
         WeddingPartyOrders order=new WeddingPartyOrders();
         order.setUserId(this.userRepository.getUserById(userId));
@@ -38,8 +39,18 @@ public class OrderServiceImpl implements OrderService {
         order.setTypePay(typePay);
         order.setQuantityTable(quantityTable);
         order.setPaymentStatus(false);
-        order.setMenuId(menuRepository.getMenuById(menuId));
-        order.setListServiceId(this.listServiceRepository.getById(listServiceId));
+        order.setMenuId(this.menuRepository.addMenu(menu));
+        order.setListServiceId(this.listServiceRepository.addListService(listService));
         return this.orderRepository.addOrder(order);
+    }
+
+    @Override
+    public List<WeddingPartyOrders> getOrder() {
+        return this.orderRepository.getOrder();
+    }
+
+    @Override
+    public List<WeddingPartyOrders> getOrderByUser(int id) {
+        return this.orderRepository.getOrderByUser(id);
     }
 }

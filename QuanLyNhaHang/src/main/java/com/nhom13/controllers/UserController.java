@@ -29,7 +29,7 @@ public class UserController {
     private UserValidator userValidator;
 
 
-    @InitBinder
+    @InitBinder("user")
     public void initBinder(WebDataBinder binder){
         binder.setValidator(this.userValidator);
     }

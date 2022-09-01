@@ -2,6 +2,7 @@ package com.nhom13.repository.impl;
 
 import com.nhom13.pojo.*;
 import com.nhom13.repository.ListServiceRepository;
+import com.nhom13.repository.ServiceDetailRepository;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,21 +20,25 @@ import java.util.List;
 @Transactional
 public class ListServiceRepositoryImpl implements ListServiceRepository {
 
+
+    @Autowired
+    private ServiceDetailRepository serviceDetailRepository;
     @Autowired
     private LocalSessionFactoryBean sessionFactory;
 
     @Override
-    public int addListService() {
+    public ListService addListService(List<Integer> services) {
         Session session = this.sessionFactory.getObject().getCurrentSession();
         try {
             ListService listService=new ListService();
             listService.setPrice(0);
             int id= (int) session.save(listService);
-            return id;
+            serviceDetailRepository.addServiceToList(id,services);
+            return listService;
         } catch (HibernateException ex) {
             System.out.println(ex.getMessage());
         }
-        return -1;
+        return null;
     }
 
     @Override

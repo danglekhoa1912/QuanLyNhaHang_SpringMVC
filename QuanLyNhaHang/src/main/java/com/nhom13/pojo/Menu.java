@@ -4,6 +4,8 @@
  */
 package com.nhom13.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -40,7 +42,9 @@ public class Menu implements Serializable {
     @Column(name = "id")
     private Integer id;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "menuId")
+    @JsonIgnore
     private Set<MenuDish> menuDishSet;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "menuId")
     private Set<WeddingPartyOrders> weddingPartyOrdersSet;
 
