@@ -103,7 +103,6 @@
     .form-control {
         display: block;
         width: 100%;
-        padding: 0.875rem 1.125rem;
         font-size: 0.875rem;
         font-weight: 400;
         line-height: 1;

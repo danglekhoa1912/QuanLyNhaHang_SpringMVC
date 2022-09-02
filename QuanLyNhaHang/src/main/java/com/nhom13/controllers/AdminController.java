@@ -33,8 +33,8 @@ public class AdminController {
     @Autowired
     private Environment env;
 
-    @RequestMapping("/dishes")
-    public String dishes(Model model, @RequestParam Map<String, String> params) {
+    @RequestMapping("/dishesmanage")
+    public String dishesmanage(Model model, @RequestParam Map<String, String> params) {
         int page = Integer.parseInt(params.getOrDefault("page", "1"));
         String categoryId = params.getOrDefault("categoryId", "1");
         String nameDish = params.getOrDefault("nameDish", null);
@@ -49,17 +49,17 @@ public class AdminController {
         model.addAttribute("count_dish_3", this.dishService.countDishByCate(3));
         model.addAttribute("count_dish_4", this.dishService.countDishByCate(4));
         //}
-        return "dishes";
+        return "dishesmanage";
     }
-    @RequestMapping("/service")
+    @RequestMapping("/servicemanage")
     public String service(Model model, @RequestParam Map<String, String> params) {
         int page = Integer.parseInt(params.getOrDefault("page", "1"));
-        return "service";
+        return "servicemanage";
     }
-    @RequestMapping("/weddinghall")
+    @RequestMapping("/weddinghallmanage")
     public String weddinghall(Model model, @RequestParam Map<String, String> params) {
         int page = Integer.parseInt(params.getOrDefault("page", "1"));
         model.addAttribute("weddingHall", this.weddingHallService.getWeddingHalls(params, page));
-        return "weddinghall";
+        return "weddinghallmanage";
     }
 }
