@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -81,6 +82,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean updateUser(User user) {
         return this.userRepository.updateUser(user);
+    }
+
+    @Override
+    public List<User> getUserByRole(Map<String, String> params) {
+        return this.userRepository.getUserByRole(params);
     }
 
 
