@@ -11,6 +11,14 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
         <put-attribute name="footer"
                        value="/WEB-INF/layout/footer.jsp" />
     </definition>
+    <definition name="baseLayoutAdmin" template="/WEB-INF/layout/base.jsp">
+        <put-attribute name="title" value="" />
+        <put-attribute name="header"
+                       value="/WEB-INF/layout/header_admin.jsp" />
+        <put-attribute name="content" value="" />
+        <put-attribute name="footer"
+                       value="/WEB-INF/layout/footer.jsp" />
+    </definition>
     <definition name="baseLayout"
                 template="/WEB-INF/layout/base.jsp">
         <put-attribute name="title" value="" />
@@ -48,7 +56,7 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
         <put-attribute name="content" value="/WEB-INF/jsp/profile.jsp"/>
     </definition>
     <definition name="staff" extends="baseLayoutStaff">
-        <put-attribute name="title" value="Nhân viên"/>
+        <put-attribute name="title" value="Đơn đặt"/>
         <put-attribute name="content" value="/WEB-INF/jsp/staff.jsp"/>
     </definition>
     <definition name="dishes" extends="baseLayoutStaff">
@@ -62,5 +70,17 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
     <definition name="weddinghall" extends="baseLayoutStaff">
         <put-attribute name="title" value="Sảnh cưới"/>
         <put-attribute name="content" value="/WEB-INF/jsp/staff_hall.jsp"/>
+    </definition>
+    <definition name="dishes" extends="baseLayoutAdmin">
+        <put-attribute name="title" value="Món ăn"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/admin_dishes.jsp"/>
+    </definition>
+    <definition name="service" extends="baseLayoutAdmin">
+        <put-attribute name="title" value="Dịch vụ"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/admin_service.jsp"/>
+    </definition>
+    <definition name="weddinghall" extends="baseLayoutAdmin">
+        <put-attribute name="title" value="Sảnh cưới"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/admin_hall.jsp"/>
     </definition>
 </tiles-definitions>
