@@ -2,6 +2,9 @@ package com.nhom13.repository;
 
 import com.nhom13.pojo.User;
 
+import java.util.List;
+import java.util.Map;
+
 public interface UserRepository {
      boolean addUser(User user);
      User getUserByEmail(String email);
@@ -11,4 +14,5 @@ public interface UserRepository {
      boolean updateUser(User user);
 //     boolean checkPass(String pass);
 //     boolean changePass()
+     List<User> getUserByRole(Map<String, String> params);
 }

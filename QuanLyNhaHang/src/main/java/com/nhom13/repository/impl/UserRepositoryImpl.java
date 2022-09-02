@@ -1,5 +1,6 @@
 package com.nhom13.repository.impl;
 
+import com.nhom13.pojo.Dish;
 import com.nhom13.pojo.User;
 import com.nhom13.repository.UserRepository;
 import org.hibernate.HibernateException;
@@ -13,7 +14,11 @@ import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @Repository
 @Transactional
@@ -116,6 +121,36 @@ public class UserRepositoryImpl implements UserRepository {
             System.out.println(ex.getMessage());
         }
         return false;
+    }
+
+    @Override
+    public List<User> getUserByRole(Map<String, String> params) {
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        CriteriaBuilder b = session.getCriteriaBuilder();
+        CriteriaQuery<User> q = b.createQuery(User.class);
+        Root root = q.from(User.class);
+        q.select(root);
+
+        if (params != null) {
+            List<Predicate> predicates = new ArrayList<>();
+            String name = params.get("name");
+            if (name != null && !name.isEmpty()) {
+                Predicate p = b.equal(root.get("name"), name.replaceAll("%20", " "));
+                predicates.add(p);
+            }
+
+            String role = params.get("role");
+            if (role != null) {
+                Predicate p = b.equal(root.get("role"), role);
+                predicates.add(p);
+            }
+
+            q.where(predicates.toArray(new Predicate[]{}));
+        }
+
+        Query query = session.createQuery(q);
+
+        return query.getResultList();
     }
 
 }
