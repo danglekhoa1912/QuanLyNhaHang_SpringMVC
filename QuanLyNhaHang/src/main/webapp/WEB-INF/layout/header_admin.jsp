@@ -23,15 +23,15 @@
                     <a class="nav-link" href="${report}"><b><spring:message key="header.admin.report"/></b></a>
                 </li>
                 <li class="nav-item mx-2">
-                    <c:url value="/admin/weddinghall" var="weddinghall" />
+                    <c:url value="/admin/weddinghallmanage" var="weddinghall" />
                     <a class="nav-link" href="${weddinghall}"><b><spring:message key="header.admin.hall"/></b></a>
                 </li>
                 <li class="nav-item mx-2">
-                    <c:url value="/admin/dishes" var="dishes" />
+                    <c:url value="/admin/dishesmanage" var="dishes" />
                     <a class="nav-link" href="${dishes}"><b><spring:message key="header.admin.dishes"/></b></a>
                 </li>
                 <li class="nav-item mx-2">
-                    <c:url value="/admin/service" var="service" />
+                    <c:url value="/admin/servicemanage" var="service" />
                     <a class="nav-link" href="${service}"><b><spring:message key="header.admin.service"/></b></a>
                 </li>
                 <li class="nav-item mx-2">

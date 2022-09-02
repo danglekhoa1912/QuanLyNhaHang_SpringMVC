@@ -71,15 +71,15 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
         <put-attribute name="title" value="Sảnh cưới"/>
         <put-attribute name="content" value="/WEB-INF/jsp/staff_hall.jsp"/>
     </definition>
-    <definition name="dishes" extends="baseLayoutAdmin">
+    <definition name="dishesmanage" extends="baseLayoutAdmin">
         <put-attribute name="title" value="Món ăn"/>
         <put-attribute name="content" value="/WEB-INF/jsp/admin_dishes.jsp"/>
     </definition>
-    <definition name="service" extends="baseLayoutAdmin">
+    <definition name="servicemanage" extends="baseLayoutAdmin">
         <put-attribute name="title" value="Dịch vụ"/>
         <put-attribute name="content" value="/WEB-INF/jsp/admin_service.jsp"/>
     </definition>
-    <definition name="weddinghall" extends="baseLayoutAdmin">
+    <definition name="weddinghallmanage" extends="baseLayoutAdmin">
         <put-attribute name="title" value="Sảnh cưới"/>
         <put-attribute name="content" value="/WEB-INF/jsp/admin_hall.jsp"/>
     </definition>

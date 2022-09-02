@@ -42,7 +42,7 @@
                     key="order.dish.drink"/>
             </label>
             <form class="col-5 ml-auto input-group">
-                <input type="search" class="form-control rounded" id="search" placeholder="Search" aria-label="Search" aria-describedby="search-addon" onchange="search_dish(`${endpoint}`, 1, 1, ${pageSize}, ${count_dish_1})" />
+                <input type="search" onsubmit="return false" class="form-control rounded" id="search" placeholder="Search" aria-label="Search" aria-describedby="search-addon" onchange="search_dish(`${endpoint}`, 1, 1, ${pageSize}, ${count_dish_1})" />
                 <button type="button" class="btn btn-info" onclick="search_dish(`${endpoint}`, 1, 1, ${pageSize}, ${count_dish_1})">search</button>
             </form>
         </div>
