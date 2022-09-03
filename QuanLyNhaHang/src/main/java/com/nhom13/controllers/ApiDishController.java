@@ -30,6 +30,8 @@ import java.util.Map;
 public class ApiDishController {
 
     @Autowired
+    private MenuService menuService;
+    @Autowired
     private DishService dishService;
     @Autowired
     private ServiceResService serviceResService;
