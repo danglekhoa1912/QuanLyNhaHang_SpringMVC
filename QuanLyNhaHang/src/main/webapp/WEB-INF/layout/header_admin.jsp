@@ -19,7 +19,7 @@
         <div class="collapse navbar-collapse " id="mynavbar">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item mx-2">
-                    <c:url value="" var="report" />
+                    <c:url value="/admin/statistical" var="report" />
                     <a class="nav-link" href="${report}"><b><spring:message key="header.admin.report"/></b></a>
                 </li>
                 <li class="nav-item mx-2">
@@ -35,8 +35,8 @@
                     <a class="nav-link" href="${service}"><b><spring:message key="header.admin.service"/></b></a>
                 </li>
                 <li class="nav-item mx-2">
-                    <c:url value="" var="staff-user" />
-                    <a class="nav-link" href="${staff-user}"><b><spring:message key="header.admin.staff"/></b></a>
+                    <c:url value="/admin/accountmanage" var="account" />
+                    <a class="nav-link" href="${account}"><b><spring:message key="header.admin.staff"/></b></a>
                 </li>
                 <li class="nav-item mx-2">
                     <c:set var = "lang" scope = "session"><spring:message key="title.select.lang" /></c:set>

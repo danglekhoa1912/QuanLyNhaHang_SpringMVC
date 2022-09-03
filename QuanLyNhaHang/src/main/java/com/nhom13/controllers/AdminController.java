@@ -38,7 +38,6 @@ public class AdminController {
         int page = Integer.parseInt(params.getOrDefault("page", "1"));
         String categoryId = params.getOrDefault("categoryId", "1");
         String nameDish = params.getOrDefault("nameDish", null);
-        System.out.println(params);
         model.addAttribute("dishes", this.dishService.getDishes(params, categoryId, page));
         model.addAttribute("service", this.serviceResService.getServicesRes(params, page));
         model.addAttribute("categoryDish", this.categoryDishService.getCategoryDish());
@@ -61,5 +60,33 @@ public class AdminController {
         int page = Integer.parseInt(params.getOrDefault("page", "1"));
         model.addAttribute("weddingHall", this.weddingHallService.getWeddingHalls(params, page));
         return "weddinghallmanage";
+    }
+    @RequestMapping("/accountmanage")
+    public String accountmanage(Model model, @RequestParam Map<String, String> params){
+        int page=Integer.parseInt(params.getOrDefault("page", "1"));
+        String role=params.getOrDefault("role",null);
+        if (role==null){
+            params.put("role","ROLE_STAFF");
+            model.addAttribute("title",env.getProperty("admin.account.user"));
+        }
+        else if (role.equals("ROLE_STAFF")){
+            model.addAttribute("type","ROLE_STAFF");
+            model.addAttribute("title",env.getProperty("admin.account.user"));
+        }
+        else if (role.equals("ROLE_USER")){
+            model.addAttribute("type","ROLE_USER");
+            model.addAttribute("title",env.getProperty("admin.account.cus"));
+        }
+        System.out.println("hello:"+this.userService.getUserByRole(params,page));
+        model.addAttribute("listAccount",this.userService.getUserByRole(params,page));
+        model.addAttribute("accountCounter",this.userService.countAccount(params));
+        model.addAttribute("pageSize",Integer.parseInt(env.getProperty("page.size")));
+        return "accountmanage";
+    }
+    @RequestMapping ("/statistical")
+    public String statistical(Model model, @RequestParam Map<String, String> params){
+        int page=Integer.parseInt(params.getOrDefault("page", "1"));
+
+        return "statistical";
     }
 }

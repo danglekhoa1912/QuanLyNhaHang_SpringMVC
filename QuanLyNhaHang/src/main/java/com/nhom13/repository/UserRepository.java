@@ -14,5 +14,6 @@ public interface UserRepository {
      boolean updateUser(User user);
 //     boolean checkPass(String pass);
 //     boolean changePass()
-     List<User> getUserByRole(Map<String, String> params);
+     List<User> getUserByRole(Map<String, String> params,int page);
+     int countAccount(Map<String, String> params);
 }

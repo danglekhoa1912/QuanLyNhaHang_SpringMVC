@@ -43,7 +43,7 @@
                     </div>
                     <div class="card-footer d-flex justify-content-center align-items-center">
                         <button type="button" data-bs-toggle="modal"
-                                data-bs-target="#hallModal" onclick="editHall(`${w.name}`,`${w.describe}`,`${w.price}`,`${w.capacity}`)" class="btn btn-primary"><spring:message key="admin.hall.edit"/>
+                                data-bs-target="#hallModal" onclick="editHall(`${w.name}`,`${w.describe}`,`${w.capacity}`,`${w.price}`)" class="btn btn-primary"><spring:message key="admin.hall.edit"/>
                         </button>
                     </div>
                 </div>
