@@ -51,7 +51,6 @@ public class DishRepositoryImpl implements DishRepository {
                 predicates.add(pre);
             }
 
-
         }
         q.where(predicates.toArray(new Predicate[]{}));
         Query query = session.createQuery(q);

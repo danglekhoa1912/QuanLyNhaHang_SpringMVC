@@ -1,6 +1,7 @@
 package com.nhom13.repository.impl;
 
 import com.nhom13.pojo.Dish;
+import org.springframework.core.env.Environment;
 import com.nhom13.pojo.WeddingPartyOrders;
 import com.nhom13.repository.OrderRepository;
 import org.hibernate.HibernateException;
@@ -16,6 +17,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 @Transactional
@@ -23,6 +25,8 @@ public class OrderRepositoryImpl implements OrderRepository {
 
     @Autowired
     private LocalSessionFactoryBean sessionFactory;
+    @Autowired
+    private Environment env;
 
     @Override
     public WeddingPartyOrders addOrder(WeddingPartyOrders order) {
@@ -39,9 +43,15 @@ public class OrderRepositoryImpl implements OrderRepository {
     }
 
     @Override
-    public List<WeddingPartyOrders> getOrder() {
+    public List<WeddingPartyOrders> getOrder(Map<String, String> params,int page) {
         Session s = this.sessionFactory.getObject().getCurrentSession();
         Query q = s.createQuery("From WeddingPartyOrders ");
+        if (page > 0) {
+            int size = Integer.parseInt(env.getProperty("page.size").toString());
+            int start = (page - 1) * size;
+            q.setFirstResult(start);
+            q.setMaxResults(size);
+        }
         return q.getResultList();
     }
 
@@ -56,4 +66,11 @@ public class OrderRepositoryImpl implements OrderRepository {
         Query query = session.createQuery(q);
         return query.getResultList();
     }
+    @Override
+    public int countOrder(){
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        Query q = session.createQuery("SELECT COUNT(*) FROM WeddingPartyOrders ");
+        return Integer.parseInt(q.getSingleResult().toString());
+    }
+
 }

@@ -109,6 +109,7 @@ function removeDish(index, name, price,categoryId) {
     btn.innerHTML = `<button type="button" class="btn btn-secondary" onClick="addDish(\`${index}\`,\`${name}\`,\`${price}\`,${categoryId})">Thêm</button>`
 }
 function loadService(endpoint){
+    console.log(endpoint);
     fetch(endpoint+`?page=1`).then(function (response){
         return response.json();
     }).then(function (data){

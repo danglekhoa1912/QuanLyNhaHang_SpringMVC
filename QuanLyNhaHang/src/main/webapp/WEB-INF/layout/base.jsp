@@ -33,9 +33,11 @@
     <script src="<c:url value="/js/animate-in.js"/>"></script>
 </head>
 <body>
-    <tiles:insertAttribute name="header"/>
+    <div class="container-fluid">
+        <tiles:insertAttribute name="header"/>
+    </div>
 
-    <div>
+    <div class="container-fluid">
         <tiles:insertAttribute name="content"/>
     </div>
 

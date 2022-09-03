@@ -94,6 +94,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getUserByRole(Map<String, String> params) {
         return this.userRepository.getUserByRole(params);
+
+    public List<User> getUserByRole(Map<String, String> params,int page) {
+        return this.userRepository.getUserByRole(params,page);
+
     }
 
 
@@ -110,4 +114,9 @@ public class UserServiceImpl implements UserService {
         return new org.springframework.security.core.userdetails.User(
                 u.getEmail(), u.getPassword(), authorities);
     }
+    @Override
+    public int countAccount(Map<String, String> params){
+        return this.userRepository.countAccount(params);
+    }
+
 }
