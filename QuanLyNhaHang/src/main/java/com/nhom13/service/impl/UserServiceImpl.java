@@ -92,9 +92,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getUserByRole(Map<String, String> params) {
-        return this.userRepository.getUserByRole(params);
-
     public List<User> getUserByRole(Map<String, String> params,int page) {
         return this.userRepository.getUserByRole(params,page);
 

@@ -59,7 +59,7 @@ public class IndexController {
 
 
     @InitBinder("profileUser")
-    public void initUpdateUserBinder(WebDataBinder binder){
+    public void initUpdateUserBinder(WebDataBinder binder) {
         binder.setValidator(this.updateUserValidator);
     }
 
@@ -78,12 +78,12 @@ public class IndexController {
 //
 //        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
 //        LocalDateTime now = LocalDateTime.now();
-        model.addAttribute("now",LocalDate.now());
+        model.addAttribute("now", LocalDate.now());
 
         int page = Integer.parseInt(params.getOrDefault("page", "1"));
         String categoryId = params.getOrDefault("categoryId", "1");
         model.addAttribute("dishes", this.dishService.getDishes(params, categoryId, page));
-        model.addAttribute("service",this.serviceResService.getServicesRes(params,page));
+        model.addAttribute("service", this.serviceResService.getServicesRes(params, page));
         model.addAttribute("weddingHall", this.weddingHallService.getWeddingHalls(params, page));
         model.addAttribute("categoryDish", this.categoryDishService.getCategoryDish());
         model.addAttribute("dishCount", this.dishService.countDish());
@@ -92,17 +92,17 @@ public class IndexController {
         model.addAttribute("count_dish_2", this.dishService.countDishByCate(2));
         model.addAttribute("count_dish_3", this.dishService.countDishByCate(3));
         model.addAttribute("count_dish_4", this.dishService.countDishByCate(4));
-        model.addAttribute("session",this.priceWeddingTimeService.getAllPriceWedding());
+        model.addAttribute("session", this.priceWeddingTimeService.getAllPriceWedding());
         return "order";
     }
 
     @PostMapping("/payment")
     public String payment(Model model, @RequestBody WeddingPartyOrders order, HttpSession session) throws Exception {
-        if(order.getTypePay().equals("momo")){
+        if (order.getTypePay().equals("momo")) {
             String returnURL = "http://localhost:8080/QuanLyNhaHang/result";
             String notifyURL = "http://localhost:8080/QuanLyNhaHang/result";
             com.mservice.config.Environment environment = com.mservice.config.Environment.selectEnv("dev");
-            PaymentResponse captureWalletMoMoResponse = CreateOrderMoMo.process(environment, order.getId().toString(), order.getId().toString(), Integer.toString(order.getAmount()) , "", returnURL, notifyURL, "", RequestType.CAPTURE_WALLET, Boolean.TRUE);
+            PaymentResponse captureWalletMoMoResponse = CreateOrderMoMo.process(environment, order.getId().toString(), order.getId().toString(), Integer.toString(order.getAmount()), "", returnURL, notifyURL, "", RequestType.CAPTURE_WALLET, Boolean.TRUE);
             return "redirect:" + captureWalletMoMoResponse.getPayUrl();
         }
 //        User user = (User) session.getAttribute("currentUser");
@@ -121,35 +121,35 @@ public class IndexController {
 
     @GetMapping("/profile")
     public String profile(Model model, HttpSession session) {
-        User user= (User) session.getAttribute("currentUser");
-        model.addAttribute("listOrder",this.orderService.getOrderByUser(user.getId()));
+        User user = (User) session.getAttribute("currentUser");
+        model.addAttribute("listOrder", this.orderService.getOrderByUser(user.getId()));
         model.addAttribute("profileUser", user);
 //        model.addAttribute("newPass",new User());
         return "profile";
     }
 
     @PostMapping("/profile")
-    public String updateProfile(Model model, @ModelAttribute(value = "profileUser") @Valid  User profileUser, BindingResult result,HttpSession session) {
+    public String updateProfile(Model model, @ModelAttribute(value = "profileUser") @Valid User profileUser, BindingResult result, HttpSession session) {
         String errorMes = null;
         if (!result.hasErrors()) {
-            User u=(User) session.getAttribute("currentUser");
-            if(profileUser.getPassword()!=null){
+            User u = (User) session.getAttribute("currentUser");
+            if (profileUser.getPassword() != null) {
                 u.setPassword(profileUser.getPassword());
-            }
-            else{
+            } else {
                 u.setName(profileUser.getName());
                 u.setBirthday(profileUser.getBirthday());
                 u.setMobile(profileUser.getMobile());
             }
             if (this.userService.updateUser(u)) {
-                model.addAttribute("resultUpdate",true);
+                model.addAttribute("resultUpdate", true);
                 System.out.println(session.getAttribute("currentUser"));
                 return "redirect:profile";
             }
-            model.addAttribute("resultUpdate",false);
+            model.addAttribute("resultUpdate", false);
             model.addAttribute("errorMes", errorMes);
             return "profile";
         }
         return "profile";
     }
+}
 

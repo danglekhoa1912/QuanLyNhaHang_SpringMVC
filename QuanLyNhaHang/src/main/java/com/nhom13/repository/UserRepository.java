@@ -12,7 +12,6 @@ public interface UserRepository {
      boolean checkNumberPhone(String phone);
      User getUserById(int id);
      boolean updateUser(User user);
-     List<User> getUserByRole(Map<String, String> params);
 //     boolean checkPass(String pass);
 //     boolean changePass()
      List<User> getUserByRole(Map<String, String> params,int page);
