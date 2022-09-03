@@ -41,6 +41,7 @@
                         </li>
                         <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#change-pass"><spring:message key="title.changePass"/></a></li>
                         <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#list-order"><spring:message key="title.history.order"/></a></li>
+                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#feed-back"><spring:message key="title.feedback"/></a></li>
                     </ul>
                 </div>
                 <div class="tab-content" id="myTabContent" >
@@ -62,12 +63,12 @@
                             </c:choose>
 
                         </c:if>
-                        <form:form method="post" enctype="multipart/form-data" modelAttribute="user" class="p-4 form"
-                                   action="${action}"
-                                   id="edit_user">
+                        <form:form  method="post" modelAttribute="profileUser" class="p-4 form"
+                                   action="${action}">
+                            <form:input hidden="true" path="id" value="${profileUser.id}" id="userId" />
                             <div class="mb-3">
                                 <label for="email"><b>Email</b></label>
-                                <form:input value="${user.email}" class="form-control" path="email"
+                                <form:input readonly="true" value="${profileUser.email}" class="form-control" path="email"
                                             type="text"
                                             name="email" id="email"/>
                                 <form:errors path="email" cssClass=" text-danger" element="div"/>
@@ -75,7 +76,7 @@
                             <div class="row gx-3 mb-3">
                                 <div class="col-md-6">
                                     <label for="name"><b><spring:message key="title.name"/></b></label>
-                                    <form:input value="${user.name}" class="form-control"
+                                    <form:input value="${profileUser.name}" class="form-control"
                                                 path="name"
                                                 type="text"
                                                 name="name" id="name"/>
@@ -83,7 +84,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label for="birthday"><b><spring:message key="title.birthday"/></b></label>
-                                    <form:input value="${user.birthday}" class="form-control"
+                                    <form:input value="${profileUser.birthday}" class="form-control"
                                                 path="birthday"
                                                 type="date" name="birthday" id="birthday"/>
                                     <form:errors path="birthday" cssClass=" text-danger" element="div"/>
@@ -92,43 +93,71 @@
                             <div class="row gx-3 mb-3">
                                 <div class="col-md-6">
                                     <label for="mobile"><b><spring:message key="title.mobile"/></b></label>
-                                    <form:input value="${user.mobile}" class="form-control"
+                                    <form:input value="${profileUser.mobile}" class="form-control"
                                                 path="mobile"
                                                 type="text" name="mobile" id="mobile"/>
                                     <form:errors path="mobile" cssClass=" text-danger" element="div"/>
                                 </div>
                             </div>
-                            <form:input hidden="true" type="file" path="img" name="imageId" id="imageId"/>
-                            <form:input hidden="true" type="password" path="password" name="password" id="password"/>
-                            <form:input hidden="true" type="password" path="confirmPassword" name="confirmPassword"
-                                        id="confirmPassword"/>
-                            <button type="submit" form="edit_user" value="Submit" class="btn btn-secondary"><spring:message
-                                    key="profile.save"/></button>
-                        </form:form>
+                            <input type="submit" class="btn btn-secondary" value="<spring:message
+                                    key="profile.save"/>" />
+                        </form:form >
                     </div>
+                    <c:url value="/api/changepass" var="endpoint_change_pass" />
                     <div class="card-body tab-pane fade" id="change-pass" >
                         <form>
                             <div class="mb-3" >
-                                <label for="password"><b><spring:message key="title.pass" /></b></label>
-                                <input class="form-control" type="password" id="password" >
-                            </div>
-                            <div class="mb-3" >
                                 <label for="newPassword"><b><spring:message key="title.new.pass" /></b></label>
-                                <input class="form-control" type="password" id="newPassword" >
+                                <input  class="form-control" type="password" id="newPassword" />
+                                <div id="error-pass" hidden class="text-danger" ><spring:message key="user.password.error.invalid" /></div>
                             </div>
                             <div class="mb-3" >
                                 <label for="reNewPassword"><b><spring:message key="title.confirm.pass" /></b></label>
-                                <input class="form-control" type="password" id="reNewPassword" >
+                                <input  class="form-control" type="password" id="reNewPassword" />
+                                <div id="error-re-pass" hidden class="text-danger" ><spring:message key="user.confirmPassword.error.notequal" /></div>
                             </div>
                             <div class="mb-3" >
-                                <button class="btn btn-secondary"><spring:message key="title.changePass" /></button>
+                                <button type="button" onclick="updatePass(`${endpoint_change_pass}`)" class="btn btn-secondary"><spring:message key="title.changePass" /></button>
                             </div>
                         </form>
                     </div>
-                    <div class="card-body tab-pane fade" id="list-order" >
+                    <div class="card-body tab-pane fade text-light" id="list-order" >
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th><spring:message key="title.order.id" /></th>
+                                <th><spring:message key="title.order.date" /></th>
+                                <th><spring:message key="title.order.typepay" /></th>
+                                <th><spring:message key="title.order.total" /></th>
+                                <th><spring:message key="title.order.payment.status" /></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <c:forEach items="${listOrder}" var="order" >
+                                <tr>
+                                    <td>#${order.id}</td>
+                                    <td>${order.orderDate}</td>
+                                    <td>${order.typePay}</td>
+                                    <td>${order.amount}</td>
+                                    <td>
+                                        <spring:message key="title.order.payment.status.${order.paymentStatus}" />
+                                    </td>
+                                </tr>
+                            </c:forEach>
 
+                            </tbody>
+                        </table>
                     </div>
-
+                    <c:url value="/api/feedback" var="endpoint" />
+                    <div class="card-body tab-pane fade text-light" id="feed-back" >
+                        <div id="alert-feedback" class="alert alert-success d-none" role="alert">
+                            <spring:message key="title.feedback.mess" />
+                        </div>
+                            <div class="mb-3 mt-3">
+                                <textarea placeholder="<spring:message key="title.feedback.placehoder" />" class="form-control" rows="5" id="feedback" name="text"></textarea>
+                            </div>
+                            <button type="button" onclick="addComment(`${endpoint}`)" class="btn btn-primary"><spring:message key="title.feedback.send" /></button>
+                    </div>
                 </div>
             </div>
         </div>

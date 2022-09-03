@@ -4,12 +4,13 @@
  */
 package com.nhom13.controllers;
 
+import com.mservice.enums.RequestType;
+import com.mservice.models.PaymentResponse;
+import com.mservice.processor.CreateOrderMoMo;
 import com.nhom13.pojo.User;
 import com.nhom13.pojo.WeddingPartyOrders;
-import com.nhom13.repository.DishRepository;
-import com.nhom13.repository.ServiceResRepository;
 import com.nhom13.service.*;
-import com.nhom13.validator.UpdateUserValidation;
+import com.nhom13.validator.UpdateUserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
@@ -19,14 +20,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.criteria.Order;
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.Map;
 
 /**
@@ -55,9 +51,18 @@ public class IndexController {
     @Autowired
     private PriceWeddingTimeService priceWeddingTimeService;
 
-
     @Autowired
     private Environment env;
+
+    @Autowired
+    private UpdateUserValidator updateUserValidator;
+
+
+    @InitBinder("profileUser")
+    public void initUpdateUserBinder(WebDataBinder binder){
+        binder.setValidator(this.updateUserValidator);
+    }
+
 
     @RequestMapping("/")
     public String index(Model model, @RequestParam Map<String, String> params) {
@@ -91,9 +96,15 @@ public class IndexController {
         return "order";
     }
 
-    @RequestMapping("/receipt")
-    public String createOrder(Model model, @RequestParam Map<String, String> params, HttpSession session) {
-
+    @PostMapping("/payment")
+    public String payment(Model model, @RequestBody WeddingPartyOrders order, HttpSession session) throws Exception {
+        if(order.getTypePay().equals("momo")){
+            String returnURL = "http://localhost:8080/QuanLyNhaHang/result";
+            String notifyURL = "http://localhost:8080/QuanLyNhaHang/result";
+            com.mservice.config.Environment environment = com.mservice.config.Environment.selectEnv("dev");
+            PaymentResponse captureWalletMoMoResponse = CreateOrderMoMo.process(environment, order.getId().toString(), order.getId().toString(), Integer.toString(order.getAmount()) , "", returnURL, notifyURL, "", RequestType.CAPTURE_WALLET, Boolean.TRUE);
+            return "redirect:" + captureWalletMoMoResponse.getPayUrl();
+        }
 //        User user = (User) session.getAttribute("currentUser");
 //        int userId=user.getId();
 //        int menuId= 1;
@@ -110,23 +121,30 @@ public class IndexController {
 
     @GetMapping("/profile")
     public String profile(Model model, HttpSession session) {
-
-        model.addAttribute("user", (User) session.getAttribute("currentUser"));
+        User user= (User) session.getAttribute("currentUser");
+        model.addAttribute("listOrder",this.orderService.getOrderByUser(user.getId()));
+        model.addAttribute("profileUser", user);
+//        model.addAttribute("newPass",new User());
         return "profile";
     }
 
     @PostMapping("/profile")
-    public String updateProfile(Model model, @ModelAttribute(value = "user")  User user, BindingResult result,HttpSession session) {
+    public String updateProfile(Model model, @ModelAttribute(value = "profileUser") @Valid  User profileUser, BindingResult result,HttpSession session) {
         String errorMes = null;
         if (!result.hasErrors()) {
             User u=(User) session.getAttribute("currentUser");
-            u.setName(user.getName());
-            u.setEmail(user.getEmail());
-            u.setBirthday(user.getBirthday());
-            u.setMobile(user.getMobile());
+            if(profileUser.getPassword()!=null){
+                u.setPassword(profileUser.getPassword());
+            }
+            else{
+                u.setName(profileUser.getName());
+                u.setBirthday(profileUser.getBirthday());
+                u.setMobile(profileUser.getMobile());
+            }
             if (this.userService.updateUser(u)) {
                 model.addAttribute("resultUpdate",true);
-                return "profile";
+                System.out.println(session.getAttribute("currentUser"));
+                return "redirect:profile";
             }
             model.addAttribute("resultUpdate",false);
             model.addAttribute("errorMes", errorMes);
@@ -135,24 +153,3 @@ public class IndexController {
         return "profile";
     }
 
-    @PostMapping("/updatePass")
-    public String updatePass(Model model, @RequestParam Map<String, String> params, BindingResult result,HttpSession session) {
-//        String errorMes = null;
-//        if (!result.hasErrors()) {
-//            User u=(User) session.getAttribute("currentUser");
-//            u.setName(user.getName());
-//            u.setEmail(user.getEmail());
-//            u.setBirthday(user.getBirthday());
-//            u.setMobile(user.getMobile());
-//            if (this.userService.updateUser(u)) {
-//                model.addAttribute("resultUpdate",true);
-//                return "profile";
-//            }
-//            model.addAttribute("resultUpdate",false);
-//            model.addAttribute("errorMes", errorMes);
-//            return "profile";
-//        }
-        return "profile";
-    }
-
-}

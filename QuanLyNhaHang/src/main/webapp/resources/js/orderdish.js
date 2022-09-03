@@ -1,8 +1,15 @@
 let listDish = [];
 let price_tol = 0;
+let price_service=0;
 let dish_tol = 0;
 let listService=[];
-let HallId=0;
+let Hall;
+
+var options;
+function init(initOptions) {
+    options = initOptions;
+    console.log(options)
+}
 
 function loadPage(endpoint, categoryId, page, pagesize, count) {
     fetch(endpoint + `?categoryId=${categoryId}&page=${page}`).then(function (response) {
@@ -29,9 +36,9 @@ function loadPage(endpoint, categoryId, page, pagesize, count) {
                             </div>`
             let btn = document.getElementById(`btn${dish.id}`);
             if (t !== -1) {
-                btn.innerHTML = `<button type="button" class="btn btn-secondary"  onclick="removeDish(\`${dish.id}\`,\`${dish.name}\`,\`${dish.price}\`)">Xóa</button>`
+                btn.innerHTML = `<button type="button" class="btn btn-secondary"  onclick="removeDish(\`${dish.id}\`,\`${dish.name}\`,\`${dish.price}\`,${categoryId})">Xóa</button>`
             } else {
-                btn.innerHTML = `<button type="button" class="btn btn-secondary" onClick="addDish(${dish.id},\`${dish.name}\`,\`${dish.price}\`)">Thêm</button>`
+                btn.innerHTML = `<button type="button" class="btn btn-secondary" onClick="addDish(${dish.id},\`${dish.name}\`,\`${dish.price}\`,${categoryId})">Thêm</button>`
             }
         })
     })
@@ -44,7 +51,12 @@ function loadPage(endpoint, categoryId, page, pagesize, count) {
 }
 
 function weddingHall(id,name, describe, capacity,price,image){
-    HallId=id
+    Hall={
+        id,
+        capacity,
+        price,
+        name
+    }
     let w=document.getElementById("wedding-hall");
     w.innerHTML=`<h3 id="hall-name">${name}</h3>
                  <p class="hall-describe">${describe}</p>
@@ -54,10 +66,12 @@ function weddingHall(id,name, describe, capacity,price,image){
                  </button>`
     let img=document.getElementById("image-wd");
     img.src=image;
+    checkStatusHall()
+    $("#exampleModal").modal("hide");
 }
 
-function addDish(id, name, price) {
-    let l = document.getElementById("listDish");
+function addDish(id, name, price,cateId) {
+    let l = document.getElementById(`listDish-${cateId}`);
     let btn = document.getElementById(`btn${id}`);
     let total_price = document.getElementById("total_price");
     let total_dish = document.getElementById("total_dish");
@@ -66,7 +80,7 @@ function addDish(id, name, price) {
     total_price.innerHTML = price_tol.toString() + ',000';
     total_dish.innerHTML = dish_tol.toString();
     if (btn !== null) {
-        btn.innerHTML = `<button type="button" class="btn btn-secondary"  onclick="removeDish(\`${id}\`,\`${name}\`,\`${price}\`)">Xóa</button>`
+        btn.innerHTML = `<button type="button" class="btn btn-secondary"  onclick="removeDish(\`${id}\`,\`${name}\`,\`${price}\`,${cateId})">Xóa</button>`
     }
     let dish = {id, name, price};
     listDish.push(id);
@@ -81,7 +95,7 @@ function addDish(id, name, price) {
 }
 
 
-function removeDish(index, name, price) {
+function removeDish(index, name, price,categoryId) {
     let total_price = document.getElementById("total_price");
     let total_dish = document.getElementById("total_dish");
     dish_tol--;
@@ -92,14 +106,13 @@ function removeDish(index, name, price) {
     let child = document.getElementById(`dish_${index}`);
     let btn = document.getElementById(`btn${index}`);
     child.parentNode.removeChild(child);
-    btn.innerHTML = `<button type="button" class="btn btn-secondary" onClick="addDish(\`${index}\`,\`${name}\`,\`${price}\`)">Thêm</button>`
+    btn.innerHTML = `<button type="button" class="btn btn-secondary" onClick="addDish(\`${index}\`,\`${name}\`,\`${price}\`,${categoryId})">Thêm</button>`
 }
 function loadService(endpoint){
     console.log(endpoint);
     fetch(endpoint+`?page=1`).then(function (response){
         return response.json();
     }).then(function (data){
-        console.log(data);
         let msg=document.getElementById("order-services");
         data.forEach(item=>{
             msg.innerHTML+=`
@@ -114,7 +127,7 @@ function loadService(endpoint){
                                         </p>
                                     </div>
                                     <div class="card-footer d-flex justify-content-center align-items-center" ">
-                                        <button type="button" class="btn btn-secondary" id="btn-${item.id}" onclick="addService(${item.id})">Chọn</button>
+                                        <button type="button" class="btn btn-secondary" id="btn-${item.id}" onclick="addService(${item.id},${item.price})">Chọn</button>
                                     </div>                                        
                                 </div>
                             </div>
@@ -122,49 +135,138 @@ function loadService(endpoint){
         })
     })
 }
-function removeService(id) {
+function removeService(id,price) {
+    price_service-=price
     listService.splice(listService.indexOf(id),1);
     let d=document.getElementById(`btn-${id}`);
     d.innerHTML='chọn';
     let msg=document.getElementById(`div-${id}`);
     msg.style.border='none';
-    d.onclick=function() {addService(id);};
+    d.onclick=function() {addService(id,price);};
 }
-function addService(id){
+function addService(id,price){
+    price_service+=price
     listService.push(id);
     let d=document.getElementById(`btn-${id}`);
     d.innerHTML='Bỏ chọn';
     let msg=document.getElementById(`div-${id}`);
     msg.style.border='3px groove #ee2020';
-    d.onclick=function (){removeService(id);}
+    d.onclick=function (){removeService(id,price);}
 }
 
+function checkStatusHall(){
+    $("[id*='-error']").prop('hidden',true)
+    let date=document.getElementById("date").value;
+    let table=document.getElementById("countTable");
+    let tableError= document.getElementById("table-error")
+    let dateError= document.getElementById("date-error")
+    let sessionError= document.getElementById("session-error")
+    let select=document.getElementById("type_day")
+    let session = select.options[select.selectedIndex].value;
+    $("#type_day option").prop('disabled', false);
+
+    if(Hall!=null&&date){
+        fetch(`/QuanLyNhaHang/api/listOfBooked?weddingHallId=${Hall.id}&date=${date}`).then(res=>{
+            return res.json();
+        }).then(data=>{
+            if(data.length==3){
+                dateError.hidden=false;
+            }
+            data.forEach(s=>{
+                select.options[s.id-1].disabled=true
+                if(session==s.id){
+                    sessionError.hidden=false;
+                }
+            })
+            if(table>Hall.capacity){
+                tableError.hidden=false;
+                return;
+            }
+        });
+    }
+}
 function createOrder(){
 
-    var date=document.getElementById("date").value;
-    var select=document.getElementById("type_day")
-    var session = select.options[select.selectedIndex].value;
-    var table=document.getElementById("countTable").value;
+    $("[id*='-error']").prop('hidden',true)
+    let date=document.getElementById("date").value;
+    let table=document.getElementById("countTable").value;
+    let select=document.getElementById("type_day")
+    let session = select.options[select.selectedIndex].value;
 
- fetch("/QuanLyNhaHang/api/receipt",{
-     method:"post",
-     headers: {
-         "Content-Type": "application/json"
-     },
-     body:JSON.stringify({
-        menu : listDish,
-        listService : listService,
-        weddinghallId : HallId,
-        priceWeddingId : session,
-        orderDate : date,
-        amount : 50000,
-        typePay :"Momo",
-        quantityTable: table
-     })
- }).then(function (res) {
-     console.info(res);
-     return res.json();
- }).then(function (data) {
-     console.info(data);
- }).catch(error => (console.log(error)));
+        if(Hall!=null){
+            if ( $('#listDish-1 li').length < 1 ) {
+
+            }
+            $("#orderModal").modal("show");
+
+            fetch(`/QuanLyNhaHang/api/getPriceWeddingTime/${session}`).then(res=>res.json()).then(data=>{
+                let amount=(price_tol*table)+price_service+(Hall.price*data.price)
+
+                $("#wedding-hall-name").val(Hall.name)
+                $("#quantity-table").val(table)
+                $("#booking-date").val(date)
+                $("#price-dish").val(price_tol)
+                $("#price-service").val(price_service)
+                $("#price-weddinghall").val(Hall.price*data.price)
+                $("#price-total").val(amount)
+
+                $("#form-payment").submit(event=>{
+                    let typePay=$('input[name=optradio]:checked', '#form-payment').val()
+                    event.preventDefault()
+                    let url=$(this).attr("action")
+                    fetch("/QuanLyNhaHang/api/receipt",{
+                        method:"post",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body:JSON.stringify({
+                            menu : listDish,
+                            listService : listService,
+                            weddinghallId : Hall.id,
+                            priceWeddingId : session,
+                            orderDate : date,
+                            amount : amount,
+                            typePay :typePay,
+                            quantityTable: table
+                        })
+                    }).then(function (res) {
+                        return res.json();
+                    }).then(function (data) {
+
+                        payment(data)
+                    }).catch(error => (console.log(error)));
+
+                })
+            })
+        }
+}
+
+function payment(data){
+    fetch("/QuanLyNhaHang/api/payment",{
+        method:"post",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body:JSON.stringify(data)
+    }).then(res=>{
+        console.log(res)
+        return res.json()
+    }).then(data=>{
+        console.log(data)
+        window.location.href =data.payUrl
+    })
+}
+
+console.log($("[id*='-error']:hidden").length)
+
+
+function validation(){
+    if($("[id*='-error']:hidden").length<$("[id*='-error']").length){
+        return false;
+    }
+    return true;
+}
+
+function QuantityTablevalidatior(){
+
 }

@@ -85,8 +85,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public boolean updatePass(String pass,int userId) {
+        User user=this.userRepository.getUserById(userId);
+        user.setPassword(this.passwordEncoder.encode(pass));
+        return this.userRepository.updateUser(user);
+    }
+
+    @Override
+    public List<User> getUserByRole(Map<String, String> params) {
+        return this.userRepository.getUserByRole(params);
+
     public List<User> getUserByRole(Map<String, String> params,int page) {
         return this.userRepository.getUserByRole(params,page);
+
     }
 
 

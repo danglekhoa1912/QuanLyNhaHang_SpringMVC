@@ -46,7 +46,6 @@ public class DishRepositoryImpl implements DishRepository {
         if (params != null) {
             //getByName
             String nameDish = params.get("nameDish");
-            System.out.println(nameDish);
             if (nameDish != null) {
                 Predicate pre = b.equal(root.get("name"), nameDish.replaceAll("%20", " "));
                 predicates.add(pre);

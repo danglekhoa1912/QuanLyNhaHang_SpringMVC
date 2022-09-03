@@ -14,6 +14,8 @@ public interface UserService extends UserDetailsService {
     boolean checkNumberPhone(String phone);
     User getUserById(int id);
     boolean updateUser(User user);
+    boolean updatePass(String pass,int userId);
+    List<User> getUserByRole(Map<String, String> params);
     List<User> getUserByRole(Map<String, String> params,int page);
     int countAccount(Map<String, String> params);
 }
