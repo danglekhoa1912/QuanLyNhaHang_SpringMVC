@@ -83,4 +83,12 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
         <put-attribute name="title" value="Sảnh cưới"/>
         <put-attribute name="content" value="/WEB-INF/jsp/admin_hall.jsp"/>
     </definition>
+    <definition name="accountmanage" extends="baseLayoutAdmin">
+        <put-attribute name="title" value="Tài khoản"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/admin_account.jsp"/>
+    </definition>
+    <definition name="statistical" extends="baseLayoutAdmin">
+        <put-attribute name="title" value="Thống kê"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/admin_statistical.jsp"/>
+    </definition>
 </tiles-definitions>
