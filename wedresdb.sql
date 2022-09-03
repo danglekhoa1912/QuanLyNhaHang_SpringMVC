@@ -106,10 +106,9 @@ DROP TABLE IF EXISTS `list_service`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `list_service` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `describe` varchar(45) DEFAULT NULL,
   `price` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -118,7 +117,7 @@ CREATE TABLE `list_service` (
 
 LOCK TABLES `list_service` WRITE;
 /*!40000 ALTER TABLE `list_service` DISABLE KEYS */;
-INSERT INTO `list_service` VALUES (1,NULL,100);
+INSERT INTO `list_service` VALUES (1,100),(2,10500),(3,10500),(4,12500),(5,10500),(6,2000),(7,500),(8,10000),(9,10500),(10,500),(11,500),(12,10000),(13,10500),(14,10000),(15,10000),(16,10000),(17,10000),(18,10000),(19,1000),(20,1000),(21,500),(22,500),(23,500),(24,500),(25,500),(26,500),(27,1000),(28,1000),(29,10000),(30,10000),(31,10000),(32,10000),(33,10000),(34,500),(35,500),(36,500),(37,500),(38,500),(39,10000),(40,10000),(41,500),(42,500),(43,500),(44,500),(45,500),(46,500),(47,500),(48,500),(49,500),(50,10500),(51,10500),(52,10500),(53,10000),(54,10000),(55,10000),(56,10000),(57,10000),(58,10500),(59,10500),(60,500),(61,10000),(62,500),(63,500),(64,500),(65,10000),(66,10000),(67,10000),(68,500),(69,10500),(70,500),(71,10000),(72,10000);
 /*!40000 ALTER TABLE `list_service` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -134,7 +133,7 @@ CREATE TABLE `menu` (
   `menu_describe` varchar(45) DEFAULT NULL,
   `price` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=80 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -143,7 +142,7 @@ CREATE TABLE `menu` (
 
 LOCK TABLES `menu` WRITE;
 /*!40000 ALTER TABLE `menu` DISABLE KEYS */;
-INSERT INTO `menu` VALUES (1,NULL,200);
+INSERT INTO `menu` VALUES (1,NULL,200),(8,NULL,350),(9,NULL,350),(10,NULL,450),(11,NULL,350),(12,NULL,250),(13,NULL,250),(14,NULL,100),(15,NULL,150),(16,NULL,450),(17,NULL,150),(18,NULL,100),(19,NULL,250),(20,NULL,250),(21,NULL,350),(22,NULL,250),(23,NULL,250),(24,NULL,200),(25,NULL,200),(26,NULL,100),(27,NULL,100),(28,NULL,100),(29,NULL,100),(30,NULL,100),(31,NULL,100),(32,NULL,450),(33,NULL,450),(34,NULL,150),(35,NULL,150),(36,NULL,200),(37,NULL,200),(38,NULL,150),(39,NULL,150),(40,NULL,150),(41,NULL,250),(42,NULL,250),(43,NULL,250),(44,NULL,250),(45,NULL,250),(46,NULL,250),(47,NULL,250),(48,NULL,250),(49,NULL,250),(50,NULL,100),(51,NULL,100),(52,NULL,100),(53,NULL,100),(54,NULL,100),(55,NULL,250),(56,NULL,250),(57,NULL,250),(58,NULL,250),(59,NULL,250),(60,NULL,250),(61,NULL,250),(62,NULL,150),(63,NULL,150),(64,NULL,150),(65,NULL,250),(66,NULL,250),(67,NULL,350),(68,NULL,150),(69,NULL,100),(70,NULL,100),(71,NULL,100),(72,NULL,350),(73,NULL,350),(74,NULL,350),(75,NULL,250),(76,NULL,350),(77,NULL,350),(78,NULL,150),(79,NULL,350);
 /*!40000 ALTER TABLE `menu` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -163,7 +162,7 @@ CREATE TABLE `menu_dish` (
   KEY `fk_dish_id_idx` (`dish_id`),
   CONSTRAINT `fk_dish_id` FOREIGN KEY (`dish_id`) REFERENCES `dish` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `fk_menu` FOREIGN KEY (`menu_id`) REFERENCES `menu` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=144 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -172,7 +171,7 @@ CREATE TABLE `menu_dish` (
 
 LOCK TABLES `menu_dish` WRITE;
 /*!40000 ALTER TABLE `menu_dish` DISABLE KEYS */;
-INSERT INTO `menu_dish` VALUES (26,1,2),(27,1,3);
+INSERT INTO `menu_dish` VALUES (26,1,2),(27,1,3),(28,8,3),(29,8,2),(30,9,2),(31,9,3),(32,10,1),(33,10,2),(34,10,3),(35,11,2),(36,11,3),(37,12,1),(38,12,2),(39,13,1),(40,13,2),(41,14,1),(42,15,2),(43,16,1),(44,16,2),(45,16,3),(46,17,19),(47,18,1),(48,19,1),(49,19,2),(50,20,1),(51,20,2),(52,21,2),(53,21,3),(54,22,1),(55,22,2),(56,23,1),(57,23,2),(58,24,20),(59,25,20),(60,26,1),(61,27,1),(62,28,1),(63,29,1),(64,30,1),(65,31,1),(66,32,1),(67,32,2),(68,32,3),(69,33,1),(70,33,2),(71,33,3),(72,34,19),(73,35,19),(74,36,20),(75,37,20),(76,38,2),(77,39,2),(78,40,2),(79,41,1),(80,41,2),(81,42,1),(82,42,2),(83,43,1),(84,43,2),(85,45,1),(86,44,1),(87,44,2),(88,45,2),(89,46,1),(90,46,2),(91,47,1),(92,47,2),(93,48,1),(94,48,2),(95,49,1),(96,49,2),(97,50,1),(98,51,1),(99,52,1),(100,53,1),(101,54,1),(102,55,1),(103,55,2),(104,56,1),(105,56,2),(106,57,1),(107,57,2),(108,58,1),(109,58,2),(110,59,1),(111,59,2),(112,60,1),(113,60,2),(114,61,1),(115,61,2),(116,62,2),(117,63,2),(118,64,2),(119,65,1),(120,65,2),(121,66,1),(122,66,2),(123,67,2),(124,67,3),(125,68,2),(126,69,1),(127,70,1),(128,71,1),(129,72,2),(130,72,3),(131,73,2),(132,73,3),(133,74,2),(134,74,3),(135,75,1),(136,75,2),(137,76,2),(138,76,3),(139,77,2),(140,77,3),(141,78,2),(142,79,2),(143,79,3);
 /*!40000 ALTER TABLE `menu_dish` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -197,7 +196,7 @@ CREATE TABLE `price_wedding_time` (
 
 LOCK TABLES `price_wedding_time` WRITE;
 /*!40000 ALTER TABLE `price_wedding_time` DISABLE KEYS */;
-INSERT INTO `price_wedding_time` VALUES (1,1,'morning'),(2,1.3,'affternoon'),(3,1.5,'night'),(4,2,'wekkend');
+INSERT INTO `price_wedding_time` VALUES (1,1,'morning'),(2,1.3,'affternoon'),(3,1.5,'night');
 /*!40000 ALTER TABLE `price_wedding_time` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -245,7 +244,7 @@ CREATE TABLE `services_detail` (
   KEY `fk_list_service_id_idx` (`list_service_id`),
   CONSTRAINT `fk_list_service_id` FOREIGN KEY (`list_service_id`) REFERENCES `list_service` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_service_id` FOREIGN KEY (`service_id`) REFERENCES `service` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=87 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -254,7 +253,7 @@ CREATE TABLE `services_detail` (
 
 LOCK TABLES `services_detail` WRITE;
 /*!40000 ALTER TABLE `services_detail` DISABLE KEYS */;
-INSERT INTO `services_detail` VALUES (1,2,1),(2,3,1);
+INSERT INTO `services_detail` VALUES (1,2,1),(2,3,1),(3,3,2),(4,2,2),(5,3,3),(6,2,3),(7,3,4),(8,2,4),(9,1,4),(10,2,5),(11,3,5),(12,1,6),(13,2,7),(14,3,8),(15,2,9),(16,3,9),(17,2,10),(18,2,11),(19,3,12),(20,2,13),(21,3,13),(22,3,14),(23,3,15),(24,3,16),(25,3,17),(26,3,18),(27,6,19),(28,6,20),(29,2,21),(30,2,22),(31,2,23),(32,2,24),(33,2,25),(34,2,26),(35,6,27),(36,6,28),(37,3,29),(38,3,30),(39,3,31),(40,3,32),(41,3,33),(42,2,34),(43,2,35),(44,2,36),(45,2,37),(46,2,38),(47,3,39),(48,3,40),(49,2,41),(50,2,42),(51,2,43),(52,2,44),(53,2,45),(54,2,46),(55,2,47),(56,2,48),(57,2,49),(58,2,50),(59,3,50),(60,2,51),(61,3,51),(62,2,52),(63,3,52),(64,3,53),(65,3,54),(66,3,55),(67,3,56),(68,3,57),(69,2,58),(70,3,58),(71,2,59),(72,3,59),(73,2,60),(74,3,61),(75,2,62),(76,2,63),(77,2,64),(78,3,65),(79,3,66),(80,3,67),(81,2,68),(82,2,69),(83,3,69),(84,2,70),(85,3,71),(86,3,72);
 /*!40000 ALTER TABLE `services_detail` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -275,7 +274,7 @@ CREATE TABLE `user` (
   `avatar` varchar(150) DEFAULT NULL,
   `mobile` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -284,7 +283,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (2,'dangkhoa123bn@gmail.com','$2a$10$gnpQh3uP25DhFyAG/BIPB.N5uhD0SKE3hK7kuAOZ2AqSsyqGUjUFm','Khoa','2022-08-10','ROLE_USER',NULL,'0972257687'),(3,'dangkhoa1234bn@gmail.com','$2a$10$YbNwmkfLeCdYLvENfC48qum7quN5IOGsHlki6Qi8Zi8uH34YmqiwK','Hoa','2022-08-15','ROLE_USER',NULL,'0972257688'),(4,'dangkhoa12113bn@gmail.com','$2a$10$n1dMDiYOFexkJMH661GG9unZskUhRBk8EqMzxdDkAHs0qd8yZ5jy.','Khoa','2022-08-10','ROLE_USER',NULL,'0972257612'),(5,'dangkhoa12312bn@gmail.com','$2a$10$/VKLDnMzdBh.HwcXyqOMHOYTFxF5D8pI.74KlI9cCxxMZiw8GNnue','Khoa','2022-08-10','ROLE_USER','https://res.cloudinary.com/dzznkotwg/image/upload/v1661372402/f2qsjvm1ef72qaftoege.jpg','0972257612'),(6,'dan12gkhoa123bn@gmail.com','$2a$10$PCfr3PyIG7O.w2usIfV4o.s/UoRdsRRRD/YYWMvGEmmoAhznR6ULG','Hoa','2001-12-19','ROLE_USER','https://res.cloudinary.com/dzznkotwg/image/upload/v1661432395/yh5pbu16feetqqxiftjz.jpg','0972251111');
+INSERT INTO `user` VALUES (2,'dangkhoa123bn@gmail.com','$2a$10$gnpQh3uP25DhFyAG/BIPB.N5uhD0SKE3hK7kuAOZ2AqSsyqGUjUFm','Khoa','2022-08-10','ROLE_USER',NULL,'0972257687'),(3,'dangkhoa1234bn@gmail.com','$2a$10$YbNwmkfLeCdYLvENfC48qum7quN5IOGsHlki6Qi8Zi8uH34YmqiwK','Hoa','2022-08-15','ROLE_USER',NULL,'0972257688'),(4,'dangkhoa12113bn@gmail.com','$2a$10$n1dMDiYOFexkJMH661GG9unZskUhRBk8EqMzxdDkAHs0qd8yZ5jy.','Khoa','2022-08-10','ROLE_USER',NULL,'0972257612'),(5,'dangkhoa12312bn@gmail.com','$2a$10$/VKLDnMzdBh.HwcXyqOMHOYTFxF5D8pI.74KlI9cCxxMZiw8GNnue','Khoa','2022-08-10','ROLE_USER','https://res.cloudinary.com/dzznkotwg/image/upload/v1661372402/f2qsjvm1ef72qaftoege.jpg','0972257612'),(6,'dan12gkhoa123bn@gmail.com','$2a$10$1Y0ji2aceJxujPtjlQ4X5eTrF.jumxQfiX6sCwbM62m5QiHQ/ivKu','Hoabe','2001-12-19','ROLE_USER','https://res.cloudinary.com/dzznkotwg/image/upload/v1661432395/yh5pbu16feetqqxiftjz.jpg','0972251111'),(7,'dan12gkh12oa123bn@gmail.com','$2a$10$OANLXN.6hOWhCx.DWGxP5u7aS/fnsiup0xtUj8EidKTXSQeJcApyC','Hoa1','2003-05-16','ROLE_USER','https://res.cloudinary.com/dzznkotwg/image/upload/v1661957384/epbx5pzxepknfqfymelk.png','0972257123');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -313,7 +312,7 @@ CREATE TABLE `wedding_hall` (
 
 LOCK TABLES `wedding_hall` WRITE;
 /*!40000 ALTER TABLE `wedding_hall` DISABLE KEYS */;
-INSERT INTO `wedding_hall` VALUES (1,'Rose',30,NULL,NULL,3000,'https://melisacenter.vn/uploads/CN5A8538.jpg'),(2,'SunFlower',30,NULL,NULL,2800,'https://melisacenter.vn/uploads/CN5A8538.jpg'),(3,'Camellia',30,NULL,NULL,2700,'https://melisacenter.vn/uploads/CN5A8538.jpg'),(4,'Daisy',20,NULL,NULL,2000,'https://melisacenter.vn/uploads/CN5A8538.jpg'),(5,'Tulip',20,NULL,NULL,2800,'https://melisacenter.vn/uploads/CN5A8538.jpg'),(6,'Lotus',20,NULL,NULL,2700,'https://melisacenter.vn/uploads/CN5A8538.jpg'),(7,'Pense',10,NULL,NULL,1000,'https://melisacenter.vn/uploads/CN5A8538.jpg'),(8,'Violet',10,NULL,NULL,1200,'https://melisacenter.vn/uploads/CN5A8538.jpg');
+INSERT INTO `wedding_hall` VALUES (1,'Rose',30,NULL,NULL,3000,'https://melisacenter.vn/uploads/CN5A8538.jpg'),(2,'SunFlower',30,NULL,'Hỏng',2800,'https://melisacenter.vn/uploads/CN5A8538.jpg'),(3,'Camellia',30,NULL,NULL,2700,'https://melisacenter.vn/uploads/CN5A8538.jpg'),(4,'Daisy',20,NULL,NULL,2000,'https://melisacenter.vn/uploads/CN5A8538.jpg'),(5,'Tulip',20,NULL,NULL,2800,'https://melisacenter.vn/uploads/CN5A8538.jpg'),(6,'Lotus',20,NULL,NULL,2700,'https://melisacenter.vn/uploads/CN5A8538.jpg'),(7,'Pense',10,NULL,NULL,1000,'https://melisacenter.vn/uploads/CN5A8538.jpg'),(8,'Violet',10,NULL,NULL,1200,'https://melisacenter.vn/uploads/CN5A8538.jpg');
 /*!40000 ALTER TABLE `wedding_hall` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -350,7 +349,7 @@ CREATE TABLE `wedding_party_orders` (
   CONSTRAINT `fk_pwt_id` FOREIGN KEY (`pwt_id`) REFERENCES `price_wedding_time` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_wh_id` FOREIGN KEY (`wh_id`) REFERENCES `wedding_hall` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=102 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -359,6 +358,7 @@ CREATE TABLE `wedding_party_orders` (
 
 LOCK TABLES `wedding_party_orders` WRITE;
 /*!40000 ALTER TABLE `wedding_party_orders` DISABLE KEYS */;
+INSERT INTO `wedding_party_orders` VALUES (97,6,1,1,'2022-09-14',75,8500,0,'paypal',20,NULL,68),(98,6,1,1,'2022-09-22',76,20500,0,'momo-card',20,NULL,69),(99,6,1,1,'2022-09-08',77,14700,0,'momo-card',32,NULL,70),(100,6,1,1,'2022-09-08',78,17800,1,'momo',32,NULL,71),(101,6,1,1,'2022-09-15',79,20000,0,'momo-card',20,NULL,72);
 /*!40000 ALTER TABLE `wedding_party_orders` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -371,4 +371,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-08-31 15:10:52
+-- Dump completed on 2022-09-03 17:26:45

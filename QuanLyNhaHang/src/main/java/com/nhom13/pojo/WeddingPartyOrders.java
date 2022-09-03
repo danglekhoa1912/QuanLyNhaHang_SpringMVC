@@ -73,7 +73,7 @@ public class WeddingPartyOrders implements Serializable {
     @JoinColumn(name = "pwt_id", referencedColumnName = "id")
     @ManyToOne
     private PriceWeddingTime pwtId;
-    @JsonIgnore
+//    @JsonIgnore
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private User userId;

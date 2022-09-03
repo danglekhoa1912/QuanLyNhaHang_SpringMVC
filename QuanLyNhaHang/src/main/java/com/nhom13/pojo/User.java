@@ -41,8 +41,8 @@ public class User implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
-    @Column(name = "password")
     @JsonIgnore
+    @Column(name = "password")
     private String password;
     @Basic(optional = false)
     @NotNull
@@ -58,6 +58,7 @@ public class User implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
+    @JsonIgnore
 //    @UserPhone(message = "{user.email.error.alreadyExists}")
     @Column(name = "role")
     private String role;

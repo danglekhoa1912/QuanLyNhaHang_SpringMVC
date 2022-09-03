@@ -33,7 +33,7 @@ public class PriceWeddingTimeRepositoryImpl implements PriceWeddingTimeRepositor
         q.select(root);
         q.where(b.equal(root.get("id"), id));
 
-        javax.persistence.Query query = session.createQuery(q);
+        Query query = session.createQuery(q);
         return (PriceWeddingTime) query.getSingleResult();
     }
 

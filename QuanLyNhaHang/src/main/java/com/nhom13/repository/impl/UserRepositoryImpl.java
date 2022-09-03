@@ -50,6 +50,7 @@ public class UserRepositoryImpl implements UserRepository {
         q.where(b.equal(root.get("email"), email));
 
         Query query = session.createQuery(q);
+        System.out.println(query.getSingleResult());
         return (User) query.getSingleResult();
     }
 

@@ -80,7 +80,7 @@ public class WeddingHallRepositoryImpl implements WeddingHallRepository {
         q.select(root);
         q.where(b.equal(root.get("id"), id));
 
-        javax.persistence.Query query = session.createQuery(q);
+        Query query = session.createQuery(q);
         return (WeddingHall) query.getSingleResult();
     }
 
@@ -132,9 +132,9 @@ public class WeddingHallRepositoryImpl implements WeddingHallRepository {
         Root rP = q.from(PriceWeddingTime.class);
 
         q.where(b.and(
-                b.and(b.equal(rO.get("wh_id"), weddingHallId),
-                        b.equal(rO.get("pwt_id"), rP.get("id")),
-                        b.equal(rO.get("order_date"), date))
+                b.and(b.equal(rO.get("whId"), weddingHallId),
+                        b.equal(rO.get("pwtId"), rP.get("id")),
+                        b.equal(rO.get("orderDate"), date))
         ));
         q.multiselect(rP);
         javax.persistence.Query query = session.createQuery(q);
