@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -45,12 +46,14 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<WeddingPartyOrders> getOrder() {
-        return this.orderRepository.getOrder();
+    public List<WeddingPartyOrders> getOrder(Map<String, String> params, int page) {
+        return this.orderRepository.getOrder(params,page);
     }
 
     @Override
     public List<WeddingPartyOrders> getOrderByUser(int id) {
         return this.orderRepository.getOrderByUser(id);
     }
+    @Override
+    public int getCountOrder(){return this.orderRepository.countOrder();}
 }

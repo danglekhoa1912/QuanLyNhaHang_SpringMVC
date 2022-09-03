@@ -37,6 +37,19 @@ public class ApiDishController {
     @Autowired
     private WeddingHallService weddingHallService;
 
+    @Autowired
+    private ListServiceResService listServiceResService;
+
+    @RequestMapping("/menu")
+    public ResponseEntity<List<Dish>> listDishByMenuId( @RequestParam(value = "id") int id) {
+        return new ResponseEntity<>(this.menuService.getListDish(id), HttpStatus.OK);
+    }
+
+    @RequestMapping("/orderService")
+    public ResponseEntity<List<Service>> listOrderService( @RequestParam(value = "id") int id) {
+        return new ResponseEntity<>(this.listServiceResService.getListService(id), HttpStatus.OK);
+    }
+
     @RequestMapping("/dishes")
     public ResponseEntity<List<Dish>> listDish(@RequestParam(value = "categoryId") String categoryId, @RequestParam(value = "page") int page) {
         return new ResponseEntity<>(this.dishService.getDishes(null, categoryId, page), HttpStatus.OK);
