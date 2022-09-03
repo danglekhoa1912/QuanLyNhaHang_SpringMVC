@@ -86,7 +86,10 @@ public class AdminController {
     @RequestMapping ("/statistical")
     public String statistical(Model model, @RequestParam Map<String, String> params){
         int page=Integer.parseInt(params.getOrDefault("page", "1"));
-
+        model.addAttribute("listOrder",this.orderService.getOrder(params,page));
+        model.addAttribute("pageSize",env.getProperty("page.size"));
+        model.addAttribute("counter",this.orderService.getCountOrder());
+        System.out.println(this.orderService.getOrder(params,page).size());
         return "statistical";
     }
 }

@@ -19,8 +19,8 @@ public class ApiAdminController {
     @Autowired
     OrderService orderService;
 
-    @RequestMapping("/listOrder")
+    /*@RequestMapping("/listOrder")
     public ResponseEntity<List<WeddingPartyOrders>> listOrder() {
         return new ResponseEntity<>(this.orderService.getOrder(), HttpStatus.OK);
-    }
+    }*/
 }
