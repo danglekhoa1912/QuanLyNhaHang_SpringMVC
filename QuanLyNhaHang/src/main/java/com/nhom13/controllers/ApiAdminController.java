@@ -32,7 +32,7 @@ public class ApiAdminController {
     ServiceResService serviceResService;
 
     @PutMapping(path = "/order/update", produces = {
-            MediaType.APPLICATION_JSON_VALUE
+        MediaType.APPLICATION_JSON_VALUE
     })
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public boolean uppdateStatus(@RequestBody Map<String, String> body) {
@@ -42,20 +42,20 @@ public class ApiAdminController {
     }
 
     @DeleteMapping(path = "/deleteHall/{id}", produces = {
-            MediaType.APPLICATION_JSON_VALUE
+        MediaType.APPLICATION_JSON_VALUE
     })
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public boolean deleteHall(@PathVariable String id ) {
-        int hallId=Integer.parseInt(id);
+    public boolean deleteHall(@PathVariable String id) {
+        int hallId = Integer.parseInt(id);
         return this.weddingHallService.deleteWeddingHall(hallId);
     }
 
     @DeleteMapping(path = "/deleteDish/{id}", produces = {
-            MediaType.APPLICATION_JSON_VALUE
+        MediaType.APPLICATION_JSON_VALUE
     })
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public boolean deleteDish(@PathVariable String id ) {
-        int dishId=Integer.parseInt(id);
+    public boolean deleteDish(@PathVariable String id) {
+        int dishId = Integer.parseInt(id);
         return this.dishService.deleteDish(dishId);
     }
 
@@ -63,12 +63,14 @@ public class ApiAdminController {
     public ResponseEntity<List<WeddingPartyOrders>> listOrder() {
         return new ResponseEntity<>(this.orderService.getAllOrder(), HttpStatus.OK);
     }
+
     @DeleteMapping(path = "/deleteService/{id}", produces = {
-            MediaType.APPLICATION_JSON_VALUE
+        MediaType.APPLICATION_JSON_VALUE
     })
+
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public boolean deleteService(@PathVariable String id ) {
-        int dishId=Integer.parseInt(id);
+    public boolean deleteService(@PathVariable String id) {
+        int dishId = Integer.parseInt(id);
         return this.serviceResService.deleteService(dishId);
     }
 }

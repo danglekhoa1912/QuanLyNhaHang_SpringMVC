@@ -70,6 +70,10 @@ public class IndexController {
         model.addAttribute("dishes_1", this.dishService.getDishes(params, "1", page));
         model.addAttribute("dishes_2", this.dishService.getDishes(params, "2", page));
         model.addAttribute("dishes_3", this.dishService.getDishes(params, "3", page));
+        int result= Integer.parseInt(params.getOrDefault("resultCode", "-1"));
+        int orderId= Integer.parseInt(params.getOrDefault("orderId", "0"));
+        model.addAttribute("result_payment",result);
+        model.addAttribute("orderId",orderId);
         return "index";
     }
 

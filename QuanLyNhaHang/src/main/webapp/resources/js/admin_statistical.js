@@ -1,3 +1,5 @@
+/* global Utils */
+
 let d = document.getElementById("modalBox");
 function viewMenu(endpoint, id) {
     d.innerHTML = `
@@ -68,7 +70,6 @@ function initData(endpoint, m, y) {
         document.getElementById("total_price").innerHTML = total;
         document.getElementById("total_order").innerHTML = count;
     })
-
     document.getElementById("month_statis").innerHTML = `${m}/${y}`;
     document.getElementById("month-statis").innerHTML = `${m}/${y}`;
 
@@ -95,4 +96,61 @@ function updateStatus(endpoint, orderId, status) {
         console.error(err);
     });
 }
+/* 
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/JavaScript.js to edit this template
+ */
+let listLabel=[];
+let listPrice=[];
+function loadData(endpoint) {
+    fetch(endpoint).then(function (response) {
+        return response.json();
+    }).then(function (data) {
+        data.forEach(item=>{
+            getData(item.whId.name,item.amount);
+        });
+    });
+    console.log(listLabel);
+    console.log(listPrice);
+    
+}
+function getData(label,data){
+    if (listLabel.indexOf(label)!=-1){
+        listPrice[listLabel.indexOf(label)]+=data;
+    }
+    else {
+        listLabel.push(label);
+        listPrice.push(0);
+    }
+
+}
+const ctx = document.getElementById('myChart').getContext('2d');
+    const myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: listLabel,
+            datasets: [{
+                    label: 'Thong ke doanh thu',
+                    data: listPrice,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+
 
