@@ -35,7 +35,7 @@
                 <th scope="col"><spring:message key="order.pay"/></th>
                 <th scope="col"><spring:message key="order.price.service"/></th>
                 <th scope="col"><spring:message key="order.price.dish"/></th>
-                <th scope="col">Trạng thái</th>
+                <th scope="col"><spring:message key="title.order.payment.status"/></th>
                 <th scope="col" ><spring:message key="button.order.update.status"/></th>
             </tr>
         </thead>
@@ -87,7 +87,7 @@
                         <div class="col-8">
                             <div class="numbers">
                                 <p class="mb-0 text-uppercase font-weight-bold"><spring:message key="statis.today.money"/><span id="month_statis"></span></p>
-                                <h5 class="font-weight-bolder" id="total_price"> $53,000 </h5>
+                                <h3 class="font-weight-bold" id="total_price"> $53,000 </h3>
                             </div>
                         </div>
                         <div class="col-4 text-end">
@@ -106,7 +106,7 @@
                         <div class="col-8">
                             <div class="numbers">
                                 <p class="text-sm mb-0 text-uppercase font-weight-bold"><spring:message key="statis.today.count"/><span id="month-statis"></span></p>
-                                <h5 class="font-weight-bolder" id="total_order"> 2,300 </h5>
+                                <h3 class="font-weight-bold" id="total_order"> 2,300 </h3>
                             </div>
                         </div>
                         <div class="col-4 text-end">
@@ -134,9 +134,26 @@
         </div>
     </div>
 </div>
-<div>
-    <canvas id="myChart"></canvas>
+<div class="row">
+    <div class="col">
+        <table class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col"><spring:message key="admin.label.namehall"/></th>
+                    <th scope="col"><spring:message key="admin.hall.count"/></th>
+                    <th scope="col"><spring:message key="admin.hall.total"/></th>
+                </tr>
+                <tr class="table-light" id="table_hall">
+                    
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <div class="col">
+        <canvas id="myChart"></canvas>
+    </div>
 </div>
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="<c:url value="/js/admin_statistical.js"/>"></script>
 <script>

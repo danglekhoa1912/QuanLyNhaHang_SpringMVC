@@ -102,6 +102,8 @@ function updateStatus(endpoint, orderId, status) {
  */
 let listLabel=[];
 let listPrice=[];
+let listCount=[];
+let n=0;
 function loadData(endpoint) {
     fetch(endpoint).then(function (response) {
         return response.json();
@@ -110,21 +112,7 @@ function loadData(endpoint) {
             getData(item.whId.name,item.amount);
         });
     });
-    console.log(listLabel);
-    console.log(listPrice);
-    
-}
-function getData(label,data){
-    if (listLabel.indexOf(label)!=-1){
-        listPrice[listLabel.indexOf(label)]+=data;
-    }
-    else {
-        listLabel.push(label);
-        listPrice.push(0);
-    }
-
-}
-const ctx = document.getElementById('myChart').getContext('2d');
+    const ctx = document.getElementById('myChart').getContext('2d');
     const myChart = new Chart(ctx, {
         type: 'bar',
         data: {
@@ -151,6 +139,34 @@ const ctx = document.getElementById('myChart').getContext('2d');
             }
         }
     });
+    let table=document.getElementById("table_hall");
+    console.log(listLabel);
+    console.log(listLabel);
+    console.log(listPrice);
+    console.log(listCount);
+    table.innerHTML=``;
+    for (let i=0;i<n;i++) {
+        table.innerHTML+=`
+        <th scope="col">${listLabel[i]}</th>
+        <th scope="col">${listCount[i]}</th>
+        <th scope="col">${listPrice[i]}</th>`
+        console.log(i);
+    }
+}
+function getData(label,data){
+    if (listLabel.indexOf(label)!=-1){
+        listPrice[listLabel.indexOf(label)]+=data;
+        listCount[listLabel.indexOf(label)]++;
+    }
+    else {
+        listLabel.push(label);
+        listPrice.push(data);
+        listCount.push(1);
+        n++;
+    }
+
+}
+
 
 
 
