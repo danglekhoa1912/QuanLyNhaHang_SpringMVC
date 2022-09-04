@@ -20,7 +20,7 @@
             <thead class="thead-light">
             <tr>
                 <th>${title}</th>
-                <th></th>
+                <th><button type="button" class="btn-info" data-bs-toggle="modal" data-bs-target="#imageModal" onclick="addUser()"> <spring:message key="admin.account.add"/></th>
                 <th><button type="button" class="btn-info" onclick="window.location.href=`?role=ROLE_STAFF`"> <spring:message key="admin.account.user"/></button></th>
                 <th><button type="button" class="btn-info" onclick="window.location.href=`?role=ROLE_USER`"> <spring:message key="admin.account.cus"/></button></th>
                 <th><div class="input-group">
@@ -69,7 +69,7 @@
                 <div class="col-2">
                     <img src="" id="img" class="card-img-top" alt="upload file here" />
                 </div>
-                <div class="col">
+                <div class="col" id="formadd">
                     <div class="form-row">
                         <div class="col">
                             <label for="name"><spring:message key="admin.name"/></label>
@@ -100,7 +100,6 @@
         </div>
     </div>
 </div>
-<script src="<c:url value="/js/admin_account.js"/>"></script>
 
 <script>
     function search() {
@@ -112,6 +111,23 @@
         document.getElementById("mobile").value=mobile;
         document.getElementById("email").value=email;
         document.getElementById("img").src=image;
+        document.getElementById("name").disabled=true;
+        document.getElementById("birthday").disabled=true;
+        document.getElementById("mobile").disabled=true;
+        document.getElementById("email").disabled=true;
+        document.getElementById("img").disabled=true;
+    }
+    function addUser(){
+        document.getElementById("name").value=null;
+        document.getElementById("birthday").value=null;
+        document.getElementById("mobile").value=null;
+        document.getElementById("email").value=null;
+        document.getElementById("img").src=null;
+        document.getElementById("name").disabled=false;
+        document.getElementById("birthday").disabled=false;
+        document.getElementById("mobile").disabled=false;
+        document.getElementById("email").disabled=false;
+        document.getElementById("img").disabled=false;
     }
 </script>
 <style>
