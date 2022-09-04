@@ -23,10 +23,12 @@
         <spring:message key="admin.service.add"/>
     </button>
     <hr class="mb-4"/>
+    <div class="row">
+        <div class="row d-flex" id="order-services">
 
-    <div class="col-8 d-flex" id="order-services">
-
+        </div>
     </div>
+
 </div>
 <div class="modal fade" id="serviceModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -95,7 +97,7 @@
 </style>
 <script src="<c:url value="/js/admin.js"/>"></script>
 <script>
-    window.onload = function () {
-        loadService(`${endpoint_service}`);
-    }
+        window.onload = function () {
+            loadService(`${endpoint_service}`);
+        }
 </script>

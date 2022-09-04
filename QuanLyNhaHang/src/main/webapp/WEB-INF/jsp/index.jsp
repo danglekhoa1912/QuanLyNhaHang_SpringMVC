@@ -217,6 +217,34 @@
         crossorigin="anonymous"></script>
 <!-- Script: Smooth scrolling between anchors in the same page -->
 <script src="<c:url value="/js/smooth-scroll.js"/>" style=""></script>
+<c:url value="/api/admin/order/update" var="endpoint" />
+<script>
+    window.onload=function(){
+        console.log(${result_payment});
+        if(${result_payment}>-1){
+            if (${result_payment}===0){
+            fetch(`${endpoint}`, {
+        method: "put",
+        body: JSON.stringify({
+            orderId: ${orderId},
+            status: true
+        }),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }).then(res => {
+        if (res.status === 204)
+                        alert("Bạn đã thanh toán thành công!");
+    }).catch(function (err) {
+        console.error(err);
+        
+    })
+        }else{
+        alert("Bạn đã thanh toán thất bại!");
+        }
+    };
+}
+</script>
 </body>
 </html>
 

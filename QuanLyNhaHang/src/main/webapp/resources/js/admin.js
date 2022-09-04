@@ -146,7 +146,7 @@ function loadService(endpoint) {
         data.forEach(item => {
             let image = `${item.image}`
             msg.innerHTML += `
-                        <div class="col-md-3 col-xs-12 d-flex" style="padding: 10px;">
+                        <div class="col-3 d-flex style="padding: 10px;">
                                 <div class="card" id="div-${item.id}">
                                     <img class="card-img-top" class="img-fluid" src="${item.image}" alt="Card image">
                                     <div class="card-body">
@@ -162,6 +162,7 @@ function loadService(endpoint) {
                             
                                 </div>
                             </div>
+                        </div>
                 `
         })
     })

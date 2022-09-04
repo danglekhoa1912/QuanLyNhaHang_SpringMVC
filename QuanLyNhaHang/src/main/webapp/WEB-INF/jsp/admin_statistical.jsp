@@ -48,16 +48,16 @@
                 <td>${item.userId.mobile}</td>
                 <td>${item.quantityTable}</td>
                 <td>${item.typePay}</td>
-                <td><button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#imageModal" onclick="viewListService(`${endpointservice}`,`${item.listServiceId.id}`)"><spring:message key="admin.label.view"/></button></td>
-                <td><button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#imageModal" onclick="viewMenu(`${endpoint}`,`${item.menuId.id}`)"><spring:message key="admin.label.view"/></button></td>
+                <td><button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#imageModal" onclick="viewListService(`${endpointservice}`, `${item.listServiceId.id}`)"><spring:message key="admin.label.view"/></button></td>
+                <td><button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#imageModal" onclick="viewMenu(`${endpoint}`, `${item.menuId.id}`)"><spring:message key="admin.label.view"/></button></td>
                 <td><spring:message key="title.order.payment.status.${item.paymentStatus}" /></td>
                 <td>
                     <c:choose>
                         <c:when test="${item.paymentStatus}">
-                            <button onclick="updateStatus(`${endpoint}`,${item.id},!${item.paymentStatus})" id="btn-update-status-${item.id}" class="btn btn-danger"><spring:message key="button.order.update.status.${item.paymentStatus}" /></button>
+                            <button onclick="updateStatus(`${endpoint}`,${item.id}, !${item.paymentStatus})" id="btn-update-status-${item.id}" class="btn btn-danger"><spring:message key="button.order.update.status.${item.paymentStatus}" /></button>
                         </c:when>
                         <c:otherwise>
-                            <button onclick="updateStatus(`${endpoint}`,${item.id},!${item.paymentStatus})" id="btn-update-status-${item.id}" class="btn btn-secondary"><spring:message key="button.order.update.status.${item.paymentStatus}" /></button>
+                            <button onclick="updateStatus(`${endpoint}`,${item.id}, !${item.paymentStatus})" id="btn-update-status-${item.id}" class="btn btn-secondary"><spring:message key="button.order.update.status.${item.paymentStatus}" /></button>
                         </c:otherwise>
                     </c:choose>
                 </td>
@@ -133,14 +133,20 @@
             </div>
         </div>
     </div>
-    <script src="<c:url value="/js/admin_statistical.js"/>"></script>
-    <script>
-        window.onload = function () {
-            let date = new Date();
-            let d = date.getMonth() + 1;
-            initData(`${end}`, d, date.getFullYear());
-            let s = date.getFullYear().toString() + "-" + d.toString();
-            document.getElementById("month").max = s;
-        }
+</div>
+<div>
+    <canvas id="myChart"></canvas>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="<c:url value="/js/admin_statistical.js"/>"></script>
+<script>
+    window.onload = function () {
+        let date = new Date();
+        let d = date.getMonth() + 1;
+        initData(`${end}`, d, date.getFullYear());
+        let s = date.getFullYear().toString() + "-" + d.toString();
+        document.getElementById("month").max = s;
+        loadData(`${end}`);
+    }
 
-    </script>
+</script>

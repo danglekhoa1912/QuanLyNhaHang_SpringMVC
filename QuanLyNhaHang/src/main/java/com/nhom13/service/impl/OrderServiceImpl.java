@@ -63,7 +63,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<WeddingPartyOrders> getAllOrder() {
         return this.orderRepository.getAllOrder();
-
+    }
 
     @Override
     public WeddingPartyOrders getOrderById(int id) {
@@ -72,9 +72,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public boolean upateStatusOrder(int orderId, boolean status) {
-        WeddingPartyOrders order=this.getOrderById(orderId);
+        WeddingPartyOrders order = this.getOrderById(orderId);
         order.setPaymentStatus(status);
         return this.orderRepository.updateStatusOrder(order);
-
     }
 }
