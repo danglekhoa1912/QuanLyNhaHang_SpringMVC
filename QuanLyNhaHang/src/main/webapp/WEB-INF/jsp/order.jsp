@@ -36,10 +36,10 @@
                 <div class="col-md-3 mb-3"><label for="type_day"><spring:message key="order.book.time"/></label> <select
                         style="font-weight: bold"
                         class="custom-select d-block w-100" id="type_day" required="">
-                    <c:forEach items="${session}" var="s">
-                        <option value="${s.id}">${s.session}</option>
-                    </c:forEach>
-                </select>
+                        <c:forEach items="${session}" var="s">
+                            <option value="${s.id}">${s.session}</option>
+                        </c:forEach>
+                    </select>
                     <div class="text-danger" id="session-error" hidden><spring:message
                             key="order.session.error"/></div>
                 </div>
@@ -101,7 +101,7 @@
                             </div>
                             <c:forEach items="${categoryDish}" var="category">
                                 <div class="card-body subheader">
-                                        ${category.name}
+                                    ${category.name}
                                     <ul class="list-group" id="listDish-${category.id}" style="font-size: large;">
 
                                     </ul>
@@ -116,22 +116,22 @@
                                 <div class="btn-group btn-group-toggle d-flex" data-toggle="buttons">
                                     <label class="btn btn-secondary active">
                                         <input type="radio" name="options" id="option1"
-                                               onchange="loadPage(`${enpoint}`,1,1,${pageSize},${count_dish_1});"
+                                               onchange="loadPage(`${enpoint}`, 1, 1,${pageSize},${count_dish_1});"
                                                checked> <spring:message key="intro.appetizer"/>
                                     </label>
                                     <label class="btn btn-secondary">
                                         <input type="radio" name="options" id="option2"
-                                               onchange="loadPage(`${enpoint}`,2,1,${pageSize},${count_dish_2});">
+                                               onchange="loadPage(`${enpoint}`, 2, 1,${pageSize},${count_dish_2});">
                                         <spring:message key="intro.dishes.main"/>
                                     </label>
                                     <label class="btn btn-secondary">
                                         <input type="radio" name="options" id="option3"
-                                               onchange="loadPage(`${enpoint}`,3,1,${pageSize},${count_dish_3});">
+                                               onchange="loadPage(`${enpoint}`, 3, 1,${pageSize},${count_dish_3});">
                                         <spring:message key="intro.dishes.dessert"/>
                                     </label>
                                     <label class="btn btn-secondary">
                                         <input type="radio" name="options" id="option4"
-                                               onchange="loadPage(`${enpoint}`,4,1,${pageSize},${count_dish_4});">
+                                               onchange="loadPage(`${enpoint}`, 4, 1,${pageSize},${count_dish_4});">
                                         <spring:message key="order.dish.drink"/>
                                     </label>
                                 </div>
@@ -182,12 +182,12 @@
                             <p class="card-text">${w.describe}</p>
                             <p class="card-text">`<spring:message key="order.hall.capacity"/> ${w.capacity}
                                 <spring:message key="order.hall.price"/> ${w.price} 000 [VNĐ]`</p>
-                            <c:if test="${w.status!=null}">
+                                <c:if test="${w.status!=null}">
                                 <p class="badge bg-danger"><spring:message key="weddinghall.status"/></p>
                             </c:if>
                             <c:if test="${w.status==null}">
                                 <button type="button" class="btn btn-primary" data-toggle="modal"
-                                        onclick="weddingHall(${w.id},`${w.name}`,`${w.describe}`,${w.capacity},${w.price},`${w.image}`);">
+                                        onclick="weddingHall(${w.id}, `${w.name}`, `${w.describe}`,${w.capacity},${w.price}, `${w.image}`);">
                                     <spring:message key="order.choose.hall"/>
                                 </button>
                             </c:if>
@@ -202,20 +202,18 @@
         </div>
     </div>
 </div>
-
-<div class="modal fade modal-second" id="orderModal" tabindex="-2" role="dialog" aria-labelledby="orderModalLabel"
+<div class="modal fade" id="orderModal" tabindex="-2" role="dialog" aria-labelledby="orderModalLabel"
      aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content" style="background-color: #deebfd">
             <c:url value="/payment" var="action"/>
             <form id="form-payment" method="post" action="${action}" >
-                <div class="modal-header">
+                <div class="modal-header justify-content-center">
                     <h1 class="form-header text-dark" data-component="header">
                         <spring:message key="header.order.detail"/>
                     </h1>
                 </div>
                 <div class="modal-body">
-
                     <div class="row ">
                         <div class="col">
                             <div class="form-group">
@@ -236,7 +234,7 @@
                         <div class="col">
                             <div class="form-group">
                                 <label class="text-dark" for="wedding-hall-name"><b><spring:message
-                                        key="order.wedding.hall.type"/></b></label>
+                                            key="order.wedding.hall.type"/></b></label>
                                 <input disabled id="wedding-hall-name" type="text" class="form-control"
                                        name="wedding-hall-name">
                             </div>
@@ -244,7 +242,7 @@
                         <div class="col">
                             <div class="form-group">
                                 <label class="text-dark" for="quantity-table"><b><spring:message
-                                        key="order.book.count"/></b></label>
+                                            key="order.book.count"/></b></label>
                                 <input disabled id="quantity-table" type="number" class="form-control"
                                        name="quantity-table">
                             </div>
@@ -252,16 +250,19 @@
                     </div>
                     <div class="form-group">
                         <label class="text-dark" for="booking-date"><b><spring:message
-                                key="order.book.date"/></b></label>
+                                    key="order.book.date"/></b></label>
                         <input disabled id="booking-date" type="date" class="form-control"
                                name="booking-date">
                     </div>
                     <hr>
                     <div class="card">
+                        <h3 class="justify-content-center text-dark d-flex">
+                            <spring:message key="admin.label.view"/>
+                        </h3>
                         <div class="row">
                             <div class="col justify-content-center">
                                 <label class="text-dark" for="price-dish"><b><spring:message
-                                        key="order.price.dish"/></b></label>
+                                            key="order.price.dish"/></b></label>
                             </div>
                             <div class="col">
                                 <input disabled id="price-dish" type="number" class="form-control"
@@ -269,9 +270,9 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col justify-content-center">
+                            <div class="col">
                                 <label class="text-dark" for="price-service"><b><spring:message
-                                        key="order.price.service"/></b></label>
+                                            key="order.price.service"/></b></label>
                             </div>
                             <div class="col">
                                 <input disabled id="price-service" type="number" class="form-control"
@@ -279,9 +280,9 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col justify-content-center">
+                            <div class="col">
                                 <label class="text-dark" for="price-weddinghall"><b><spring:message
-                                        key="order.price.wedding.hall"/></b></label>
+                                            key="order.price.wedding.hall"/></b></label>
                             </div>
                             <div class="col">
                                 <input disabled id="price-weddinghall" type="number" class="form-control"
@@ -290,24 +291,23 @@
                         </div>
                     </div>
                     <hr>
-                    <div class="row ">
-                        <div class="col center-block">
+                    <div class="row d-flex" style="padding:10px">
+                        <div class="col-6">
                             <label class="text-dark" for="price-total"><b><spring:message key="order.price.total"/></b></label>
                         </div>
-                        <div class="col">
+                        <div class="col-6">
                             <input disabled id="price-total" type="number" class="form-control"
                                    name="price-total">
                         </div>
                     </div>
-                    <hr>
-                    <div class="form-group" style="background-color: #deebfd ">
-                        <label class="text-dark" for="name"><b>Phương thức thanh toán</b></label>
-                        <div class="form-check text-dark">
+                    <div class="form-group d-flex row" style="background-color: #deebfd ">
+                        <label class="text-dark align-self-center col-4" for="name"><b><spring:message key="order.pay.type"/></b></label>
+                        <div class="form-check text-dark col-3">
                             <input type="radio" class="form-check-input bg-success" id="cash" name="optradio"
                                    value="momo" checked>
-                            <label class="form-check-label text-dark" for="cash">Tiền mặt</label>
+                            <label class="form-check-label text-dark" for="cash"><spring:message key="order.type.money"/></label>
                         </div>
-                        <div class="form-check text-dark d-flex align-items-center">
+                        <div class="col-2 form-check text-dark">
                             <input type="radio" class="form-check-input bg-success " id="momo" name="optradio"
                                    value="momo">
                             <label class="form-check-label text-dark" for="momo">
@@ -315,7 +315,7 @@
                                      alt="Cinque Terre">
                             </label>
                         </div>
-                        <div class="form-check text-dark d-flex align-items-center">
+                        <div class="form-check col-2 text-dark">
                             <input type="radio" class="form-check-input bg-success" id="momo-card" name="optradio"
                                    value="momo-card">
                             <label class="form-check-label text-dark" for="momo-card">
@@ -355,14 +355,34 @@
     input[type=number] {
         -moz-appearance: textfield;
     }
+    .form-control {
+        display: block;
+        width: 100%;
+        font-size: 0.875rem;
+        font-weight: 400;
+        line-height: 1;
+        color: #69707a;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #c5ccd6;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        border-radius: 0.35rem;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        font-weight: bold;
+    }
+    label{
+        font-weight: bold;
+    }
 </style>
 <script src="<c:url value="/js/orderdish.js"/>"></script>
 
 <script>
-    window.onload = function () {
-        loadPage(`${enpoint}`, 1, 1, ${pageSize}, ${count_dish_1})
-        loadService(`${endpoint_service}`);
-    }
+                                            window.onload = function () {
+                                                loadPage(`${enpoint}`, 1, 1, ${pageSize}, ${count_dish_1})
+                                                loadService(`${endpoint_service}`);
+                                            }
 
 
 </script>

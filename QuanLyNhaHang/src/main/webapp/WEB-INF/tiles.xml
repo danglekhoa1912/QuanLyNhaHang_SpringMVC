@@ -91,4 +91,8 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
         <put-attribute name="title" value="Thống kê"/>
         <put-attribute name="content" value="/WEB-INF/jsp/admin_statistical.jsp"/>
     </definition>
+    <definition name="staffStatis" extends="baseLayoutStaff">
+        <put-attribute name="title" value="Thống kê"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/staff_statistical.jsp"/>
+    </definition>
 </tiles-definitions>

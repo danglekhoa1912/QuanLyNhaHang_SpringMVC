@@ -11,6 +11,7 @@ public interface OrderRepository {
     List<WeddingPartyOrders> getOrder(Map<String, String> params, int page);
     List<WeddingPartyOrders> getOrderByUser(int id);
     int countOrder();
+    List<WeddingPartyOrders> getAllOrder();
     WeddingPartyOrders getOrderById(int id);
     boolean updateStatusOrder(WeddingPartyOrders order);
 }

@@ -14,6 +14,7 @@ import java.io.IOException;
 
 @Component
 public class LoginHandler implements AuthenticationSuccessHandler {
+
     @Autowired
     private UserService userService;
 
@@ -22,7 +23,13 @@ public class LoginHandler implements AuthenticationSuccessHandler {
         User u = this.userService.getUserByEmail(a.getName());
         request.getSession().setAttribute("currentUser", u);
         System.out.println(request.getSession().getAttribute("currentUser"));
-        response.sendRedirect("/QuanLyNhaHang");
+        if (u.getRole().equals("ROLE_USER")) {
+            response.sendRedirect("/QuanLyNhaHang");
+        } else if (u.getRole().equals("ROLE_STAFF")) {
+            response.sendRedirect("/QuanLyNhaHang/staff");
+        } else {
+            response.sendRedirect("/QuanLyNhaHang/admin");
+        }
+
     }
 }
-

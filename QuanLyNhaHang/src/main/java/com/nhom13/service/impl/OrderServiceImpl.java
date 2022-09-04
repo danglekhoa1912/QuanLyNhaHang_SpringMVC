@@ -29,9 +29,9 @@ public class OrderServiceImpl implements OrderService {
     private ListServiceRepository listServiceRepository;
 
     @Override
-    public WeddingPartyOrders addOrder(int userId, List<Integer> menu,  List<Integer>  listService, int weddinghallId, int priceWeddingId, Date orderDate,int amount,String typePay,int quantityTable) {
+    public WeddingPartyOrders addOrder(int userId, List<Integer> menu, List<Integer> listService, int weddinghallId, int priceWeddingId, Date orderDate, int amount, String typePay, int quantityTable) {
 
-        WeddingPartyOrders order=new WeddingPartyOrders();
+        WeddingPartyOrders order = new WeddingPartyOrders();
         order.setUserId(this.userRepository.getUserById(userId));
         order.setWhId(this.weddingHallRepository.getWeddingHallById(weddinghallId));
         order.setPwtId(this.priceWeddingTimeRepository.getPriceWeddingById(priceWeddingId));
@@ -47,15 +47,23 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<WeddingPartyOrders> getOrder(Map<String, String> params, int page) {
-        return this.orderRepository.getOrder(params,page);
+        return this.orderRepository.getOrder(params, page);
     }
 
     @Override
     public List<WeddingPartyOrders> getOrderByUser(int id) {
         return this.orderRepository.getOrderByUser(id);
     }
+
     @Override
-    public int getCountOrder(){return this.orderRepository.countOrder();}
+    public int getCountOrder() {
+        return this.orderRepository.countOrder();
+    }
+
+    @Override
+    public List<WeddingPartyOrders> getAllOrder() {
+        return this.orderRepository.getAllOrder();
+
 
     @Override
     public WeddingPartyOrders getOrderById(int id) {
@@ -67,5 +75,6 @@ public class OrderServiceImpl implements OrderService {
         WeddingPartyOrders order=this.getOrderById(orderId);
         order.setPaymentStatus(status);
         return this.orderRepository.updateStatusOrder(order);
+
     }
 }

@@ -39,7 +39,7 @@ public class AdminController {
     private UserService userService;
     @Autowired
     private Environment env;
-
+    
     @Autowired
     private HallValidator hallValidator;
 
@@ -48,7 +48,16 @@ public class AdminController {
     public void initBinder(WebDataBinder binder){
         binder.setValidator(this.hallValidator);
     }
-
+    
+    @RequestMapping("")
+    public String index(Model model, @RequestParam Map<String, String> params){
+        int page=Integer.parseInt(params.getOrDefault("page", "1"));
+        model.addAttribute("listOrder",this.orderService.getOrder(params,page));
+        model.addAttribute("pageSize",env.getProperty("page.size"));
+        model.addAttribute("counter",this.orderService.getCountOrder());
+        System.out.println(this.orderService.getOrder(params,page).size());
+        return "statistical";
+    }    
     @RequestMapping("/dishesmanage")
     public String dishesmanage(Model model, @RequestParam Map<String, String> params) {
         int page = Integer.parseInt(params.getOrDefault("page", "1"));
@@ -126,7 +135,6 @@ public class AdminController {
             model.addAttribute("type","ROLE_USER");
             model.addAttribute("title",env.getProperty("admin.account.cus"));
         }
-        System.out.println("hello:"+this.userService.getUserByRole(params,page));
         model.addAttribute("listAccount",this.userService.getUserByRole(params,page));
         model.addAttribute("accountCounter",this.userService.countAccount(params));
         model.addAttribute("pageSize",Integer.parseInt(env.getProperty("page.size")));
@@ -138,7 +146,6 @@ public class AdminController {
         model.addAttribute("listOrder",this.orderService.getOrder(params,page));
         model.addAttribute("pageSize",env.getProperty("page.size"));
         model.addAttribute("counter",this.orderService.getCountOrder());
-        System.out.println(this.orderService.getOrder(params,page).size());
         return "statistical";
     }
 }

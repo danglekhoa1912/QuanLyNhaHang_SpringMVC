@@ -57,6 +57,9 @@ public class ApiAdminController {
         return this.dishService.deleteDish(dishId);
     }
 
+    @RequestMapping("/listOrder")
+    public ResponseEntity<List<WeddingPartyOrders>> listOrder() {
+        return new ResponseEntity<>(this.orderService.getAllOrder(), HttpStatus.OK);
     @DeleteMapping(path = "/deleteService/{id}", produces = {
             MediaType.APPLICATION_JSON_VALUE
     })
