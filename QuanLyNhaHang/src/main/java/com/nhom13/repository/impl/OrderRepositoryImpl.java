@@ -72,5 +72,11 @@ public class OrderRepositoryImpl implements OrderRepository {
         Query q = session.createQuery("SELECT COUNT(*) FROM WeddingPartyOrders ");
         return Integer.parseInt(q.getSingleResult().toString());
     }
-
+    @Override
+    public List<WeddingPartyOrders> getAllOrder(){
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        Query q = session.createQuery("FROM WeddingPartyOrders");
+        System.out.println("");
+        return q.getResultList();
+    }
 }

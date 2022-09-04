@@ -12,19 +12,15 @@
 <link rel="stylesheet" href="<c:url value="/css/index.css"/>" type="text/css">
 <nav class="navbar-expand-md navbar-dark bg-dark navbar fixed-top">
     <div class="container-fluid">
-        <a class="nav-link text-light" href="<c:url value="/"/>"><b>The ADORA</b></a>
+        <a class="nav-link text-light" href="#"/><b>The ADORA</b></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse " id="mynavbar">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item mx-2">
-                    <c:if test="${pageContext.request.userPrincipal.name == null}">
-                        <a class="nav-link" href="<c:url value="/login"/>"><b><spring:message key="title.booking"/></b></a>
-                    </c:if>
-                    <c:if test="${pageContext.request.userPrincipal.name != null}">
-                        <a class="nav-link" href="<c:url value=""/>"><b><spring:message key="header.staff.order"/></b></a>
-                    </c:if>
+                    <c:url value="/staff/staffStatis" var="statis" />
+                    <a class="nav-link" href="${statis}"><b><spring:message key="header.staff.order"/></b></a>
                 </li>
                 <li class="nav-item mx-2">
                     <c:url value="/staff/weddinghall" var="weddinghall" />

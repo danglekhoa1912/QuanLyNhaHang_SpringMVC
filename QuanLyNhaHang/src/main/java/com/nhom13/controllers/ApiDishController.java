@@ -74,7 +74,7 @@ public class ApiDishController {
     public ResponseEntity<List<Service>> listService( @RequestParam(value = "page") int page) {
         return new ResponseEntity<>(this.serviceResService.getServicesRes(null, page), HttpStatus.OK);
     }
-
+    
     @GetMapping(path = "/getPriceWeddingTime/{id}", produces = "application/json")
     public ResponseEntity<Object> getPrice( @PathVariable int id){
         return new ResponseEntity<>(this.priceWeddingTimeService.getPriceWeddingById(id), HttpStatus.OK);

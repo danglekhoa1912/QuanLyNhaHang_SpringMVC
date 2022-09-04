@@ -36,8 +36,12 @@ public class StaffController {
 
     @RequestMapping("")
     public String staff(Model model, @RequestParam Map<String, String> params) {
-        int page = Integer.parseInt(params.getOrDefault("page", "1"));
-        return "staff";
+        int page=Integer.parseInt(params.getOrDefault("page", "1"));
+        model.addAttribute("listOrder",this.orderService.getOrder(params,page));
+        model.addAttribute("pageSize",env.getProperty("page.size"));
+        model.addAttribute("counter",this.orderService.getCountOrder());
+        System.out.println(this.orderService.getOrder(params,page).size());
+        return "staffStatis";
     }
 
     @RequestMapping("/dishes")
@@ -68,5 +72,14 @@ public class StaffController {
         int page = Integer.parseInt(params.getOrDefault("page", "1"));
         model.addAttribute("weddingHall", this.weddingHallService.getWeddingHalls(params, page));
         return "weddinghall";
+    }
+    @RequestMapping ("/staffStatis")
+    public String statistical(Model model, @RequestParam Map<String, String> params){
+        int page=Integer.parseInt(params.getOrDefault("page", "1"));
+        model.addAttribute("listOrder",this.orderService.getOrder(params,page));
+        model.addAttribute("pageSize",env.getProperty("page.size"));
+        model.addAttribute("counter",this.orderService.getCountOrder());
+        System.out.println(this.orderService.getOrder(params,page).size());
+        return "staffStatis";
     }
 }

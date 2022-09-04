@@ -12,4 +12,5 @@ public interface OrderService {
     List<WeddingPartyOrders> getOrder(Map<String, String> params, int page);
     List<WeddingPartyOrders> getOrderByUser(int id);
     int getCountOrder();
+    List<WeddingPartyOrders> getAllOrder();
 }
