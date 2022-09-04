@@ -2,6 +2,7 @@ package com.nhom13.controllers;
 
 import com.nhom13.pojo.Dish;
 import com.nhom13.pojo.Service;
+import com.nhom13.pojo.User;
 import com.nhom13.pojo.WeddingHall;
 import com.nhom13.service.*;
 import com.nhom13.validator.HallValidator;
@@ -16,6 +17,10 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Map;
 
 @Controller
@@ -154,8 +159,16 @@ public class AdminController {
         model.addAttribute("listAccount",this.userService.getUserByRole(params,page));
         model.addAttribute("accountCounter",this.userService.countAccount(params));
         model.addAttribute("pageSize",Integer.parseInt(env.getProperty("page.size")));
+        model.addAttribute("newStaff", new User());
         return "accountmanage";
     }
+
+    @PostMapping("/accountmanage")
+    public String accountmanage(@ModelAttribute(value = "newStaff") User newStaff) throws ParseException {
+        this.userService.addStaff(newStaff);
+        return "redirect:accountmanage";
+    }
+
     @RequestMapping ("/statistical")
     public String statistical(Model model, @RequestParam Map<String, String> params){
         int page=Integer.parseInt(params.getOrDefault("page", "1"));
@@ -164,4 +177,6 @@ public class AdminController {
         model.addAttribute("counter",this.orderService.getCountOrder());
         return "statistical";
     }
+
+
 }

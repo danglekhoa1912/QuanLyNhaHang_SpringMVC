@@ -1,6 +1,7 @@
 <%@ taglib prefix="spring" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div>
     <br/>
@@ -62,6 +63,8 @@
 <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
+            <c:url value="/admin/accountmanage" var="action" />
+            <form:form modelAttribute="newStaff" method="post" action="${action}" >
             <div class="modal-header">
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -72,64 +75,38 @@
                 <div class="col" id="formadd">
                     <div class="form-row">
                         <div class="col">
-                            <label for="name"><spring:message key="admin.name"/></label>
-                            <input type="text" id="name" class="form-control" disabled="true">
+                            <label for="nameStaff"><spring:message key="admin.name"/></label>
+                            <form:input path="name" type="text" name="nameStaff" id="nameStaff" class="form-control" disabled="true"/>
                         </div>
                         <div class="col">
-                            <label for="birthday"><spring:message key="admin.birthday"/></label>
-                            <input type="date" id="birthday" class="form-control" disabled="true">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col">
-                            <label for="mobile"><spring:message key="admin.mobile"/></label>
-                            <input type="text" id="mobile" class="form-control" disabled="true">
+                            <label for="birthdayStaff"><spring:message key="admin.birthday"/></label>
+                            <form:input path="birthday" type="date" name="birthdayStaff" id="birthdayStaff" class="form-control" disabled="true"/>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="col">
-                            <label for="email"><spring:message key="admin.email"/></label>
-                            <input type="email" id="email" class="form-control" disabled="true">
+                            <label for="mobileStaff"><spring:message key="admin.mobile"/></label>
+                            <form:input path="mobile" type="text" name="mobileStaff" id="mobileStaff" class="form-control" disabled="true"/>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col">
+                            <label for="emailStaff"><spring:message key="admin.email"/></label>
+                            <form:input path="email" type="email" name="emailStaff" id="emailStaff" class="form-control" disabled="true"/>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><spring:message key="order.close"/></button>
+                <button type="submit" class="btn btn-secondary" ><spring:message key="admin.save"/></button>
             </div>
+            </form:form>
         </div>
     </div>
 </div>
 
-<script>
-    function search() {
-        window.location.href=`?role=${type}&name=`+document.getElementById("search-box").value;
-    }
-    function viewDetail(name, date,mobile,email,image){
-        document.getElementById("name").value=name;
-        document.getElementById("birthday").value=date;
-        document.getElementById("mobile").value=mobile;
-        document.getElementById("email").value=email;
-        document.getElementById("img").src=image;
-        document.getElementById("name").disabled=true;
-        document.getElementById("birthday").disabled=true;
-        document.getElementById("mobile").disabled=true;
-        document.getElementById("email").disabled=true;
-        document.getElementById("img").disabled=true;
-    }
-    function addUser(){
-        document.getElementById("name").value=null;
-        document.getElementById("birthday").value=null;
-        document.getElementById("mobile").value=null;
-        document.getElementById("email").value=null;
-        document.getElementById("img").src=null;
-        document.getElementById("name").disabled=false;
-        document.getElementById("birthday").disabled=false;
-        document.getElementById("mobile").disabled=false;
-        document.getElementById("email").disabled=false;
-        document.getElementById("img").disabled=false;
-    }
-</script>
+<script src="<c:url value="/js/admin_account.js"/>"></script>
 <style>
     .form-control {
         display: block;

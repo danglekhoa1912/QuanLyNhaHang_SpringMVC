@@ -312,7 +312,7 @@
                                    value="momo">
                             <label class="form-check-label text-dark" for="momo">
                                 <img src="<c:url value="/assets/momo.png" />" style="height: 40px" class="rounded"
-                                     alt="Cinque Terre">
+                                     alt="Cinque Terre">Mã QR Momo
                             </label>
                         </div>
                         <div class="form-check col-2 text-dark">
@@ -320,7 +320,7 @@
                                    value="momo-card">
                             <label class="form-check-label text-dark" for="momo-card">
                                 <img src="<c:url value="/assets/momo.png" />" style="height: 40px" class="rounded"
-                                     alt="Cinque Terre">
+                                     alt="Cinque Terre">Mã QR Momo
                             </label>
                         </div>
                     </div>
