@@ -1,18 +1,24 @@
-function editHall(name, describe, capacity, price) {
+function editHall(id,name, describe, capacity, price,img) {
+    console.log(name)
+    document.getElementById("idHall").value = id;
     document.getElementById("nameHall").value = name;
     document.getElementById("describeHall").value = describe;
     document.getElementById("capacityHall").value = parseInt(capacity);
     document.getElementById("priceHall").value = parseInt(price);
-    document.getElementById("deleteHall").style.display = "block";
+    document.getElementById("hallImg").src = img;
+    document.getElementById("imageUpload").value = img;
+    document.getElementById("imageUpload").setAttribute("hidden",'true')
     document.getElementById("modal-title").innerHTML = "Chỉnh sửa sảnh";
 }
 
 function initModalEdit() {
+    document.getElementById("idHall").value = null;
     document.getElementById("nameHall").value = null;
     document.getElementById("describeHall").value = null;
     document.getElementById("capacityHall").value = null;
     document.getElementById("priceHall").value = null;
-    document.getElementById("deleteHall").style.display = "none";
+    document.getElementById("hallImg").src = null;
+    document.getElementById("imageUpload").setAttribute("hidden",'false')
     document.getElementById("modal-title").innerHTML = "Thêm sảnh";
 }
 
@@ -43,7 +49,7 @@ function loadPage(endpoint, categoryId, page, pagesize, count) {
                 <th scope="row">${dish.id}</th>
                 <td>${dish.name}</td>
                 <td>${dish.price}</td>
-                <td><button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#imageModal" id="btn-${dish.id}" onclick="editDish(\`${dish.id}\`,\`${dish.name}\`,\`${image}\`,\`${dish.price}\`,\`${categoryId}\`)">Chỉnh sửa</button></td>
+                <td><button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#imageModal" id="btn-${dish.id}" onclick="editDish(${dish.id},\`${dish.name}\`,\`${image}\`,${dish.price},${categoryId})">Chỉnh sửa</button></td>
                 <td><button type="button" class="btn btn-danger" onclick="deleteDish(\`${endpoint}/admin/deleteDish/${dish.id}\`)" >Xóa</button></td>               
             </tr>
             `
@@ -59,19 +65,18 @@ function loadPage(endpoint, categoryId, page, pagesize, count) {
 }
 
 function editDish(id, name, image, price, categoryId) {
-    document.getElementById('categoryDish').value = categoryId;
+    document.getElementById('dishId').value = id;
+    document.getElementById('category').value = categoryId;
     document.getElementById("imageDish").src = image;
     document.getElementById("nameDishes").value = name;
-    document.getElementById("price").value = parseInt(price);
-    document.getElementById("btn-delete").style.display = "block";
+    document.getElementById("price").value = price;
 }
 
 function initEditDishes() {
-    document.getElementById('categoryDish').value = 1;
+    document.getElementById('category').value = 1;
     document.getElementById("imageDish").src = "";
     document.getElementById("nameDishes").value = null;
     document.getElementById("price").value = 0;
-    document.getElementById("btn-delete").style.display = "none";
 }
 
 function search_dish(endpoint, categoryId, page, pagesize, count) {
@@ -157,7 +162,7 @@ function loadService(endpoint) {
                                         </p>
                                     </div>       
                                     <div class="card-footer d-flex justify-content-between align-items-center">
-                                        <button type="button" data-bs-toggle="modal" data-bs-target="#serviceModal" onclick="editService(\`${item.name}\`,\`${item.price}\`,\`${item.describe}\`,\`${image}\`)" class="btn btn-info ">Chỉnh sửa</button>
+                                        <button type="button" data-bs-toggle="modal" data-bs-target="#serviceModal" onclick="editService(${item.id},\`${item.name}\`,\`${item.price}\`,\`${item.describe}\`,\`${image}\`)" class="btn btn-info ">Chỉnh sửa</button>
                                          <button type="button" class="btn btn-danger" onclick="deleteDish(\`${endpoint}/admin/deleteService/${item.id}\`)"  >Xóa</button></td>               
                             
                                 </div>
@@ -168,7 +173,8 @@ function loadService(endpoint) {
     })
 }
 
-function editService(name, price, describe, img) {
+function editService(id,name, price, describe, img) {
+    document.getElementById("serviceId").value = id;
     document.getElementById("img").src = img;
     document.getElementById("nameService").value = name;
     document.getElementById("describe").value = describe;
@@ -193,4 +199,16 @@ function deleteDish(endpoint) {
     }).catch(function (err) {
         console.error(err);
     });
+}
+
+function readURL(input,inputId) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#'+inputId).attr('src', e.target.result)
+        };
+
+        reader.readAsDataURL(input.files[0]);
+    }
 }

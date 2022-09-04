@@ -44,6 +44,14 @@ public class ServiceResServiceImpl implements ServiceResService {
 
     @Override
     public boolean updateService(Service service) {
-        return this.serviceResRepository.updateService(service);
+        try {
+            Map res = this.cloudinary.uploader().upload(service.getImg().getBytes(),
+                    ObjectUtils.asMap("resource_type", "auto"));
+            service.setImage(res.get("secure_url").toString());
+            return this.serviceResRepository.updateService(service);
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+            return false;
+        }
     }
 }

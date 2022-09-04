@@ -80,8 +80,13 @@ public class AdminController {
     @PostMapping("/dishesmanage")
     public String addDish(@ModelAttribute(value ="newDish") Dish dish,BindingResult result){
         if(!result.hasErrors()){
-            if(this.dishService.addDish(dish))
-                return "redirect:dishesmanage";
+            if(dish.getId()!=null){
+                if(this.dishService.updateDish(dish))
+                    return "redirect:dishesmanage";
+            }else {
+                if(this.dishService.addDish(dish))
+                    return "redirect:dishesmanage";
+            }
         }
         return "redirect:dishesmanage";
     }
@@ -96,8 +101,13 @@ public class AdminController {
     @PostMapping("/servicemanage")
     public String addService(@ModelAttribute(value ="newService") Service service,BindingResult result){
         if(!result.hasErrors()){
-            if(this.serviceResService.addService(service))
-                return "redirect:servicemanage";
+            if(service.getId()!=null){
+                if(this.serviceResService.updateService(service))
+                    return "redirect:servicemanage";
+            }else {
+                if(this.serviceResService.addService(service))
+                    return "redirect:servicemanage";
+            }
         }
         return "redirect:servicemanage";
     }
@@ -113,8 +123,14 @@ public class AdminController {
     @PostMapping("/weddinghallmanage")
     public String addWeddinghall(@ModelAttribute(value="hall") @Valid WeddingHall hall, BindingResult result){
         if(!result.hasErrors()){
-            if(this.weddingHallService.addWeddingHall(hall))
-                return "redirect:weddinghallmanage";
+            if(hall.getId()!=null){
+                if(this.weddingHallService.updateWeddingHall(hall))
+                    return "redirect:weddinghallmanage";
+            }
+            else {
+                if(this.weddingHallService.addWeddingHall(hall))
+                    return "redirect:weddinghallmanage";
+            }
         }
         return "redirect:weddinghallmanage";
     }

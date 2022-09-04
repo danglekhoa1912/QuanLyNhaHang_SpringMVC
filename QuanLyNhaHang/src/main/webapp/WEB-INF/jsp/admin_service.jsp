@@ -46,6 +46,7 @@
                         </div>
                         <div class="col-8">
                             <div class="form-row">
+                                <form:input path="id" hidden="true" id="serviceId" />
                                 <div class="col">
                                     <label for="nameService"><spring:message key="admin.service.name"/></label>
                                     <form:input path="name" type="text" id="nameService" class="form-control" />

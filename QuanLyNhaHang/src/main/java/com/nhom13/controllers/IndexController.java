@@ -109,17 +109,6 @@ public class IndexController {
             PaymentResponse captureWalletMoMoResponse = CreateOrderMoMo.process(environment, order.getId().toString(), order.getId().toString(), Integer.toString(order.getAmount()), "", returnURL, notifyURL, "", RequestType.CAPTURE_WALLET, Boolean.TRUE);
             return "redirect:" + captureWalletMoMoResponse.getPayUrl();
         }
-//        User user = (User) session.getAttribute("currentUser");
-//        int userId=user.getId();
-//        int menuId= 1;
-//        int listServiceId= 1;
-//        int weddinghallId= 1;
-//        int priceWeddingId= 1;
-//        Date orderDate=new Date();
-//        int amount= 50000;
-//        String typePay="Momo";
-//        int quantityTable=300;
-//        WeddingPartyOrders order= orderService.addOrder(userId,menuId,listServiceId,weddinghallId,priceWeddingId,orderDate,amount,typePay,quantityTable);
         return "order";
     }
 
