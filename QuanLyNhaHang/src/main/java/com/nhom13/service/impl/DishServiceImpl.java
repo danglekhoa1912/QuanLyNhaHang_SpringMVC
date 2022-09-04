@@ -50,7 +50,15 @@ public class DishServiceImpl implements DishService {
 
     @Override
     public boolean updateDish(Dish dish) {
-        return this.dishRepository.updateDish(dish);
+        try {
+            Map res = this.cloudinary.uploader().upload(dish.getImg().getBytes(),
+                    ObjectUtils.asMap("resource_type", "auto"));
+            dish.setImgae(res.get("secure_url").toString());
+            return this.dishRepository.updateDish(dish);
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+            return false;
+        }
     }
 
     @Override

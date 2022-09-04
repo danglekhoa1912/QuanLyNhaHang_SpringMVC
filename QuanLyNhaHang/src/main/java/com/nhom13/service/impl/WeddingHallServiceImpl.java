@@ -54,7 +54,16 @@ public class WeddingHallServiceImpl implements WeddingHallService {
 
     @Override
     public boolean updateWeddingHall(WeddingHall weddingHall) {
-        return this.weddingHallRepository.updateWeddingHall(weddingHall);
+        try {
+            Map res = this.cloudinary.uploader().upload(weddingHall.getImg().getBytes(),
+                    ObjectUtils.asMap("resource_type", "auto"));
+            weddingHall.setImage(res.get("secure_url").toString());
+            return this.weddingHallRepository.updateWeddingHall(weddingHall);
+
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+            return false;
+        }
     }
 
     @Override

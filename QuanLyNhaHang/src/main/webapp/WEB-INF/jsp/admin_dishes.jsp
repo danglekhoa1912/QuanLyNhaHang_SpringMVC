@@ -71,6 +71,7 @@
                     </div>
                     <div class="col-8">
                         <div class="form-row">
+                            <form:input path="id" id="dishId" hidden="true" />
                             <div class="col">
                                 <label for="nameDishes"><spring:message key="admin.dishes.name"/></label>
                                 <form:input path="name" type="text" id="nameDishes" class="form-control" />

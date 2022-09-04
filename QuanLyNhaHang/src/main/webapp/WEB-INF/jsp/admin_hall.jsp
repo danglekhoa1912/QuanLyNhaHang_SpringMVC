@@ -45,7 +45,7 @@
                     </div>
                     <div class="card-footer d-flex justify-content-center align-items-center">
                         <button type="button" data-bs-toggle="modal"
-                                data-bs-target="#hallModal" onclick="editHall(`${w.name}`,`${w.describe}`,`${w.capacity}`,`${w.price}`)" class="btn btn-primary"><spring:message key="admin.hall.edit"/>
+                                data-bs-target="#hallModal" onclick="editHall(${w.id},`${w.name}`,`${w.describe}`,`${w.capacity}`,`${w.price}`,`${w.image}`)" class="btn btn-primary"><spring:message key="admin.hall.edit"/>
                         </button>
                         <button type="button"
                                 onclick="deleteHall(`${endpoint}/${w.id}`)"
@@ -68,9 +68,10 @@
             </div>
             <div class="modal-body ">
                     <div class="form-row">
+                        <form:input id="idHall" path="id" hidden="true" />
                         <div class="col">
                             <label for="nameHall" style="color: #16181b;font-weight: bold;"><spring:message key="admin.label.namehall"/></label>
-                            <form:input path="name" type="text" id="nameHall" class="form-control" />
+                            <form:input  path="name" type="text" id="nameHall" class="form-control" />
                             <form:errors path="name" cssClass=" text-danger" element="div"/>
                         </div>
                         <div class="col">
@@ -80,6 +81,7 @@
                         </div>
                         <div class="col">
                             <label for="capacityHall" style="color: #16181b;font-weight: bold;"><spring:message key="admin.hall.capacity"/></label>
+
                             <form:input path="capacity" type="number" min="0" id="capacityHall" class="form-control" />
                             <form:errors path="capacity" cssClass=" text-danger" element="div"/>
                         </div>
@@ -100,8 +102,10 @@
                     </div>
                     <div class="form-row">
                         <div class="col">
-                            <label for="imageUpload" style="color: #16181b;font-weight: bold;margin-top:10px;"><spring:message key="admin.hall.image"/></label>
-                            <form:input path="img" type="file" class="form-control" accept="image/png, image/gif, image/jpeg"
+                            <label for="imageUpload" style="color: #16181b;font-weight: bold;margin-top:10px;"><spring:message key="admin.hall.image"/>
+                                <img class="img-thumbnail" id="hallImg" />
+                            </label>
+                            <form:input onchange="readURL(this,`hallImg`)" path="img" type="file" class="form-control" accept="image/png, image/gif, image/jpeg"
                                    id="imageUpload"/>
                             <form:errors path="img" cssClass=" text-danger" element="div"/>
                         </div>
@@ -136,7 +140,7 @@
     }
 </style>
 <script src="<c:url value="/js/admin_hall.js"/>"></script>
-
+<script src="<c:url value="/js/admin.js"/>"></script>
 <script>
     function searchHall() {
         let d = document.getElementById("search").value;
