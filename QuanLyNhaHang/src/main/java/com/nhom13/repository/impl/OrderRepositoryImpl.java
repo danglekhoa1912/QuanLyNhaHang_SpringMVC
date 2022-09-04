@@ -73,4 +73,29 @@ public class OrderRepositoryImpl implements OrderRepository {
         return Integer.parseInt(q.getSingleResult().toString());
     }
 
+    @Override
+    public WeddingPartyOrders getOrderById(int id) {
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        CriteriaBuilder b = session.getCriteriaBuilder();
+        CriteriaQuery<WeddingPartyOrders> q = b.createQuery(WeddingPartyOrders.class);
+
+        Root rW = q.from(WeddingPartyOrders.class);
+        q.where(b.equal(rW.get("id"), id));
+        Query query = session.createQuery(q);
+        return (WeddingPartyOrders) query.getSingleResult();
+    }
+
+    @Override
+    public boolean updateStatusOrder(WeddingPartyOrders order) {
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        try {
+            session.update(order);
+            return true;
+        } catch (HibernateException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        return false;
+    }
+
 }

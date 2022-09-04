@@ -1,16 +1,22 @@
 package com.nhom13.service.impl;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import com.nhom13.pojo.Dish;
 import com.nhom13.repository.DishRepository;
 import com.nhom13.service.DishService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 @Service
 public class DishServiceImpl implements DishService {
+
+    @Autowired(required = false)
+    private Cloudinary cloudinary;
     @Autowired
     private DishRepository dishRepository;
 
@@ -26,7 +32,15 @@ public class DishServiceImpl implements DishService {
 
     @Override
     public boolean addDish(Dish dish) {
-        return this.dishRepository.addDish(dish);
+        try {
+            Map res = this.cloudinary.uploader().upload(dish.getImg().getBytes(),
+                    ObjectUtils.asMap("resource_type", "auto"));
+            dish.setImgae(res.get("secure_url").toString());
+            return this.dishRepository.addDish(dish);
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+            return false;
+        }
     }
 
     @Override

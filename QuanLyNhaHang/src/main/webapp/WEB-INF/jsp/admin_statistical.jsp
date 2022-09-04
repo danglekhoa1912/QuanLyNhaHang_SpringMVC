@@ -34,8 +34,11 @@
                 <th scope="col">Thanh toán</th>
                 <th scope="col">Dịch vụ</th>
                 <th scope="col">Menu</th>
+                <th scope="col">Trạng thái</th>
+                <th scope="col" ><spring:message key="button.order.update.status"/></th>
             </tr>
         </thead>
+        <c:url value="/api/admin/order/update" var="endpoint" />
         <c:forEach items="${listOrder}" var="item">
             <tr class="table-light">
                 <th scope="row">${item.userId.name}</th>
@@ -46,6 +49,17 @@
                 <td>${item.typePay}</td>
                 <td><button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#imageModal" onclick="viewListService(`${endpointservice}`,`${item.listServiceId.id}`)"><spring:message key="admin.label.view"/></button></td>
                 <td><button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#imageModal" onclick="viewMenu(`${endpoint}`,`${item.menuId.id}`)"><spring:message key="admin.label.view"/></button></td>
+                <td><spring:message key="title.order.payment.status.${item.paymentStatus}" /></td>
+                <td>
+                    <c:choose>
+                        <c:when test="${item.paymentStatus}">
+                            <button onclick="updateStatus(`${endpoint}`,${item.id},!${item.paymentStatus})" id="btn-update-status-${item.id}" class="btn btn-danger"><spring:message key="button.order.update.status.${item.paymentStatus}" /></button>
+                        </c:when>
+                        <c:otherwise>
+                            <button onclick="updateStatus(`${endpoint}`,${item.id},!${item.paymentStatus})" id="btn-update-status-${item.id}" class="btn btn-secondary"><spring:message key="button.order.update.status.${item.paymentStatus}" /></button>
+                        </c:otherwise>
+                    </c:choose>
+                </td>
             </tr>
         </c:forEach>
     </table>

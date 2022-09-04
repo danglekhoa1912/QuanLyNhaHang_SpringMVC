@@ -1,5 +1,6 @@
 <%@ taglib prefix="spring" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%--
   Created by IntelliJ IDEA.
   User: giahu
@@ -31,6 +32,7 @@
         </div>
     </div>
     <div class="row">
+        <c:url value="/api/admin/deleteHall" var="endpoint" />
         <c:forEach items="${weddingHall}" var="w">
             <div class="col-md-3 col-xs-12 d-flex" style="padding: 10px;">
                 <div class="card">
@@ -45,6 +47,10 @@
                         <button type="button" data-bs-toggle="modal"
                                 data-bs-target="#hallModal" onclick="editHall(`${w.name}`,`${w.describe}`,`${w.capacity}`,`${w.price}`)" class="btn btn-primary"><spring:message key="admin.hall.edit"/>
                         </button>
+                        <button type="button"
+                                onclick="deleteHall(`${endpoint}/${w.id}`)"
+                                class="btn btn-danger"><spring:message key="admin.delete"/>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -53,50 +59,61 @@
 </div>
 <div class="modal fade" id="hallModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
+        <c:url value="/admin/weddinghallmanage" var="action" />
+        <form:form enctype="multipart/form-data" cssClass="d-flex" method="post" modelAttribute="hall" action="${action}">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="modal-title" style="color: #0a0c0c; font-weight: bold"></h5>
                 <button type="button" class="btn-close" onclick="initModalEdit()" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body d-flex">
-                <form>
+            <div class="modal-body ">
                     <div class="form-row">
                         <div class="col">
                             <label for="nameHall" style="color: #16181b;font-weight: bold;"><spring:message key="admin.label.namehall"/></label>
-                            <input type="text" id="nameHall" class="form-control" placeholder="<spring:message key="admin.hall.typehall"/>">
+                            <form:input path="name" type="text" id="nameHall" class="form-control" />
+                            <form:errors path="name" cssClass=" text-danger" element="div"/>
                         </div>
                         <div class="col">
                             <label for="priceHall" style="color: #16181b;font-weight: bold;"><spring:message key="admin.hall.price"/></label>
-                            <input type="number" min="0" step="100" id="priceHall" class="form-control"
-                                   placeholder="<spring:message key="admin.hall.inputprice"/>">
+                            <form:input path="price"  type="number" min="0" step="100" id="priceHall" class="form-control"/>
+                            <form:errors path="price" cssClass=" text-danger" element="div"/>ơ
                         </div>
                         <div class="col">
                             <label for="capacityHall" style="color: #16181b;font-weight: bold;"><spring:message key="admin.hall.capacity"/></label>
-                            <input type="number" id="capacityHall" class="form-control" placeholder="<spring:message key="admin.hall.typecapacity"/>">
+                            <form:input path="capacity" type="number" min="0" id="capacityHall" class="form-control" />
+                            <form:errors path="capacity" cssClass=" text-danger" element="div"/>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="col">
                             <label for="describeHall" style="color: #16181b;font-weight: bold;margin-top:10px;"><spring:message key="admin.hall.describe"/></label>
-                            <input type="text" id="describeHall" class="form-control" placeholder="<spring:message key="admin.hall.typedescribe"/>">
+                            <form:input path="describe" type="text" id="describeHall" class="form-control"/>
+                            <form:errors path="describe" cssClass=" text-danger" element="div"/>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col">
+                            <label for="statusHall" style="color: #16181b;font-weight: bold;margin-top:10px;"><spring:message key="admin.hall.status"/></label>
+                            <form:input path="status" type="text" id="statusHall" class="form-control" />
+                            <form:errors path="status" cssClass=" text-danger" element="div"/>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="col">
                             <label for="imageUpload" style="color: #16181b;font-weight: bold;margin-top:10px;"><spring:message key="admin.hall.image"/></label>
-                            <input type="file" class="form-control" accept="image/png, image/gif, image/jpeg"
+                            <form:input path="img" type="file" class="form-control" accept="image/png, image/gif, image/jpeg"
                                    id="imageUpload"/>
+                            <form:errors path="img" cssClass=" text-danger" element="div"/>
                         </div>
                     </div>
-                </form>
             </div>
             <div class="modal-footer">
-                <button type="button" id="deleteHall" class="btn btn-danger"><spring:message
-                        key="admin.delete"/></button>
-                <button type="button" class="btn btn-secondary"><spring:message
+                <button type="submit" class="btn btn-secondary"><spring:message
                         key="admin.save"/></button>
             </div>
         </div>
+        </form:form>
+
     </div>
 </div>
 <style>
@@ -118,7 +135,7 @@
         font-weight: bold;
     }
 </style>
-<script src="<c:url value="/js/admin.js"/>"></script>
+<script src="<c:url value="/js/admin_hall.js"/>"></script>
 
 <script>
     function searchHall() {
@@ -126,3 +143,4 @@
         window.location.href = "?name=" + d;
     }
 </script>
+
