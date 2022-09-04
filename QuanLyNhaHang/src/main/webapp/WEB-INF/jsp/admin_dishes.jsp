@@ -1,5 +1,6 @@
 <%@ taglib prefix="spring" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c'%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div class="row">
     <div>
@@ -10,7 +11,7 @@
         <br/>
         <br/>
     </div>
-    <c:url var="endpoint" value="/api/dishes"/>
+    <c:url var="endpoint" value="/api"/>
     <div class="col-2 mb-1"></div>
     <div class="col-8 mb-4 justify-content-center">
         <div class="btn-group btn-group-toggle d-flex" data-toggle="buttons">
@@ -58,44 +59,43 @@
 <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
+            <c:url var="action" value="/admin/dishesmanage" />
+            <form:form enctype="multipart/form-data" cssClass="d-block" method="post" modelAttribute="newDish" action="${action}" class="row">
             <div class="modal-header">
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body d-block" id="imageBox">
-                <form class="row">
+            <div class="modal-body " id="imageBox">
                     <div class="col-4">
                         <img src="" id="imageDish" class="d-block card-img-top" alt="upload file here"/>
-                        <input type="file" class="form-control-file" accept="image/png, image/gif, image/jpeg" id="imageUpload" style="padding: 5px;"/>
+                        <form:input path="img" type="file" class="form-control-file" accept="image/png, image/gif, image/jpeg" id="imageUpload" style="padding: 5px;"/>
                     </div>
                     <div class="col-8">
                         <div class="form-row">
                             <div class="col">
                                 <label for="nameDishes"><spring:message key="admin.dishes.name"/></label>
-                                <input type="text" id="nameDishes" class="form-control" placeholder="<spring:message key="admin.dishes.typeName"/>">
+                                <form:input path="name" type="text" id="nameDishes" class="form-control" />
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="col">
-                                <label for="categoryDish"><spring:message key="admin.dishes.category"/></label>
-                                <select class="form-control" id="categoryDish" style="padding: 0px">
-                                    <option value="1"><spring:message key="intro.appetizer"/></option>
-                                    <option value="2"><spring:message key="intro.dishes.main"/></option>
-                                    <option value="3"><spring:message key="intro.dishes.dessert"/></option>
-                                    <option value="4"><spring:message key="order.dish.drink"/> </option>
-                                </select>
+                                <label for="category"><spring:message key="admin.dishes.category"/></label>
+                                <form:select path="categoryId" class="form-control" id="category" style="padding: 0px">
+                                    <c:forEach items="${categoryDish}" var="cate">
+                                        <option value="${cate.id}">${cate.name}</option>
+                                    </c:forEach>
+                                </form:select>
                             </div>
                             <div class="col">
                                 <label for="price"><spring:message key="admin.hall.price"/></label>
-                                <input type="number" min="0" step="10000" id="price" class="form-control" placeholder="<spring:message key="order.hall.price"/>">
+                                <form:input path="price" type="number" min="0"  id="price" class="form-control" />
                             </div>
                         </div>
                     </div>
-                </form>
             </div>
             <div class="modal-footer">
-                <button type="button" id="btn-delete" class="btn btn-danger" ><spring:message key="admin.delete"/> </button>
-                <button type="button" class="btn btn-secondary"><spring:message key="admin.save"/></button>
+                <button type="submit" class="btn btn-secondary"><spring:message key="admin.save"/></button>
             </div>
+            </form:form>
         </div>
     </div>
 </div>

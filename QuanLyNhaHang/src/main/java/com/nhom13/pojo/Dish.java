@@ -5,6 +5,8 @@
 package com.nhom13.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.lang.Nullable;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -55,6 +57,20 @@ public class Dish implements Serializable {
     @ManyToOne(optional = false)
     @JsonIgnore
     private CategoryDish categoryId;
+
+    @Transient
+    @Nullable
+    @JsonIgnore
+    private MultipartFile img;
+
+    @Nullable
+    public MultipartFile getImg() {
+        return img;
+    }
+
+    public void setImg(@Nullable MultipartFile img) {
+        this.img = img;
+    }
 
     public Dish() {
     }
