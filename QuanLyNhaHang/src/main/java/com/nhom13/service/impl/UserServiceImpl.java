@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean addStaff(User user) {
-        String pass = user.getPassword();
+        String pass = "123456";
         user.setPassword(this.passwordEncoder.encode(pass));
         user.setRole(User.STAFF);
         user.setAvatar("https://res.cloudinary.com/dzznkotwg/image/upload/v1661884402/steward_x1cr5h.png");
