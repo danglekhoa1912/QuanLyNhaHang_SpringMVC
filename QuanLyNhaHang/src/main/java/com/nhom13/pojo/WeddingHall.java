@@ -5,6 +5,8 @@
 package com.nhom13.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.lang.Nullable;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -42,7 +44,7 @@ public class WeddingHall implements Serializable {
     @Column(name = "capacity")
     private int capacity;
     @Size(max = 45)
-    @Column(name = "describe")
+    @Column(name = "describe_hall")
     private String describe;
     @Size(max = 45)
     @Column(name = "status")
@@ -53,9 +55,23 @@ public class WeddingHall implements Serializable {
     private int price;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 45)
+    @Size(max = 150)
     @Column(name = "image")
     private String image;
+
+    @Transient
+    @Nullable
+    @JsonIgnore
+    private MultipartFile img;
+
+    @Nullable
+    public MultipartFile getImg() {
+        return img;
+    }
+
+    public void setImg(@Nullable MultipartFile img) {
+        this.img = img;
+    }
 
     private static final long serialVersionUID = 1L;
     @Id

@@ -12,4 +12,6 @@ public interface OrderRepository {
     List<WeddingPartyOrders> getOrderByUser(int id);
     int countOrder();
     List<WeddingPartyOrders> getAllOrder();
+    WeddingPartyOrders getOrderById(int id);
+    boolean updateStatusOrder(WeddingPartyOrders order);
 }

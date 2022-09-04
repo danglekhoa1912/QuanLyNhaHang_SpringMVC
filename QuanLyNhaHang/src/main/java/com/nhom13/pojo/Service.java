@@ -5,6 +5,8 @@
 package com.nhom13.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.lang.Nullable;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -57,6 +59,20 @@ public class Service implements Serializable {
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "serviceId")
     private Set<ServicesDetail> servicesDetailSet;
+
+    @Transient
+    @Nullable
+    @JsonIgnore
+    private MultipartFile img;
+
+    @Nullable
+    public MultipartFile getImg() {
+        return img;
+    }
+
+    public void setImg(@Nullable MultipartFile img) {
+        this.img = img;
+    }
 
     public Service() {
     }
@@ -115,7 +131,7 @@ public class Service implements Serializable {
         return "com.nhom13.pojo.Service[ id=" + id + " ]";
     }
 
-    public float getPrice() {
+    public Integer getPrice() {
         return price;
     }
 

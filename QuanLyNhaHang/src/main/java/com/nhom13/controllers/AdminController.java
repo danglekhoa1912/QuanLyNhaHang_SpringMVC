@@ -1,14 +1,21 @@
 package com.nhom13.controllers;
 
+import com.nhom13.pojo.Dish;
+import com.nhom13.pojo.Service;
+import com.nhom13.pojo.WeddingHall;
 import com.nhom13.service.*;
+import com.nhom13.validator.HallValidator;
+import com.nhom13.validator.UserValidator;
 import org.springframework.core.env.Environment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Map;
 
 @Controller
@@ -33,6 +40,15 @@ public class AdminController {
     @Autowired
     private Environment env;
     
+    @Autowired
+    private HallValidator hallValidator;
+
+
+    @InitBinder("hall")
+    public void initBinder(WebDataBinder binder){
+        binder.setValidator(this.hallValidator);
+    }
+    
     @RequestMapping("")
     public String index(Model model, @RequestParam Map<String, String> params){
         int page=Integer.parseInt(params.getOrDefault("page", "1"));
@@ -56,20 +72,53 @@ public class AdminController {
         model.addAttribute("count_dish_2", this.dishService.countDishByCate(2));
         model.addAttribute("count_dish_3", this.dishService.countDishByCate(3));
         model.addAttribute("count_dish_4", this.dishService.countDishByCate(4));
+        model.addAttribute("newDish",new Dish());
         //}
         return "dishesmanage";
     }
+
+    @PostMapping("/dishesmanage")
+    public String addDish(@ModelAttribute(value ="newDish") Dish dish,BindingResult result){
+        if(!result.hasErrors()){
+            if(this.dishService.addDish(dish))
+                return "redirect:dishesmanage";
+        }
+        return "redirect:dishesmanage";
+    }
+
     @RequestMapping("/servicemanage")
     public String service(Model model, @RequestParam Map<String, String> params) {
         int page = Integer.parseInt(params.getOrDefault("page", "1"));
+        model.addAttribute("newService",new Service());
         return "servicemanage";
     }
+
+    @PostMapping("/servicemanage")
+    public String addService(@ModelAttribute(value ="newService") Service service,BindingResult result){
+        if(!result.hasErrors()){
+            if(this.serviceResService.addService(service))
+                return "redirect:servicemanage";
+        }
+        return "redirect:servicemanage";
+    }
+
     @RequestMapping("/weddinghallmanage")
     public String weddinghall(Model model, @RequestParam Map<String, String> params) {
         int page = Integer.parseInt(params.getOrDefault("page", "1"));
         model.addAttribute("weddingHall", this.weddingHallService.getWeddingHalls(params, page));
+        model.addAttribute("hall",new WeddingHall());
         return "weddinghallmanage";
     }
+
+    @PostMapping("/weddinghallmanage")
+    public String addWeddinghall(@ModelAttribute(value="hall") @Valid WeddingHall hall, BindingResult result){
+        if(!result.hasErrors()){
+            if(this.weddingHallService.addWeddingHall(hall))
+                return "redirect:weddinghallmanage";
+        }
+        return "redirect:weddinghallmanage";
+    }
+
     @RequestMapping("/accountmanage")
     public String accountmanage(Model model, @RequestParam Map<String, String> params){
         int page=Integer.parseInt(params.getOrDefault("page", "1"));

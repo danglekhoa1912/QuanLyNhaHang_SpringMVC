@@ -30,9 +30,10 @@ function loadPage(endpoint, categoryId, page, pagesize, count) {
                 <th scope="col">Tên món ăn</th>
                 <th scope="col">Giá</th>
                 <th scope="col"></th>
+                <th scope="col"></th>
             </tr>
             </thead>`;
-    fetch(endpoint + `?categoryId=${categoryId}&page=${page}`).then(function (response) {
+    fetch(endpoint + `/dishes?categoryId=${categoryId}&page=${page}`).then(function (response) {
         return response.json();
     }).then(function (data) {
         data.forEach(dish => {
@@ -43,6 +44,7 @@ function loadPage(endpoint, categoryId, page, pagesize, count) {
                 <td>${dish.name}</td>
                 <td>${dish.price}</td>
                 <td><button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#imageModal" id="btn-${dish.id}" onclick="editDish(\`${dish.id}\`,\`${dish.name}\`,\`${image}\`,\`${dish.price}\`,\`${categoryId}\`)">Chỉnh sửa</button></td>
+                <td><button type="button" class="btn btn-danger" onclick="deleteDish(\`${endpoint}/admin/deleteDish/${dish.id}\`)" >Xóa</button></td>               
             </tr>
             `
         })
@@ -136,13 +138,13 @@ function removeAccents(str) {
 }
 
 function loadService(endpoint) {
-    fetch(endpoint + `?page=1`).then(function (response) {
+    fetch(endpoint + `/service?page=1`).then(function (response) {
         return response.json();
     }).then(function (data) {
         let msg = document.getElementById("order-services");
         msg.innerHTML = ``;
         data.forEach(item => {
-            let image=`${item.image}`
+            let image = `${item.image}`
             msg.innerHTML += `
                         <div class="col-md-3 col-xs-12 d-flex" style="padding: 10px;">
                                 <div class="card" id="div-${item.id}">
@@ -154,26 +156,40 @@ function loadService(endpoint) {
                                                 ${item.price},000 [VND]
                                         </p>
                                     </div>       
-                                    <div class="card-footer d-flex justify-content-center align-items-center">
-                                        <button type="button" data-bs-toggle="modal" data-bs-target="#serviceModal" onclick="editService(\`${item.name}\`,\`${item.price}\`,\`${item.describe}\`,\`${image}\`)" class="btn btn-info">Chỉnh sửa</button>
-                                     </div>                             
+                                    <div class="card-footer d-flex justify-content-between align-items-center">
+                                        <button type="button" data-bs-toggle="modal" data-bs-target="#serviceModal" onclick="editService(\`${item.name}\`,\`${item.price}\`,\`${item.describe}\`,\`${image}\`)" class="btn btn-info ">Chỉnh sửa</button>
+                                         <button type="button" class="btn btn-danger" onclick="deleteDish(\`${endpoint}/admin/deleteService/${item.id}\`)"  >Xóa</button></td>               
+                            
                                 </div>
                             </div>
                 `
         })
     })
 }
-function editService(name,price,describe,img){
-    document.getElementById("img").src=img;
-    document.getElementById("nameService").value=name;
-    document.getElementById("describe").value=describe;
-    document.getElementById("price").value=parseInt(price);
-    document.getElementById("btn-delete").style.display="block";
+
+function editService(name, price, describe, img) {
+    document.getElementById("img").src = img;
+    document.getElementById("nameService").value = name;
+    document.getElementById("describe").value = describe;
+    document.getElementById("price").value = parseInt(price);
+    document.getElementById("btn-delete").style.display = "block";
 }
-function initModalService(){
-    document.getElementById("img").src='';
-    document.getElementById("nameService").value=null;
-    document.getElementById("describe").value=null;
-    document.getElementById("price").value=0;
-    document.getElementById("btn-delete").style.display="none";
+
+function initModalService() {
+    document.getElementById("img").src = '';
+    document.getElementById("nameService").value = null;
+    document.getElementById("describe").value = null;
+    document.getElementById("price").value = 0;
+    document.getElementById("btn-delete").style.display = "none";
+}
+
+function deleteDish(endpoint) {
+    fetch(endpoint, {
+        method: "delete"
+    }).then(res => {
+        if (res.status === 204)
+            location.reload();
+    }).catch(function (err) {
+        console.error(err);
+    });
 }

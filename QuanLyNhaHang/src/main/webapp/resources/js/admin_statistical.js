@@ -43,6 +43,7 @@ function viewListService(endpoint, id) {
         })
     })
 }
+
 function initMonth(endpoint) {
     let s = document.getElementById("month").value;
     const m = s.split("-");
@@ -72,3 +73,26 @@ function initData(endpoint, m, y) {
     document.getElementById("month-statis").innerHTML = `${m}/${y}`;
 
 }
+
+
+function updateStatus(endpoint, orderId, status) {
+    let button = $(`#btn-update-status-${orderId}`);
+
+    status ? button.removeClass("btn-secondary").addClass("btn-danger") : button.removeClass("btn-danger").addClass("btn-secondary")
+    fetch(endpoint, {
+        method: "put",
+        body: JSON.stringify({
+            orderId: orderId,
+            status: status
+        }),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }).then(res => {
+        if (res.status === 204)
+            location.reload();
+    }).catch(function (err) {
+        console.error(err);
+    });
+}
+
