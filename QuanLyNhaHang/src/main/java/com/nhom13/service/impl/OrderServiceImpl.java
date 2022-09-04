@@ -63,8 +63,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<WeddingPartyOrders> getAllOrder() {
         return this.orderRepository.getAllOrder();
-
-
+    }
     @Override
     public WeddingPartyOrders getOrderById(int id) {
         return this.orderRepository.getOrderById(id);
